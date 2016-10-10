@@ -1,5 +1,7 @@
 package ecez.vndbapp;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -43,9 +45,12 @@ public class vndatabaseapp extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        TabLayout tabLayout = new TabLayout(getApplicationContext());
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Top"));
         tabLayout.addTab(tabLayout.newTab().setText("Popular"));
+        tabLayout.addTab(tabLayout.newTab().setText("New"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
     }
 
     @Override
