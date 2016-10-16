@@ -4,25 +4,35 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.recyclerAdapter;
+import ecez.vndbapp.controller.serverRequest;
 import ecez.vndbapp.model.listItem;
 
 public class tabFragment1 extends Fragment {
     private RecyclerView recyclerView;
     private recyclerAdapter adapter;
     private ArrayList<listItem> list = new ArrayList<>();
-
+    private String cardDataString;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (vndatabaseapp.connectedToServer == true) {
+            cardDataString = serverRequest.writeToServer("get","vn", "basic", "(rating = 10)" , null);
+        }
+        else {
+            Log.d("Connection Error","App not connected to server, unable to query data");
+        }
 
         View view = inflater.inflate(R.layout.tab1, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
@@ -30,7 +40,6 @@ public class tabFragment1 extends Fragment {
         fillArraylist();
         adapter = new recyclerAdapter(list, this.getContext());
         recyclerView.setAdapter(adapter);
-
 
         return view;
     }

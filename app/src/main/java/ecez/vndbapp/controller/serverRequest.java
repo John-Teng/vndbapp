@@ -2,6 +2,8 @@ package ecez.vndbapp.controller;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -27,7 +29,7 @@ public class serverRequest {
     private static SSLSocket socket;
     private static SocketFactory sf;
 
-    public static boolean connect(int socketIndex) { //Connect to server, instantiate IO writers and sockets
+    public static synchronized boolean connect() { //Connect to server, instantiate IO writers and sockets
         try {
             sf = SSLSocketFactory.getDefault();
             socket = (SSLSocket) sf.createSocket(HOST, PORT);
@@ -42,18 +44,17 @@ public class serverRequest {
             if (!hv.verify(HOST, s)) {
                 return false;
             }
-
-            return true;
         } catch (UnknownHostException uhe) {
             return false;
         } catch (IOException ioe) {
             ioe.printStackTrace();
             return false;
         }
+        return true;
     }
 
 
-    public static void disconnect() {
+    public static synchronized void disconnect() {
         //Close IOwriters and the Sockets
         try {
             socket.getInputStream().close();
@@ -66,20 +67,25 @@ public class serverRequest {
     }
 
 
-    private static String get(final String type, final String flags, final String filters, final String options) {
+    public static synchronized String writeToServer(final String queryType, final String type, final String flags, final String filters, final JSONObject options) {
         final StringBuilder command = new StringBuilder();
-        command.append("get ");
+        command.append(queryType);
+        command.append(" ");
         command.append(type);
         command.append(' ');
         command.append(flags);
         command.append(' ');
         command.append(filters);
-        command.append(' ');
+        if (options != null) {
+            command.append(' ');
+            command.append(options);
+        }
+        command.append(EOM);
 
         return sendData(command.toString());
     }
 
-    public static String sendData (String serverCommand) {
+    private static String sendData (String serverCommand) {
         try {
             if (in.ready()) while (in.read() > -1) ;
             out.flush();
@@ -91,7 +97,7 @@ public class serverRequest {
         return jsonString;
     }
 
-    public static String response () {
+    private static String response () {
         StringBuilder response = new StringBuilder();
         try {
             int read = in.read();
