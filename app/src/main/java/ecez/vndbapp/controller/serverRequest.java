@@ -16,14 +16,16 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+import ecez.vndbapp.view.vndatabaseapp;
+
 /**
  * Created by Teng on 10/13/2016.
  */
-public class serverRequest {
+public class serverRequest  {
 
-    private final String HOST = "api.vndb.org";
-    private final int PORT = 19535;
-    private final char EOM = 0x04;
+    private static final String HOST = "api.vndb.org";
+    private static final int PORT = 19535;
+    private static final char EOM = 0x04;
     private static InputStreamReader in;
     private static OutputStream out;
     private static SSLSocket socket;
@@ -31,6 +33,7 @@ public class serverRequest {
 
     public static synchronized boolean connect() { //Connect to server, instantiate IO writers and sockets
         try {
+            Log.d("Connection Attempt","Attempting to connect to the server");
             sf = SSLSocketFactory.getDefault();
             socket = (SSLSocket) sf.createSocket(HOST, PORT);
             socket.setKeepAlive(false);
@@ -42,6 +45,7 @@ public class serverRequest {
             SSLSession s = socket.getSession();
 
             if (!hv.verify(HOST, s)) {
+                Log.d("Connection not verfied", "The API's certificate is not valid. Expected " + HOST + ", found " + s.getPeerPrincipal().getName());
                 return false;
             }
         } catch (UnknownHostException uhe) {
@@ -50,6 +54,7 @@ public class serverRequest {
             ioe.printStackTrace();
             return false;
         }
+        Log.d("Connection established", "Connected to the server");
         return true;
     }
 
@@ -104,8 +109,8 @@ public class serverRequest {
             while (read != 4 && read > -1) {
                 response.append((char) read);
                 read = in.read();
-                Log.d("Server Response",response.toString());
             }
+            Log.d("Server Response",response.toString());
         } catch (IOException ioe) {
             ioe.printStackTrace();
             return null;

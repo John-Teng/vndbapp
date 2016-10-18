@@ -27,19 +27,31 @@ public class tabFragment1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (vndatabaseapp.connectedToServer == true) {
-            cardDataString = serverRequest.writeToServer("get","vn", "basic", "(rating = 10)" , null);
-        }
-        else {
-            Log.d("Connection Error","App not connected to server, unable to query data");
-        }
+        new Thread() {
+            public void run() {
+                Thread t = new Thread() {
+                    public void run() {
+                        vndatabaseapp.connectedToServer = serverRequest.connect();
+                    }
+                };
+                t.start();
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (vndatabaseapp.connectedToServer == true)
+                    cardDataString = serverRequest.writeToServer("get", "vn", "basic  ", "(rating = 10)", null);
+                else
+                    Log.d("Connection failure", "Cannot connect to server");
+            }
+        }.start();
 
         View view = inflater.inflate(R.layout.tab1, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         fillArraylist();
-        adapter = new recyclerAdapter(list, this.getContext());
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new recyclerAdapter(list, this.getContext()));
 
         return view;
     }

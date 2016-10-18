@@ -76,9 +76,12 @@ public class vndatabaseapp extends AppCompatActivity
 
             }
         });
-        connectedToServer = serverRequest.connect();
     }
-
+    @Override
+    public void onDestroy () {
+        serverRequest.disconnect();
+        super.onDestroy();
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
