@@ -29,18 +29,31 @@ public class tabFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         new Thread() {
             public void run() {
-                Thread t = new Thread() {
+                Thread a = new Thread() {
                     public void run() {
-                        vndatabaseapp.connectedToServer = serverRequest.connect();
+                        //vndatabaseapp.connectedToServer = serverRequest.connect();
                     }
                 };
-                t.start();
+                a.start();
                 try {
-                    t.join();
+                    a.join();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (vndatabaseapp.connectedToServer == true)
+                Log.d("Connection Attempt","Connected to server");
+                Thread b = new Thread() {
+                    public void run() {
+                        vndatabaseapp.loggedIn = serverRequest.login();
+                        Log.d("Login Attempt","Attempted to login");
+                    }
+                };
+                b.start();
+                try {
+                    b.join();
+                } catch (InterruptedException f) {
+                    f.printStackTrace();
+                }
+                if (vndatabaseapp.connectedToServer == true && vndatabaseapp.loggedIn == true)
                     cardDataString = serverRequest.writeToServer("get", "vn", "basic  ", "(rating = 10)", null);
                 else
                     Log.d("Connection failure", "Cannot connect to server");

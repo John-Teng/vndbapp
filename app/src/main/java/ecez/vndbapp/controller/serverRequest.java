@@ -30,8 +30,9 @@ public class serverRequest  {
     private static OutputStream out;
     private static SSLSocket socket;
     private static SocketFactory sf;
+    private static String userName = "tropicalman", password = "ebola";
 
-    public static synchronized boolean connect() { //Connect to server, instantiate IO writers and sockets
+    public static boolean connect() { //Connect to server, instantiate IO writers and sockets
         try {
             Log.d("Connection Attempt","Attempting to connect to the server");
             sf = SSLSocketFactory.getDefault();
@@ -54,12 +55,15 @@ public class serverRequest  {
             ioe.printStackTrace();
             return false;
         }
-        Log.d("Connection established", "Connected to the server");
-        return true;
+        if (socket.isConnected()) {
+            Log.d("Connection Attempt","Socket is connected, connected to server");
+            return true;
+        }
+        else
+            return false;
     }
 
-
-    public static synchronized void disconnect() {
+    public static void disconnect() {
         //Close IOwriters and the Sockets
         try {
             socket.getInputStream().close();
@@ -72,7 +76,7 @@ public class serverRequest  {
     }
 
 
-    public static synchronized String writeToServer(final String queryType, final String type, final String flags, final String filters, final JSONObject options) {
+    public static String writeToServer(final String queryType, final String type, final String flags, final String filters, final JSONObject options) {
         final StringBuilder command = new StringBuilder();
         command.append(queryType);
         command.append(" ");
@@ -92,12 +96,14 @@ public class serverRequest  {
 
     private static String sendData (String serverCommand) {
         try {
+            Log.d("Writing to Server",serverCommand);
             if (in.ready()) while (in.read() > -1) ;
             out.flush();
             out.write(serverCommand.toString().getBytes("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Log.d("Server request","Sent command to server, awaiting response");
         String jsonString = response();
         return jsonString;
     }
@@ -105,19 +111,35 @@ public class serverRequest  {
     private static String response () {
         StringBuilder response = new StringBuilder();
         try {
+            Log.d("Read Attempt","Attempting to read from Server");
             int read = in.read();
+            Log.d("Read Attempt","First ascii read value is " + read);
             while (read != 4 && read > -1) {
                 response.append((char) read);
                 read = in.read();
+                Log.d("Partial Response",response.toString());
             }
-            Log.d("Server Response",response.toString());
+            Log.d("Full Server Response",response.toString());
         } catch (IOException ioe) {
             ioe.printStackTrace();
             return null;
         }
         return response.toString();
     }
+    public static boolean login() {
+        Log.d("Login Attempt", "Attempting to Login to the server");
+        if (!serverRequest.connect())
+            return false;
+        else {
+            String response;
+            //String s = "login {protocol:1,client:vndatabasetestapp,clientver:0.21,username:" + userName + ",password:" + password +"}";
+            String s = "login {\"protocol\":1,\"client\":\"tropicalebola430\",\"clientver\":0.21,\"username\":\"" + userName + "\",\"password\":\"" + password + "\"}";
+            //String s = "blahblahblah";
+            response = sendData(s);
+           return true;
 
+        }
+    }
 }
 
 

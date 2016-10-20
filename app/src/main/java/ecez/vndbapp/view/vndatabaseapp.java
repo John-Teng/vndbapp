@@ -22,6 +22,7 @@ import ecez.vndbapp.controller.serverRequest;
 public class vndatabaseapp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static boolean connectedToServer = false;
+    public static boolean loggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
