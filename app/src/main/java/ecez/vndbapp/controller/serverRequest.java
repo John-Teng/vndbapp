@@ -76,7 +76,7 @@ public class serverRequest  {
     }
 
 
-    public static String writeToServer(final String queryType, final String type, final String flags, final String filters, final JSONObject options) {
+    public static String writeToServer(final String queryType, final String type, final String flags, final String filters, final String options) {
         final StringBuilder command = new StringBuilder();
         command.append(queryType);
         command.append(" ");
@@ -113,11 +113,10 @@ public class serverRequest  {
         try {
             Log.d("Read Attempt","Attempting to read from Server");
             int read = in.read();
-            Log.d("Read Attempt","First ascii read value is " + read);
             while (read != 4 && read > -1) {
                 response.append((char) read);
                 read = in.read();
-                Log.d("Partial Response",response.toString());
+                //Log.d("Partial Response",response.toString());
             }
             Log.d("Full Server Response",response.toString());
         } catch (IOException ioe) {
@@ -130,16 +129,18 @@ public class serverRequest  {
         Log.d("Login Attempt", "Attempting to Login to the server");
         if (!serverRequest.connect())
             return false;
-        else {
-            String response;
-            //String s = "login {protocol:1,client:vndatabasetestapp,clientver:0.21,username:" + userName + ",password:" + password +"}";
-            String s = "login {\"protocol\":1,\"client\":\"tropicalebola430\",\"clientver\":0.21,\"username\":\"" + userName + "\",\"password\":\"" + password + "\"}";
-            //String s = "blahblahblah";
-            response = sendData(s);
-           return true;
-
+        String response;
+        StringBuilder s = new StringBuilder();
+        s.append("login {\"protocol\":1,\"client\":\"tropicalebola430\",\"clientver\":0.21,\"username\":\"" + userName + "\",\"password\":\"" + password + "\"}");
+        s.append(EOM);
+        response = sendData(s.toString());
+        Log.d("Login Attempt",response);
+        if (response.equals("ok"))
+            return true;
+        else
+            return false;
         }
     }
-}
+
 
 

@@ -8,10 +8,10 @@ public class listItem {
     private String title;
     private String rating;
     private String length;
-    private int imageResourceId;
+    private String imageResourceId;
 
 
-    public listItem (String title, String rating, String length, int imageResourceId) { //Temporary constructor
+    public listItem (String title, String rating, String length, String imageResourceId) { //Temporary constructor
         this.title = title;
         this.rating = rating;
         this.length = length;
@@ -42,11 +42,11 @@ public class listItem {
         this.length = length;
     }
 
-    public int getImageResourceId() {
+    public String getImageResourceId() {
         return imageResourceId;
     }
 
-    public void setImageResourceId(int imageResourceId) {
+    public void setImageResourceId(String imageResourceId) {
         this.imageResourceId = imageResourceId;
     }
 }

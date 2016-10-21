@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -29,18 +33,6 @@ public class tabFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         new Thread() {
             public void run() {
-                Thread a = new Thread() {
-                    public void run() {
-                        //vndatabaseapp.connectedToServer = serverRequest.connect();
-                    }
-                };
-                a.start();
-                try {
-                    a.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Log.d("Connection Attempt","Connected to server");
                 Thread b = new Thread() {
                     public void run() {
                         vndatabaseapp.loggedIn = serverRequest.login();
@@ -53,8 +45,8 @@ public class tabFragment1 extends Fragment {
                 } catch (InterruptedException f) {
                     f.printStackTrace();
                 }
-                if (vndatabaseapp.connectedToServer == true && vndatabaseapp.loggedIn == true)
-                    cardDataString = serverRequest.writeToServer("get", "vn", "basic  ", "(rating = 10)", null);
+                if (vndatabaseapp.loggedIn == true)
+                    cardDataString = serverRequest.writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":1,\"results\":10,\"sort\":\"rating\",\"reverse\":true}");
                 else
                     Log.d("Connection failure", "Cannot connect to server");
             }
@@ -63,19 +55,36 @@ public class tabFragment1 extends Fragment {
         View view = inflater.inflate(R.layout.tab1, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        fillArraylist();
-        recyclerView.setAdapter(new recyclerAdapter(list, this.getContext()));
+        populateData();
 
         return view;
     }
+    private void fragmentCallback () {
+    }
 
-
-    private ArrayList<listItem> fillArraylist () { //temporary fucntion to populate an arraylist, in the future, this will be handled in the API parser class
-        list.add(new listItem("#1 - Muv-Luv Alternative", "9.21 (excellent)","Very Long (> 50 hours)", R.mipmap.ic_launcher));
-        list.add(new listItem("#2 - Steins;Gate", "9.02 (excellent)","Long (30 - 50 hours)",  R.mipmap.ic_launcher));
-        list.add(new listItem("#3 - Baldr Sky Dive2 'Recordare'", "8.83 (very good)","Very Long (> 50 hours)", R.mipmap.ic_launcher));
-        list.add(new listItem("#4 - White Album 2 ~Closing Chapter~", "8.77 (very good)","Very Long (> 50 hours)",  R.mipmap.ic_launcher));
-        list.add(new listItem("#5 - Umineko no Naku Koro ni", "8.76 (very good)","Very Long (> 50 hours)",  R.mipmap.ic_launcher));
-        return list;
+    private void populateData () { //temporary fucntion to populate an arraylist, in the future, this will be handled in the API parser class
+//        list.add(new listItem("#1 - Muv-Luv Alternative", "9.21 (excellent)","Very Long (> 50 hours)", R.mipmap.ic_launcher));
+//        list.add(new listItem("#2 - Steins;Gate", "9.02 (excellent)","Long (30 - 50 hours)",  R.mipmap.ic_launcher));
+//        list.add(new listItem("#3 - Baldr Sky Dive2 'Recordare'", "8.83 (very good)","Very Long (> 50 hours)", R.mipmap.ic_launcher));
+//        list.add(new listItem("#4 - White Album 2 ~Closing Chapter~", "8.77 (very good)","Very Long (> 50 hours)",  R.mipmap.ic_launcher));
+//        list.add(new listItem("#5 - Umineko no Naku Koro ni", "8.76 (very good)","Very Long (> 50 hours)",  R.mipmap.ic_launcher));
+        Gson gson = new Gson();
+        int numberOfResponses = 0;
+        JSONObject jsonResponse = null;
+        try {
+            JSONObject returnObject = new JSONObject(cardDataString);
+            numberOfResponses = returnObject.getInt("num");
+            jsonResponse = returnObject.getJSONObject("items");
+            Log.e("items json",jsonResponse.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (jsonResponse!=null && numberOfResponses!=0) {
+            for (int x = 0; x < numberOfResponses; x++) {
+                listItem item = gson.fromJson(jsonResponse.toString(), listItem.class);
+                list.add(item);
+            }
+        }
+        recyclerView.setAdapter(new recyclerAdapter(list, this.getContext()));
     }
 }

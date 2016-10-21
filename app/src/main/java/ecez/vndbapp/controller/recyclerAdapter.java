@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -23,10 +25,12 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
 
     private ArrayList<listItem> listData;
     private LayoutInflater inflater;
+    private Context context;
 
     public recyclerAdapter (ArrayList<listItem> listData, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.listData = listData;
+        this.context = context;
     }
     @Override
     public holder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,7 +44,8 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
         holder.titleText.setText(item.getTitle());
         holder.ratingText.setText(item.getRating());
         holder.lengthText.setText(item.getLength());
-        holder.image.setImageResource(item.getImageResourceId());
+        Picasso.with(context).load(item.getImageResourceId());
+        //holder.image.setImageResource(item.getImageResourceId());
     }
 
     @Override
