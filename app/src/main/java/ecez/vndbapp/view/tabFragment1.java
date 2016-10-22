@@ -37,7 +37,7 @@ public class tabFragment1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        list.add(new listItem("test", 9.9,5, "http://vignette2.wikia.nocookie.net/typemoon/images/4/4e/FGO_Archer_Emiya.png"));
+        list.add(new listItem("test", 9.9,5, "http://vignette2.wikia.nocookie.net/typemoon/images/4/4e/FGO_Archer_Emiya.png",1));
         new Thread() {
             public void run() {
                 Thread a = new Thread() {
@@ -56,7 +56,7 @@ public class tabFragment1 extends Fragment {
                 Thread b = new Thread() {
                     public void run() {
                         if (vndatabaseapp.loggedIn == true)
-                            cardDataString = serverRequest.writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":1,\"results\":10,\"sort\":\"rating\",\"reverse\":true}");
+                            cardDataString = serverRequest.writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":1,\"results\":15,\"sort\":\"rating\",\"reverse\":true}");
                         else
                             Log.d("Connection failure", "Cannot connect to server");
                     }
@@ -96,23 +96,6 @@ public class tabFragment1 extends Fragment {
 //        Log.d("Modified Response 3",dataString.substring(9000,12000));
 //        Log.d("Modified Response 4",dataString.substring(12000,13351));
 
-
-
-//        StringBuilder s = new StringBuilder();
-//        s.append(dataString);
-//        s.append("}");
-//        s.append(dataString.charAt(13350));
-//        s.append(dataString.charAt(13351));
-//        s.append(dataString.charAt(13352));
-//        s.append(dataString.charAt(13353));
-//        s.append(dataString.charAt(13354));
-//        s.append(dataString.charAt(13355));
-//
-//        String s;
-//        s = dataString.replace("[","\"[");
-//        String b = s.replace("]","]\"");
-        //Log.d("JSON Conversion Error", "At index 13347 : " + Character.toString(dataString.charAt(13347)));
-
         int numberOfResponses = 0;
         JSONArray jsonResponse = null;
         try {
@@ -128,6 +111,11 @@ public class tabFragment1 extends Fragment {
         Log.d("json",jsonResponse.toString());
         listItem[] l = gson.fromJson(jsonResponse.toString(),listItem[].class);
         newList = new ArrayList<listItem>(Arrays.asList(l));
+        int y = 1;
+        for (listItem x:newList) {
+            x.rank = y;
+            y ++;
+        }
 //        if (j!=null && numberOfResponses!=0) {
 //            for (int x = 0; x < numberOfResponses; x++) {
 //                listItem item = gson.fromJson(j, listItem.class);

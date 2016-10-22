@@ -45,13 +45,13 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
     @Override
     public void onBindViewHolder(holder holder, int position) {
         listItem item = listData.get(position);
-        holder.titleText.setText(item.getTitle());
+        holder.titleText.setText("#"+item.getRank()+" - "+item.getTitle());
         Log.d("Setting","Set title text");
-        holder.ratingText.setText(item.getRating().toString());
+        holder.ratingText.setText(item.getRating());
         Log.d("Setting","Set rating text");
-        holder.lengthText.setText(Integer.toString(item.getLength()));
+        holder.lengthText.setText(item.getLength());
         Log.d("Setting","Set length text");
-        Picasso.with(context).load(item.getImage()).fit().centerCrop().into(holder.image);
+        Picasso.with(context).load(item.getImage()).fit().into(holder.image);
         Log.d("Setting","Set image destination to " + item.getImage());
         //holder.image.setImageResource(item.getImageResourceId());
     }
