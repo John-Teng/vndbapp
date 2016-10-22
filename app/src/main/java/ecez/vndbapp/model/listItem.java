@@ -1,21 +1,24 @@
 package ecez.vndbapp.model;
 
+import android.util.Log;
+
 /**
  * Created by Teng on 10/10/2016.
  */
 public class listItem {
 
     private String title;
-    private String rating;
-    private String length;
-    private String imageResourceId;
+    private Double rating;
+    private int length;
+    private String image;
 
 
-    public listItem (String title, String rating, String length, String imageResourceId) { //Temporary constructor
+    public listItem (String title, Double rating, int length, String image) { //Temporary constructor
         this.title = title;
         this.rating = rating;
         this.length = length;
-        this.imageResourceId = imageResourceId;
+        this.image = image;
+        Log.d("listItem image",image);
     }
 
     public String getTitle() {
@@ -26,27 +29,27 @@ public class listItem {
         this.title = title;
     }
 
-    public String getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
-    public String getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(String length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
-    public String getImageResourceId() {
-        return imageResourceId;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageResourceId(String imageResourceId) {
-        this.imageResourceId = imageResourceId;
-    }
+//    public void setImageResourceId(String imageResourceId) {
+//        this.image = imageResourceId;
+//    }
 }

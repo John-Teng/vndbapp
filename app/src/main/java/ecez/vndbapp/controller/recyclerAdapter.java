@@ -3,6 +3,7 @@ package ecez.vndbapp.controller;
 import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,9 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
         this.listData = listData;
         this.context = context;
     }
+    public void setData (ArrayList<listItem> newData) {
+        this.listData = newData;
+    }
     @Override
     public holder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.card_item, parent, false);
@@ -42,9 +46,13 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
     public void onBindViewHolder(holder holder, int position) {
         listItem item = listData.get(position);
         holder.titleText.setText(item.getTitle());
-        holder.ratingText.setText(item.getRating());
-        holder.lengthText.setText(item.getLength());
-        Picasso.with(context).load(item.getImageResourceId());
+        Log.d("Setting","Set title text");
+        holder.ratingText.setText(item.getRating().toString());
+        Log.d("Setting","Set rating text");
+        holder.lengthText.setText(Integer.toString(item.getLength()));
+        Log.d("Setting","Set length text");
+        Picasso.with(context).load(item.getImage()).fit().centerCrop().into(holder.image);
+        Log.d("Setting","Set image destination to " + item.getImage());
         //holder.image.setImageResource(item.getImageResourceId());
     }
 

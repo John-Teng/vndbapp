@@ -24,10 +24,8 @@
                 android:id="@+id/picture"
                 android:layout_width="143dp"
                 android:layout_height="190dp"
-                android:background="@color/colorPrimary"
-                android:padding="36dp"
-                android:src="@null"
-                android:tint="#FFFFFF"/>
+                android:padding="0dp"
+                android:src="@null" />
 
             <TextView
                 android:id="@+id/title"
