@@ -35,8 +35,7 @@
                 android:paddingLeft="16dp"
                 android:text="#8 - White Album 2 ~Closing Chapter~"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                android:textSize="20sp"
                 android:layout_toEndOf="@+id/picture"
                 android:layout_alignParentTop="true" />
 

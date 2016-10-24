@@ -1,8 +1,6 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.model;
 
 import android.util.Log;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -129,6 +127,7 @@ public class serverRequest  {
         Log.d("Login Attempt", "Attempting to Login to the server");
         if (!serverRequest.connect())
             return false;
+        vndatabaseapp.connectedToServer = true;
         String response;
         StringBuilder s = new StringBuilder();
         s.append("login {\"protocol\":1,\"client\":\"tropicalebola430\",\"clientver\":0.21,\"username\":\"" + userName + "\",\"password\":\"" + password + "\"}");

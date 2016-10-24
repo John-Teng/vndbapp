@@ -34,7 +34,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
         this.context = context;
     }
     public void setData (ArrayList<listItem> newData) {
-        this.listData = newData;
+        this.listData = newData; //Adds additional data
     }
     @Override
     public holder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,14 +46,9 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
     public void onBindViewHolder(holder holder, int position) {
         listItem item = listData.get(position);
         holder.titleText.setText("#"+item.getRank()+" - "+item.getTitle());
-        Log.d("Setting","Set title text");
         holder.ratingText.setText(item.getRating());
-        Log.d("Setting","Set rating text");
         holder.lengthText.setText(item.getLength());
-        Log.d("Setting","Set length text");
         Picasso.with(context).load(item.getImage()).fit().into(holder.image);
-        Log.d("Setting","Set image destination to " + item.getImage());
-        //holder.image.setImageResource(item.getImageResourceId());
     }
 
     @Override

@@ -17,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.serverRequest;
+import ecez.vndbapp.model.serverRequest;
 
 public class vndatabaseapp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,6 +56,7 @@ public class vndatabaseapp extends AppCompatActivity
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setOffscreenPageLimit(2);
         final pagerAdapter adapter = new pagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);

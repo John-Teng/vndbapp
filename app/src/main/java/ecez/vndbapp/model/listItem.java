@@ -19,7 +19,6 @@ public class listItem {
         this.length = length;
         this.image = image;
         this.rank = rank;
-        Log.d("listItem image",image);
     }
 
     public String getTitle() {
