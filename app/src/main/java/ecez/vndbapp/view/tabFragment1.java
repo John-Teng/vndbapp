@@ -10,14 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.endlessRecyclerViewScrollListener;
@@ -45,7 +38,11 @@ public class tabFragment1 extends Fragment {
         endlessRecyclerViewScrollListener endlessScrollListener = new endlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                updateList();
+                new Thread() {
+                    public void run() {
+                        updateList();
+                    }
+                }.start();
             }
         };
         recyclerView.addOnScrollListener(endlessScrollListener);
@@ -93,8 +90,5 @@ public class tabFragment1 extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-    }
-    public void setloadedCards (ArrayList<listItem> l) {
-        this.loadedCards = l;
     }
 }
