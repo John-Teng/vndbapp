@@ -1,27 +1,83 @@
 package ecez.vndbapp.model;
 
-import android.util.Log;
-
 /**
- * Created by Teng on 10/10/2016.
+ * Created by Teng on 10/27/2016.
  */
-public class listItem {
+public class detailsData {
 
     private String title;
     private Double rating;
     private int length;
     private String image;
     public String id;
+    private String [] languages;
+    private String [] platforms;
+    private String description;
+    private double popularity;
+    private int votecount;
     public int rank;
 
-    public listItem (String title, Double rating, int length, String image, int rank, String id) {
+    public detailsData (String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount) {
         this.title = title;
         this.rating = rating;
         this.length = length;
         this.image = image;
         this.rank = rank;
         this.id = id;
+        this.languages = languages;
+        this.platforms = platforms;
+        this.description = description;
+        this.popularity = popularity;
+        this.votecount = votecount;
     }
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
+    }
+
+    public String[] getPlatforms() {
+        return platforms;
+    }
+
+    public void setPlatforms(String [] platforms) {
+        this.platforms = platforms;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
+    }
+
+    public int getVoteCount() {
+        return votecount;
+    }
+
+    public void setVoteCount(int votecount) {
+        this.votecount = votecount;
+    }
+
     public String getId() {
         return id;
     }
@@ -81,7 +137,6 @@ public class listItem {
     public int getRank() {
         return rank;
     }
-//    public void setImageResourceId(String imageResourceId) {
-//        this.image = imageResourceId;
-//    }
+
 }
+

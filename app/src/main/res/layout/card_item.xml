@@ -28,7 +28,7 @@
                 android:src="@null" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/card_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:paddingTop="16dp"
@@ -44,12 +44,12 @@
                 android:text="8.72 (very good)"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
                 android:textColor="@android:color/darker_gray"
-                android:layout_toEndOf="@+id/picture"
                 android:textSize="15sp"
                 android:paddingTop="10dp"
-                android:paddingLeft="16dp" />
+                android:paddingLeft="16dp"
+                android:layout_alignBottom="@+id/card_item_title"
+                android:layout_toEndOf="@+id/picture" />
 
             <TextView
                 android:id="@+id/length_text"

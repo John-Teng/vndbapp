@@ -1,6 +1,7 @@
 package ecez.vndbapp.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.listItem;
+import ecez.vndbapp.view.novelDetails;
+import ecez.vndbapp.view.tabFragment1;
 
 /**
  * Created by Teng on 10/10/2016.
@@ -37,8 +40,19 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
         this.listData = newData; //Adds additional data
     }
     @Override
-    public holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.card_item, parent, false);
+    public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        final View view = inflater.inflate(R.layout.card_item, parent, false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = tabFragment1.recyclerView.getChildLayoutPosition(view);
+                String id = listData.get(itemPosition).getId();
+                Log.d("id",id);
+                Intent intent = new Intent(context, novelDetails.class);
+                intent.putExtra("NOVEL_ID", id);
+                context.startActivity(intent);
+            }
+        });
         return new holder(view);
     }
 
@@ -67,8 +81,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
 
         public holder(View itemView) {
             super(itemView);
-
-            titleText = (TextView)itemView.findViewById(R.id.title);
+            titleText = (TextView)itemView.findViewById(R.id.card_item_title);
             ratingText = (TextView)itemView.findViewById(R.id.rating_text);
             lengthText = (TextView)itemView.findViewById(R.id.length_text);
             image = (ImageView)itemView.findViewById(R.id.picture);

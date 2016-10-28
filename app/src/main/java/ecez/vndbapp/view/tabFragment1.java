@@ -20,7 +20,7 @@ import ecez.vndbapp.model.serverRequest;
 import ecez.vndbapp.model.listItem;
 
 public class tabFragment1 extends Fragment {
-    private RecyclerView recyclerView;
+    public static RecyclerView recyclerView;
     private recyclerAdapter adapter;
     private ProgressBar progressBar;
     private ArrayList<listItem> loadedCards = new ArrayList<listItem>();
@@ -54,6 +54,7 @@ public class tabFragment1 extends Fragment {
             }.start();
         }
         Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
+
         recyclerView.setLayoutManager(layoutManager);
         adapter = new recyclerAdapter(loadedCards, this.getContext());
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(loadedCards.size()));
