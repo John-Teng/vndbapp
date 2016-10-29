@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <ImageView
@@ -13,10 +18,11 @@
         layout="@layout/novel_details_quickstats"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/quickstats"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/novel_icon"
-        android:layout_alignBottom="@+id/novel_icon"
-        android:layout_alignParentStart="false"
-        android:id="@+id/quickstats" />
+        android:layout_above="@+id/languages" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,6 +57,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="Description goes here"
         android:id="@+id/description"
         android:layout_below="@+id/platforms"
@@ -58,3 +67,4 @@
         android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
+</ScrollView>

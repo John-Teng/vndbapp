@@ -50,6 +50,7 @@ public class populateNovelDetails extends Thread{
             String f = s.substring(1,s.length()-1);//Removes the square braces from the response7
             Log.d("json2",f);
             this.data = gson.fromJson(f,detailsData.class);
+            Log.d("Success!",Integer.toString(this.data.getVoteCount()));
 
         }
         public detailsData getData () {

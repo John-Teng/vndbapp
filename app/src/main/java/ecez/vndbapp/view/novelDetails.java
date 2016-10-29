@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -13,25 +17,71 @@ import ecez.vndbapp.controller.populateListItems;
 import ecez.vndbapp.controller.populateNovelDetails;
 import ecez.vndbapp.model.detailsData;
 import ecez.vndbapp.model.listItem;
+import ecez.vndbapp.model.serverRequest;
 
 public class novelDetails extends AppCompatActivity {
 
+    TextView title, developer, votes, rating, popularity, length, languages, platforms, description;
+    ImageView icon;
+    detailsData data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_novel_details);
+
+        title = (TextView)findViewById(R.id.quickstats_title);
+        developer = (TextView) findViewById(R.id.quickstats_developer);
+        votes = (TextView) findViewById(R.id.quickstats_votes);
+        rating = (TextView)findViewById(R.id.quickstats_rating);
+        popularity = (TextView)findViewById(R.id.quickstats_popularity);
+        length = (TextView)findViewById(R.id.quickstats_length);
+        languages = (TextView)findViewById(R.id.languages);
+        platforms = (TextView)findViewById(R.id.platforms);
+        description = (TextView)findViewById(R.id.description);
+        icon = (ImageView) findViewById(R.id.novel_icon);
         Intent intent = getIntent();
-        detailsData data;
 
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
-        setContentView(R.layout.activity_novel_details);
         Log.d("id",Integer.toString(id));
+        loadData(id);
 
-        populateNovelDetails d = new populateNovelDetails(id);
+    }
+
+    private void loadData (int id) {
+        final populateNovelDetails d = new populateNovelDetails(id);
         d.start();
         try {
             d.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
-        data = d.getData();
+
+        Thread a = new Thread() {
+            public void run() { data = d.getData();}
+        };
+        a.start();
+        try {
+            a.join();
+        } catch (InterruptedException f) { f.printStackTrace(); }
+        title.setText(data.getTitle());
+        votes.setText(Integer.toString(data.getVoteCount()));
+        rating.setText(data.getRating());
+        popularity.setText(Double.toString(data.getPopularity()) + "%");
+        length.setText(data.getLength());
+        String [] l = data.getLanguages();
+        StringBuilder ll = new StringBuilder();
+        for (int x = 0; x<l.length; x++) {
+            ll.append(l[x]);
+            ll.append(" ");
+        }
+        languages.setText(ll.toString());
+        String [] p = data.getPlatforms();
+        StringBuilder pp = new StringBuilder();
+        for (int x = 0; x<p.length; x++) {
+            pp.append(p[x]);
+            pp.append(" ");
+        }
+        platforms.setText(pp.toString());
+        description.setText(data.getDescription());
+        Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
 
     }
 }
