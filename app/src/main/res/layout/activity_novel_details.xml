@@ -24,16 +24,29 @@
         android:layout_toEndOf="@+id/novel_icon"
         android:layout_above="@+id/languages" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/quickstats"
+        android:background="#DCDCDC"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
+        android:paddingBottom="5dp"
         android:text="English, Japanese, Chinese, Russian"
         android:textAlignment="center"
         android:id="@+id/languages"
         android:layout_below="@+id/novel_icon"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/quickstats" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/languages"
+        android:background="#DCDCDC"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
@@ -47,12 +60,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
+        android:paddingBottom="5dp"
         android:text="PC, PS4, XBOX"
         android:textAlignment="center"
         android:id="@+id/platforms"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/languages"
         android:layout_alignParentEnd="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/platforms"
+        android:background="#DCDCDC"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -65,6 +85,12 @@
         android:layout_below="@+id/platforms"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/description"
+        android:background="#DCDCDC"/>
 
 </RelativeLayout>
 </ScrollView>

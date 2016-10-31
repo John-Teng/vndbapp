@@ -12,6 +12,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Fate / Stay Night ~Unlimited Blade Works~"
+            android:textColor="@color/colorBlack"
             android:id="@+id/quickstats_title"
             android:textAlignment="center"
             android:layout_alignParentTop="true"
@@ -32,6 +33,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:text="Vote Count"
             android:id="@+id/quickstats_votes_label"
@@ -43,15 +46,27 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="11000000"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:paddingRight="5dp"
+            android:textSize="13dp"
             android:id="@+id/quickstats_votes"
+            android:layout_alignTop="@id/quickstats_votes_label"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/quickstats_votes"
+            android:background="@color/colorLightGray"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Popularity"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:id="@+id/quickstats_popularity_label"
             android:layout_above="@+id/quickstats_votes_label"
@@ -61,14 +76,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100.0%"
+            android:textSize="13dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:paddingRight="5dp"
             android:id="@+id/quickstats_popularity"
+            android:layout_alignTop="@id/quickstats_popularity_label"
             android:layout_above="@+id/quickstats_votes"
             android:layout_alignParentEnd="true" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/quickstats_popularity_label"
+            android:background="@color/colorLightGray"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:text="Length"
             android:id="@+id/quickstats_length_label"
@@ -78,15 +106,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:paddingRight="5dp"
+            android:textSize="13dp"
             android:text="Very Long (> 50 hours)"
             android:id="@+id/quickstats_length"
             android:layout_above="@+id/quickstats_popularity"
+            android:layout_alignTop="@id/quickstats_length_label"
             android:layout_alignParentEnd="true" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/quickstats_length_label"
+            android:background="@color/colorLightGray"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:text="Rating"
             android:id="@+id/quickstats_rating_label"
@@ -96,11 +137,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:paddingRight="5dp"
+            android:textSize="13dp"
             android:text="8.21 (very good)"
             android:id="@+id/quickstats_rating"
             android:layout_alignTop="@+id/quickstats_rating_label"
             android:layout_alignParentEnd="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/quickstats_rating_label"
+            android:background="@color/colorLightGray"/>
 
 
 
