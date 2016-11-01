@@ -12,12 +12,15 @@ public class detailsData {
     public String id;
     private String [] languages;
     private String [] platforms;
+
+
+    private String [] pictures;
     private String description;
     private double popularity;
     private int votecount;
     public int rank;
 
-    public detailsData (String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount) {
+    public detailsData (String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount, String [] pictures) {
         this.title = title;
         this.rating = rating;
         this.length = length;
@@ -29,7 +32,17 @@ public class detailsData {
         this.description = description;
         this.popularity = popularity;
         this.votecount = votecount;
+        this.pictures = pictures;
     }
+
+    public String[] getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(String[] pictures) {
+        this.pictures = pictures;
+    }
+
     public void setImage(String image) {
         this.image = image;
     }
