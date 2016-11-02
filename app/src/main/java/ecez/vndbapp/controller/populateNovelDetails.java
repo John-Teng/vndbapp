@@ -62,6 +62,7 @@ public class populateNovelDetails extends Thread{
                 e.printStackTrace();
             }
             screens = gson.fromJson(jsonScreens.toString(),novelScreenShot[].class);
+            Log.d("Screens",jsonScreens.toString());
 
             Log.d("json2",f);
             this.data = gson.fromJson(f,detailsData.class);

@@ -40,7 +40,7 @@ public class pictureViewerAdapter extends RecyclerView.Adapter<pictureViewerAdap
     @Override
     public void onBindViewHolder(holder holder, int position) {
         novelScreenShot image = images.get(position);
-        Picasso.with(context).load(image.getImage()).fit().into(holder.image);
+        Picasso.with(context).load(image.getImage()).into(holder.image);
     }
 
     @Override
