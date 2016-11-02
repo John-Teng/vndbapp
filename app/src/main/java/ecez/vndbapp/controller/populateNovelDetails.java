@@ -8,7 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import ecez.vndbapp.model.detailsData;
+import ecez.vndbapp.model.novelScreenShot;
 import ecez.vndbapp.model.serverRequest;
 import ecez.vndbapp.view.vndatabaseapp;
 
@@ -19,6 +22,7 @@ public class populateNovelDetails extends Thread{
 
         private String jsonString;
         private detailsData data;
+        private novelScreenShot [] screens;
         private int id;
 
         public populateNovelDetails(int id) {
@@ -27,7 +31,7 @@ public class populateNovelDetails extends Thread{
         @Override
         public void run () {
             if (vndatabaseapp.loggedIn == true)
-                jsonString = serverRequest.writeToServer("get", "vn", "basic,stats,details", "(id = "+Integer.toString(id)+")",null);
+                jsonString = serverRequest.writeToServer("get", "vn", "basic,stats,details,screens", "(id = "+Integer.toString(id)+")",null);
             else
                 Log.d("Connection failure", "Cannot connect to server");
             Log.d("JSON Response",jsonString);
@@ -47,13 +51,28 @@ public class populateNovelDetails extends Thread{
             } catch (JSONException e) {e.printStackTrace();}
             Log.d("json",jsonResponse.toString());
             String s = jsonResponse.toString();
-            String f = s.substring(1,s.length()-1);//Removes the square braces from the response7
+            String f = s.substring(1,s.length()-1);//Removes the square braces from the response
+
+            JSONObject j = null;
+            JSONArray jsonScreens = null;
+            try {
+                j = new JSONObject(f);
+                jsonScreens = j.getJSONArray("screens");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            screens = gson.fromJson(jsonScreens.toString(),novelScreenShot[].class);
+
             Log.d("json2",f);
             this.data = gson.fromJson(f,detailsData.class);
-            Log.d("Success!",Integer.toString(this.data.getVoteCount()));
 
         }
         public detailsData getData () {
             return this.data;
         }
+
+    public novelScreenShot[] getScreens () {
+        return this.screens;
     }
+
+}

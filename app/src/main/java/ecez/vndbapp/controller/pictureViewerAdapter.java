@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.model.novelScreenShot;
 import ecez.vndbapp.model.pictureViewerImage;
 
 /**
@@ -18,16 +18,16 @@ import ecez.vndbapp.model.pictureViewerImage;
  */
 public class pictureViewerAdapter extends RecyclerView.Adapter<pictureViewerAdapter.holder>{
 
-    private String [] images = new String[]{""};
+    private ArrayList<novelScreenShot> images = new ArrayList<novelScreenShot>();
     private LayoutInflater inflater;
     private Context context;
 
-    public pictureViewerAdapter (String [] images, Context context) {
+    public pictureViewerAdapter (ArrayList<novelScreenShot> images, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.images = images;
         this.context = context;
     }
-    public void setData (String [] newData) {
+    public void setData (ArrayList<novelScreenShot> newData) {
         this.images = newData; //Adds additional data
     }
 
@@ -39,13 +39,13 @@ public class pictureViewerAdapter extends RecyclerView.Adapter<pictureViewerAdap
 
     @Override
     public void onBindViewHolder(holder holder, int position) {
-        Picasso.with(context).load(images[position]).fit().into(holder.image);
+        novelScreenShot image = images.get(position);
+        Picasso.with(context).load(image.getImage()).fit().into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        ArrayList<String> e = new ArrayList<String>(Arrays.asList(images));
-        return e.size();
+        return images.size();
     }
 
     class holder extends RecyclerView.ViewHolder {
@@ -54,7 +54,7 @@ public class pictureViewerAdapter extends RecyclerView.Adapter<pictureViewerAdap
 
         public holder(View itemView) {
             super(itemView);
-            image = (ImageView)itemView.findViewById(R.id.picture);
+            image = (ImageView)itemView.findViewById(R.id.novel_details_image);
         }
     }
 

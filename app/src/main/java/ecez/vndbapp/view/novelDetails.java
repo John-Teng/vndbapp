@@ -22,6 +22,8 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.pictureViewerAdapter;
 import ecez.vndbapp.controller.populateNovelDetails;
 import ecez.vndbapp.model.detailsData;
+import ecez.vndbapp.model.novelScreenShot;
+import ecez.vndbapp.model.pictureViewerImage;
 
 public class novelDetails extends AppCompatActivity {
 
@@ -31,8 +33,8 @@ public class novelDetails extends AppCompatActivity {
     TextView title, developer, votes, rating, popularity, length, languages, platforms, description;
     ImageView icon;
     detailsData data;
-    String [] pictures = new String[]{""};;
-
+    ArrayList<novelScreenShot> pictures = new ArrayList<novelScreenShot>();
+    String [] s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,10 @@ public class novelDetails extends AppCompatActivity {
         Intent intent = getIntent();
 
 
+        adapter = new pictureViewerAdapter(pictures, getApplicationContext());
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(id));
@@ -72,12 +78,16 @@ public class novelDetails extends AppCompatActivity {
         } catch (InterruptedException f) { f.printStackTrace(); }
 
         Thread a = new Thread() {
-            public void run() { data = d.getData();}
+            public void run() {
+                data = d.getData();
+                pictures = new ArrayList<novelScreenShot>(Arrays.asList(d.getScreens()));
+            }
         };
         a.start();
         try {
             a.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
+
         title.setText(data.getTitle());
         votes.setText(Integer.toString(data.getVoteCount()));
         rating.setText(data.getRating());
@@ -99,24 +109,17 @@ public class novelDetails extends AppCompatActivity {
         platforms.setText(pp.toString());
         description.setText(data.getDescription());
         Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
-        //loadImages();
-
-
-        adapter = new pictureViewerAdapter(data.getPictures(), getApplicationContext());
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-
+        loadImages();
     }
 
     private void loadImages () {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adapter.setData(data.getPictures());
+                adapter.setData(pictures);
                 adapter.notifyDataSetChanged();
             }
         });
     }
+
 }
