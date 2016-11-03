@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -38,6 +39,7 @@ public class novelDetails extends AppCompatActivity {
     detailsData data;
     ArrayList<novelScreenShot> pictures = new ArrayList<novelScreenShot>();
     String [] s;
+    boolean textCollapsed = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,19 @@ public class novelDetails extends AppCompatActivity {
         //recyclerView = (RecyclerView)findViewById(R.id.picture_viewer);
         imagePager = (ViewPager) findViewById(R.id.imagePager);
 
+        description.setMaxLines(3);
+        description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (textCollapsed) {
+                    description.setMaxLines(Integer.MAX_VALUE);
+                    textCollapsed = false;
+                } else {
+                    description.setMaxLines(3);
+                    textCollapsed = true;
+                }
+            }
+        });
         Intent intent = getIntent();
 
         //adapter = new pictureViewerAdapter(pictures, getApplicationContext());
