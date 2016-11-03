@@ -2,6 +2,7 @@ package ecez.vndbapp.controller;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.novelScreenShot;
-import ecez.vndbapp.model.pictureViewerImage;
 
 /**
  * Created by Teng on 10/10/2016.
@@ -41,6 +41,7 @@ public class pictureViewerAdapter extends RecyclerView.Adapter<pictureViewerAdap
     public void onBindViewHolder(holder holder, int position) {
         novelScreenShot image = images.get(position);
         Picasso.with(context).load(image.getImage()).into(holder.image);
+        Log.d("Image","Image has been set with picasso");
     }
 
     @Override

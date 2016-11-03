@@ -48,13 +48,20 @@
         android:layout_below="@id/languages"
         android:background="#DCDCDC"/>
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/imagePager"
+        android:layout_height="250dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/picture_viewer"
-        android:layout_below="@+id/description"
-        android:layout_alignParentStart="true">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/description"/>
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/picture_viewer"-->
+        <!--android:layout_below="@+id/description"-->
+        <!--android:layout_alignParentStart="true">-->
+    <!--</android.support.v7.widget.RecyclerView>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,6 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
+        android:paddingBottom="15dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="Description goes here"
@@ -86,11 +94,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/description"
-        android:background="#DCDCDC"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_below="@id/description"-->
+        <!--android:background="#DCDCDC"/>-->
 
 </RelativeLayout>
 </ScrollView>

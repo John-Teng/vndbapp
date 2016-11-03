@@ -2,6 +2,7 @@ package ecez.vndbapp.view;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.imagePagerAdapter;
 import ecez.vndbapp.controller.pictureViewerAdapter;
 import ecez.vndbapp.controller.populateNovelDetails;
 import ecez.vndbapp.model.detailsData;
@@ -32,6 +34,7 @@ public class novelDetails extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView title, developer, votes, rating, popularity, length, languages, platforms, description;
     ImageView icon;
+    ViewPager imagePager;
     detailsData data;
     ArrayList<novelScreenShot> pictures = new ArrayList<novelScreenShot>();
     String [] s;
@@ -56,14 +59,15 @@ public class novelDetails extends AppCompatActivity {
         platforms = (TextView)findViewById(R.id.platforms);
         description = (TextView)findViewById(R.id.description);
         icon = (ImageView) findViewById(R.id.novel_icon);
-        recyclerView = (RecyclerView)findViewById(R.id.picture_viewer);
+        //recyclerView = (RecyclerView)findViewById(R.id.picture_viewer);
+        imagePager = (ViewPager) findViewById(R.id.imagePager);
+
         Intent intent = getIntent();
 
-
-        adapter = new pictureViewerAdapter(pictures, getApplicationContext());
+        //adapter = new pictureViewerAdapter(pictures, getApplicationContext());
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setLayoutManager(layoutManager);
+        //recyclerView.setAdapter(adapter);
 
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(id));
@@ -88,6 +92,7 @@ public class novelDetails extends AppCompatActivity {
             a.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
 
+        loadImages();
         title.setText(data.getTitle());
         votes.setText(Integer.toString(data.getVoteCount()));
         rating.setText(data.getRating());
@@ -109,15 +114,17 @@ public class novelDetails extends AppCompatActivity {
         platforms.setText(pp.toString());
         description.setText(data.getDescription());
         Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
-        loadImages();
     }
 
     private void loadImages () {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adapter.setData(pictures);
-                adapter.notifyDataSetChanged();
+                //adapter.setData(pictures);
+                //adapter.notifyDataSetChanged();
+                imagePager.setAdapter(new imagePagerAdapter(getApplicationContext(),pictures));
+                imagePager.setOffscreenPageLimit(2);
+
             }
         });
     }
