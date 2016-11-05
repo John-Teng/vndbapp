@@ -31,11 +31,11 @@
                 android:id="@+id/card_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:paddingTop="16dp"
+                android:paddingTop="5dp"
                 android:paddingLeft="16dp"
                 android:text="#8 - White Album 2 ~Closing Chapter~"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_toEndOf="@+id/picture"
                 android:layout_alignParentTop="true" />
 
@@ -48,8 +48,9 @@
                 android:textSize="15sp"
                 android:paddingTop="10dp"
                 android:paddingLeft="16dp"
-                android:layout_alignBottom="@+id/card_item_title"
-                android:layout_toEndOf="@+id/picture" />
+                android:layout_above="@+id/length_text"
+                android:layout_alignParentEnd="true"
+                android:layout_alignStart="@+id/length_text" />
 
             <TextView
                 android:id="@+id/length_text"
@@ -57,11 +58,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/darker_gray"
-                android:layout_below="@id/rating_text"
-                android:layout_toEndOf="@+id/picture"
                 android:textSize="15sp"
                 android:paddingTop="5dp"
-                android:paddingLeft="16dp" />
+                android:paddingLeft="16dp"
+                android:paddingBottom="5dp"
+                android:layout_alignBottom="@+id/picture"
+                android:layout_alignStart="@+id/card_item_title" />
 
 
 

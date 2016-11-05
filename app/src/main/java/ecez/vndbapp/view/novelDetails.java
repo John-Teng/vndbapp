@@ -88,6 +88,14 @@ public class novelDetails extends AppCompatActivity {
         loadData(id);
     }
 
+    public String setYear (String releasedDate) {
+        Log.d("release",releasedDate);
+        if (releasedDate.equals("tba"))
+            return "TBA";
+        else
+            return releasedDate.substring(0,releasedDate.indexOf("-"));
+    }
+
     private void loadData (int id) {
         final populateNovelDetails d = new populateNovelDetails(id);
         d.start();
@@ -107,7 +115,7 @@ public class novelDetails extends AppCompatActivity {
         } catch (InterruptedException f) { f.printStackTrace(); }
 
         loadImages();
-        title.setText(data.getTitle());
+        title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")");
         votes.setText(Integer.toString(data.getVoteCount()));
         rating.setText(data.getRating());
         popularity.setText(Double.toString(data.getPopularity()) + "%");

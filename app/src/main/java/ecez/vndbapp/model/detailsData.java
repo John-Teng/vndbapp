@@ -5,19 +5,19 @@ package ecez.vndbapp.model;
  */
 public class detailsData {
 
-    private String title;
-    private Double rating;
-    private int length;
     private String image;
-    public String id;
-    private String [] languages;
-    private String [] platforms;
+    private String title;
+    private String id;
     private String description;
-    private double popularity;
-    private int votecount;
-    public int rank;
 
-    public detailsData (String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount) {
+
+    private String released;
+    private String [] languages, platforms;
+    private double popularity;
+    private Double rating;
+    private int votecount, rank, length;
+
+    public detailsData (String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount, String released) {
         this.title = title;
         this.rating = rating;
         this.length = length;
@@ -29,6 +29,15 @@ public class detailsData {
         this.description = description;
         this.popularity = popularity;
         this.votecount = votecount;
+        this.released = released;
+    }
+
+    public String getReleased() {
+        return released;
+    }
+
+    public void setReleased(String released) {
+        this.released = released;
     }
 
     public void setImage(String image) {
