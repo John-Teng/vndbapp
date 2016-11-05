@@ -1,29 +1,35 @@
 package ecez.vndbapp.model;
 
 import android.util.Log;
+import android.widget.ProgressBar;
 
 /**
  * Created by Teng on 10/10/2016.
  */
 public class listItem {
 
-    private String title;
     private Double rating;
-    private int length;
-    private String image;
-    public String id;
-    public int rank;
+    private int length, rank;
+    private String image ,released, title, id;
 
-    public listItem (String title, Double rating, int length, String image, int rank, String id) {
+    public listItem (String title, Double rating, int length, String image, int rank, String id, String released) {
         this.title = title;
         this.rating = rating;
         this.length = length;
         this.image = image;
         this.rank = rank;
         this.id = id;
+        this.released = released;
     }
+
     public String getId() {
         return id;
+    }
+
+    public String getReleased () { return released; }
+
+    public void setReleased (String released) {
+        this.released = released;
     }
 
     public String getTitle() {

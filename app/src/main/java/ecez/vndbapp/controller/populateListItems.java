@@ -63,7 +63,7 @@ public class populateListItems extends Thread {
         this.list = new ArrayList<listItem>(Arrays.asList(l));
         int y = (resultPerPage*page-(resultPerPage-1));
         for (listItem x:this.list) {
-            x.rank = y;
+            x.setRank(y);
             y ++;
         }
     }
