@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,10 +19,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/quickstats"
+        android:layout_above="@+id/details_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/novel_icon"
-        android:layout_above="@+id/languages" />
+        android:layout_toEndOf="@+id/novel_icon" />
 
     <View
         android:layout_width="match_parent"
@@ -30,30 +30,12 @@
         android:layout_below="@id/quickstats"
         android:background="#DCDCDC"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:paddingBottom="5dp"
-        android:text="English, Japanese, Chinese, Russian"
-        android:textAlignment="center"
-        android:id="@+id/languages"
-        android:layout_below="@+id/novel_icon"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/quickstats" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/languages"
-        android:background="#DCDCDC"/>
-
     <android.support.v4.view.ViewPager
         android:id="@+id/imagePager"
         android:layout_height="250dp"
         android:layout_width="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/description"/>
+        android:layout_below="@+id/details_content"/>
 
     <!--<android.support.v7.widget.RecyclerView-->
         <!--android:layout_width="match_parent"-->
@@ -63,36 +45,98 @@
         <!--android:layout_alignParentStart="true">-->
     <!--</android.support.v7.widget.RecyclerView>-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:paddingBottom="5dp"
-        android:text="PC, PS4, XBOX"
-        android:textAlignment="center"
-        android:id="@+id/platforms"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/languages"
-        android:layout_alignParentEnd="true" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/platforms"
-        android:background="#DCDCDC"/>
-
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/details_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:layout_below="@+id/novel_icon"
         android:paddingBottom="15dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Description goes here"
-        android:id="@+id/description"
-        android:layout_below="@+id/platforms"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="5dp"
+            android:text="English, Japanese, Chinese, Russian"
+            android:textAlignment="center"
+            android:id="@+id/languages"
+            android:layout_alignParentStart="true"
+            android:layout_alignEnd="@+id/quickstats" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/languages"
+            android:background="#DCDCDC"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="5dp"
+            android:text="PC, PS4, XBOX"
+            android:textAlignment="center"
+            android:id="@+id/platforms"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/languages"
+            android:layout_alignParentEnd="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/platforms"
+            android:background="#DCDCDC"/>
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="20dp"-->
+            <!--android:paddingBottom="15dp"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:text="Description goes here"-->
+            <!--android:id="@+id/description"-->
+            <!--android:layout_below="@+id/platforms"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentEnd="true" />-->
+
+
+        <at.blogc.android.views.ExpandableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Description goes here"
+            android:id="@+id/description"
+            android:maxLines="5"
+            android:ellipsize="end"
+            app:animation_duration="500"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Read More"
+            android:textSize="11dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:minWidth="70dp"
+            android:minHeight="20dp"
+            android:id="@+id/expand_button"
+            android:layout_below="@+id/details_content"
+            android:layout_gravity="center"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_alignParentEnd="true" />
+
+
+
+    </LinearLayout>
+
+
 
     <!--<View-->
         <!--android:layout_width="match_parent"-->

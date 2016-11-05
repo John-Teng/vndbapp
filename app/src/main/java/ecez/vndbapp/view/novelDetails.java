@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.OvershootInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.imagePagerAdapter;
 import ecez.vndbapp.controller.pictureViewerAdapter;
@@ -33,13 +36,13 @@ public class novelDetails extends AppCompatActivity {
     pictureViewerAdapter adapter;
     LinearLayoutManager layoutManager;
     RecyclerView recyclerView;
-    TextView title, developer, votes, rating, popularity, length, languages, platforms, description;
+    TextView title, developer, votes, rating, popularity, length, languages, platforms;
+    Button expandButton;
+    ExpandableTextView description;
     ImageView icon;
     ViewPager imagePager;
     detailsData data;
     ArrayList<novelScreenShot> pictures = new ArrayList<novelScreenShot>();
-    String [] s;
-    boolean textCollapsed = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,26 +62,22 @@ public class novelDetails extends AppCompatActivity {
         length = (TextView)findViewById(R.id.quickstats_length);
         languages = (TextView)findViewById(R.id.languages);
         platforms = (TextView)findViewById(R.id.platforms);
-        description = (TextView)findViewById(R.id.description);
+        description = (ExpandableTextView)findViewById(R.id.description);
         icon = (ImageView) findViewById(R.id.novel_icon);
         //recyclerView = (RecyclerView)findViewById(R.id.picture_viewer);
         imagePager = (ViewPager) findViewById(R.id.imagePager);
-
-        description.setMaxLines(3);
-        description.setOnClickListener(new View.OnClickListener() {
+        expandButton = (Button) this.findViewById(R.id.expand_button);
+        description.setInterpolator(new OvershootInterpolator());
+        expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (textCollapsed) {
-                    description.setMaxLines(Integer.MAX_VALUE);
-                    textCollapsed = false;
-                } else {
-                    description.setMaxLines(3);
-                    textCollapsed = true;
-                }
+                description.toggle();
+                expandButton.setText(description.isExpanded() ? "Read More" : "Read Less");
+
             }
         });
-        Intent intent = getIntent();
 
+        Intent intent = getIntent();
         //adapter = new pictureViewerAdapter(pictures, getApplicationContext());
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         //recyclerView.setLayoutManager(layoutManager);
@@ -113,23 +112,24 @@ public class novelDetails extends AppCompatActivity {
         rating.setText(data.getRating());
         popularity.setText(Double.toString(data.getPopularity()) + "%");
         length.setText(data.getLength());
-        String [] l = data.getLanguages();
-        StringBuilder ll = new StringBuilder();
-        for (int x = 0; x<l.length; x++) {
-            ll.append(l[x]);
-            ll.append(" ");
-        }
-        languages.setText(ll.toString());
-        String [] p = data.getPlatforms();
-        StringBuilder pp = new StringBuilder();
-        for (int x = 0; x<p.length; x++) {
-            pp.append(p[x]);
-            pp.append(" ");
-        }
-        platforms.setText(pp.toString());
         description.setText(data.getDescription());
+
+        languages.setText(makeStringFromArray(data.getLanguages()));
+        platforms.setText(makeStringFromArray(data.getPlatforms()));
+
         Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
     }
+
+
+    private String makeStringFromArray (String [] array) {
+        StringBuilder returnString = new StringBuilder();
+        for (int x = 0; x<array.length; x++) {
+            returnString.append(array[x]);
+            returnString.append(" ");
+        }
+        return returnString.toString();
+    }
+
 
     private void loadImages () {
         runOnUiThread(new Runnable() {
