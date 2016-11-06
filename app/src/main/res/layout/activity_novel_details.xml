@@ -3,93 +3,142 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="220dp"
-        android:background="@color/cardview_dark_background"
-        android:id="@+id/novel_icon" />
 
-    <include
-        layout="@layout/novel_details_quickstats"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/quickstats"
-        android:layout_above="@+id/details_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/novel_icon" />
+        android:layout_height="match_parent">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/quickstats"
-        android:background="#DCDCDC"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/details_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorLightGray"
+            android:elevation="4dp"
+            app:popupTheme="@style/AppTheme.Material">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/imagePager"
-        android:layout_height="250dp"
-        android:layout_width="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/details_content"/>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
 
-    <!--<android.support.v7.widget.RecyclerView-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="0dp"
+                    android:text="Fate / Stay Night ~Unlimited Blade Works~ the most mind-blowing route in the Fate series"
+                    android:textColor="@color/colorBlack"
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/appbar_title"
+                    android:layout_alignParentTop="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="8dp"
+                    android:text="Type Moon Interactive"
+                    android:textColor="@color/colorDarkerGray"
+                    android:textAlignment="textStart"
+                    android:textSize="14dp"
+                    android:textStyle="italic"
+                    android:id="@+id/appbar_subtitle"
+                    android:layout_alignLeft="@id/appbar_title"
+                    android:layout_below="@id/appbar_title" />
+
+
+            </RelativeLayout>/>
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="220dp"
+            android:background="@color/cardview_dark_background"
+            android:layout_below="@id/details_toolbar"
+            android:id="@+id/novel_icon" />
+
+        <include
+            layout="@layout/novel_details_quickstats"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/quickstats"
+            android:layout_below="@id/details_toolbar"
+            android:layout_above="@+id/details_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/novel_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/quickstats"
+            android:background="#DCDCDC"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/imagePager"
+            android:layout_height="250dp"
+            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/details_content"/>
+
+        <!--<android.support.v7.widget.RecyclerView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:id="@+id/picture_viewer"-->
         <!--android:layout_below="@+id/description"-->
         <!--android:layout_alignParentStart="true">-->
-    <!--</android.support.v7.widget.RecyclerView>-->
+        <!--</android.support.v7.widget.RecyclerView>-->
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/details_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/novel_icon"
-        android:paddingBottom="15dp"
-        android:layout_alignParentStart="true">
-
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/details_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="5dp"
-            android:text="English, Japanese, Chinese, Russian"
-            android:textAlignment="center"
-            android:id="@+id/languages"
-            android:layout_alignParentStart="true"
-            android:layout_alignEnd="@+id/quickstats" />
+            android:layout_below="@+id/novel_icon"
+            android:paddingBottom="15dp"
+            android:layout_alignParentStart="true">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/languages"
-            android:background="#DCDCDC"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
+                android:text="English, Japanese, Chinese, Russian"
+                android:textAlignment="center"
+                android:id="@+id/languages"
+                android:layout_alignParentStart="true"
+                android:layout_alignEnd="@+id/quickstats" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingBottom="5dp"
-            android:text="PC, PS4, XBOX"
-            android:textAlignment="center"
-            android:id="@+id/platforms"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/languages"
-            android:layout_alignParentEnd="true" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/languages"
+                android:background="#DCDCDC"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/platforms"
-            android:background="#DCDCDC"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
+                android:text="PC, PS4, XBOX"
+                android:textAlignment="center"
+                android:id="@+id/platforms"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/languages"
+                android:layout_alignParentEnd="true" />
 
-        <!--<TextView-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/platforms"
+                android:background="#DCDCDC"/>
+
+            <!--<TextView-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:paddingTop="20dp"-->
@@ -103,46 +152,44 @@
             <!--android:layout_alignParentEnd="true" />-->
 
 
-        <at.blogc.android.views.ExpandableTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="Description goes here"
-            android:id="@+id/description"
-            android:maxLines="5"
-            android:ellipsize="end"
-            app:animation_duration="500"/>
+            <at.blogc.android.views.ExpandableTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="Description goes here"
+                android:id="@+id/description"
+                android:maxLines="5"
+                android:ellipsize="end"
+                app:animation_duration="500"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Read More"
-            android:textSize="11dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:minWidth="70dp"
-            android:minHeight="20dp"
-            android:id="@+id/expand_button"
-            android:layout_below="@+id/details_content"
-            android:layout_gravity="center"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_alignParentEnd="true" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Read More"
+                android:textSize="11dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:minWidth="70dp"
+                android:minHeight="20dp"
+                android:id="@+id/expand_button"
+                android:layout_below="@+id/details_content"
+                android:layout_gravity="center"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_alignParentEnd="true" />
 
-
-
-    </LinearLayout>
+        </LinearLayout>
 
 
 
-    <!--<View-->
+        <!--<View-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="1dp"-->
         <!--android:layout_below="@id/description"-->
         <!--android:background="#DCDCDC"/>-->
 
-</RelativeLayout>
+    </RelativeLayout>
 </ScrollView>

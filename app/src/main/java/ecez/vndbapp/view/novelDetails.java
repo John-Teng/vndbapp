@@ -2,12 +2,15 @@ package ecez.vndbapp.view;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 
 
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +41,7 @@ public class novelDetails extends AppCompatActivity {
     pictureViewerAdapter adapter;
     LinearLayoutManager layoutManager;
     RecyclerView recyclerView;
+    Toolbar toolbar;
     TextView title, developer, votes, rating, popularity, length, languages, platforms;
     Button expandButton;
     ExpandableTextView description;
@@ -53,9 +59,12 @@ public class novelDetails extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(Color.GRAY);
 
+        toolbar = (Toolbar) findViewById(R.id.details_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        title = (TextView)findViewById(R.id.quickstats_title);
-        developer = (TextView) findViewById(R.id.quickstats_developer);
+        title = (TextView)findViewById(R.id.appbar_title);
+        developer = (TextView) findViewById(R.id.appbar_subtitle);
         votes = (TextView) findViewById(R.id.quickstats_votes);
         rating = (TextView)findViewById(R.id.quickstats_rating);
         popularity = (TextView)findViewById(R.id.quickstats_popularity);
@@ -73,7 +82,6 @@ public class novelDetails extends AppCompatActivity {
             public void onClick(View v) {
                 description.toggle();
                 expandButton.setText(description.isExpanded() ? "Read More" : "Read Less");
-
             }
         });
 
@@ -87,6 +95,7 @@ public class novelDetails extends AppCompatActivity {
         Log.d("id",Integer.toString(id));
         loadData(id);
     }
+
 
     public String setYear (String releasedDate) {
         Log.d("release",releasedDate);
@@ -127,7 +136,6 @@ public class novelDetails extends AppCompatActivity {
 
         Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
     }
-
 
     private String makeStringFromArray (String [] array) {
         StringBuilder returnString = new StringBuilder();
