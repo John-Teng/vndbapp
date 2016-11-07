@@ -2,7 +2,6 @@ package ecez.vndbapp.view;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,10 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +29,6 @@ import ecez.vndbapp.controller.pictureViewerAdapter;
 import ecez.vndbapp.controller.populateNovelDetails;
 import ecez.vndbapp.model.detailsData;
 import ecez.vndbapp.model.novelScreenShot;
-import ecez.vndbapp.model.pictureViewerImage;
 
 public class novelDetails extends AppCompatActivity {
 
@@ -43,6 +37,7 @@ public class novelDetails extends AppCompatActivity {
     RecyclerView recyclerView;
     Toolbar toolbar;
     TextView title, developer, votes, rating, popularity, length, languages, platforms;
+    String descriptionText;
     Button expandButton;
     ExpandableTextView description;
     ImageView icon;
@@ -129,11 +124,10 @@ public class novelDetails extends AppCompatActivity {
         rating.setText(data.getRating());
         popularity.setText(Double.toString(data.getPopularity()) + "%");
         length.setText(data.getLength());
-        description.setText(removeSourceBrackets(data.getDescription()));
         languages.setText(makeStringFromArray(data.getLanguages()));
         platforms.setText(makeStringFromArray(data.getPlatforms()));
-
         Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
+        loadDescription();
     }
 
     private String makeStringFromArray (String [] array) {
@@ -195,6 +189,25 @@ public class novelDetails extends AppCompatActivity {
             openBraceCount = closeBraceCount = 0;
         }
         return s;
+    }
+
+    private void loadDescription () {
+        Thread a = new Thread() {
+            public void run() {
+                descriptionText = removeSourceBrackets(data.getDescription());
+            }
+        };
+        a.start();
+        try {
+            a.join();
+        } catch (InterruptedException f) { f.printStackTrace(); }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                description.setText(descriptionText);
+
+            }
+        });
     }
 
 
