@@ -129,8 +129,7 @@ public class novelDetails extends AppCompatActivity {
         rating.setText(data.getRating());
         popularity.setText(Double.toString(data.getPopularity()) + "%");
         length.setText(data.getLength());
-        description.setText(data.getDescription());
-
+        description.setText(removeSourceBrackets(data.getDescription()));
         languages.setText(makeStringFromArray(data.getLanguages()));
         platforms.setText(makeStringFromArray(data.getPlatforms()));
 
@@ -144,6 +143,58 @@ public class novelDetails extends AppCompatActivity {
             returnString.append(" ");
         }
         return returnString.toString();
+    }
+
+    public static String removeSourceBrackets (String s) {
+        int openBraceCount = 0, closeBraceCount = 0, startSearchPosition=0, braceStartPosition=0,nextOpenBrace,nextClosedBrace;
+        Boolean removed = false;
+
+        while (s.contains("[")&&s.contains("]")) { //repeat while the string contains braces
+            braceStartPosition = startSearchPosition = s.indexOf("[");
+            openBraceCount++;
+
+            while (!removed) {
+                System.out.println("The search is starting at " + Integer.toString(startSearchPosition));
+                nextOpenBrace = s.indexOf("[", startSearchPosition+1);
+                nextClosedBrace = s.indexOf("]", startSearchPosition+1);
+                System.out.println("The value of nextOpenBrace is " + Integer.toString(nextOpenBrace) + " while the value of nextClosedBrace is " + Integer.toString(nextClosedBrace));
+
+                if (nextClosedBrace == -1) //Not the same number of open braces as closed braces
+                    return "The passed string does not have the same number of opening braces as closing braces";
+                else if (nextOpenBrace == -1) { //There are no more open braces in the string
+                    closeBraceCount ++;
+                    startSearchPosition = nextClosedBrace;
+                    System.out.println("nextOpenBrace == -1");
+                    System.out.println("The brace is at location" + Integer.toString(nextClosedBrace));
+                }
+                else if (nextOpenBrace < nextClosedBrace) {      //There are 2 open braces in a row
+                    System.out.println("nextOpenBrace < nextClosedBrace");
+                    System.out.println("Open brace at location" + Integer.toString(nextOpenBrace));
+                    startSearchPosition = nextOpenBrace;
+                    openBraceCount++;
+                } else { //Next is a closed brace
+                    closeBraceCount++;
+                    startSearchPosition = nextClosedBrace;
+                    System.out.println("nextOpenBrace > nextClosedBrace");
+                    System.out.println("The brace is at location" + Integer.toString(nextClosedBrace));
+                }
+                System.out.println("The number of open braces is " + Integer.toString(openBraceCount) + " the number of close braces is " + Integer.toString(closeBraceCount));
+
+                if (closeBraceCount == openBraceCount) {
+                    System.out.println("Removing from index " + Integer.toString(startSearchPosition) + " to index " + Integer.toString(nextClosedBrace+1));
+                    System.out.println("Max string index is " + Integer.toString(s.length()-1));
+
+                    String removeMe = s.substring(braceStartPosition, nextClosedBrace+1);
+                    System.out.println("Removing the string " + removeMe);
+                    s = s.replace(removeMe, "");
+                    removed = true;
+                }
+                System.out.println("FINISHED INNER ITERATION");
+            }
+            removed = false;
+            openBraceCount = closeBraceCount = 0;
+        }
+        return s;
     }
 
 
