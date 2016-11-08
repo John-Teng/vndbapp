@@ -2,6 +2,7 @@ package ecez.vndbapp.view;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import ecez.vndbapp.model.novelScreenShot;
 
 public class novelDetails extends AppCompatActivity {
 
+    public static Drawable novelIcon;
     pictureViewerAdapter adapter;
     LinearLayoutManager layoutManager;
     RecyclerView recyclerView;
@@ -68,6 +70,9 @@ public class novelDetails extends AppCompatActivity {
         platforms = (TextView)findViewById(R.id.platforms);
         description = (ExpandableTextView)findViewById(R.id.description);
         icon = (ImageView) findViewById(R.id.novel_icon);
+        icon.setImageDrawable(novelDetails.novelIcon);
+        novelDetails.novelIcon = null; //Set the icon back to null
+
         //recyclerView = (RecyclerView)findViewById(R.id.picture_viewer);
         imagePager = (ViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
@@ -117,7 +122,7 @@ public class novelDetails extends AppCompatActivity {
         try {
             a.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
-
+        //Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
         loadImages();
         title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")");
         votes.setText(Integer.toString(data.getVoteCount()));
@@ -126,7 +131,6 @@ public class novelDetails extends AppCompatActivity {
         length.setText(data.getLength());
         languages.setText(makeStringFromArray(data.getLanguages()));
         platforms.setText(makeStringFromArray(data.getPlatforms()));
-        Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
         loadDescription();
     }
 
@@ -218,7 +222,7 @@ public class novelDetails extends AppCompatActivity {
                 //adapter.setData(pictures);
                 //adapter.notifyDataSetChanged();
                 imagePager.setAdapter(new imagePagerAdapter(getApplicationContext(),pictures));
-                imagePager.setOffscreenPageLimit(2);
+                imagePager.setOffscreenPageLimit(9);
 
             }
         });

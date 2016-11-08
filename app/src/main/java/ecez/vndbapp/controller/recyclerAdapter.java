@@ -2,6 +2,7 @@ package ecez.vndbapp.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,6 +48,10 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.holder
             public void onClick(View v) {
                 int itemPosition = tabFragment1.recyclerView.getChildLayoutPosition(view);
                 String id = listData.get(itemPosition).getId();
+
+                final ImageView image = (ImageView) view.findViewById(R.id.picture);
+                novelDetails.novelIcon = image.getDrawable();
+
                 Log.d("id",id);
                 Intent intent = new Intent(context, novelDetails.class);
                 intent.putExtra("NOVEL_ID", id);
