@@ -18,23 +18,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.iconAdapter;
 import ecez.vndbapp.controller.imagePagerAdapter;
-import ecez.vndbapp.controller.pictureViewerAdapter;
 import ecez.vndbapp.controller.populateNovelDetails;
+import ecez.vndbapp.model.country;
 import ecez.vndbapp.model.detailsData;
 import ecez.vndbapp.model.novelScreenShot;
 
 public class novelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
-    pictureViewerAdapter adapter;
+    iconAdapter adapter;
     LinearLayoutManager layoutManager;
     RecyclerView recyclerView;
     Toolbar toolbar;
@@ -46,6 +45,8 @@ public class novelDetails extends AppCompatActivity {
     ViewPager imagePager;
     detailsData data;
     ArrayList<novelScreenShot> pictures = new ArrayList<novelScreenShot>();
+    ArrayList<country> countries = new ArrayList<country>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +74,8 @@ public class novelDetails extends AppCompatActivity {
         icon.setImageDrawable(novelDetails.novelIcon);
         novelDetails.novelIcon = null; //Set the icon back to null
 
-        //recyclerView = (RecyclerView)findViewById(R.id.picture_viewer);
+        recyclerView = (RecyclerView)findViewById(R.id.countries);
+
         imagePager = (ViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
         description.setInterpolator(new OvershootInterpolator());
@@ -86,10 +88,10 @@ public class novelDetails extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        //adapter = new pictureViewerAdapter(pictures, getApplicationContext());
+        adapter = new iconAdapter(countries, getApplicationContext());
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        //recyclerView.setLayoutManager(layoutManager);
-        //recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(id));
@@ -125,15 +127,28 @@ public class novelDetails extends AppCompatActivity {
         //Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
         loadImages();
         title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")");
-        votes.setText(Integer.toString(data.getVoteCount()));
+        votes.setText(Integer.toString(data.getVoteCount())+ " votes");
         rating.setText(data.getRating());
-        popularity.setText(Double.toString(data.getPopularity()) + "%");
+        popularity.setText(Double.toString(data.getPopularity()) + "% popularity");
         length.setText(data.getLength());
-        languages.setText(makeStringFromArray(data.getLanguages()));
+        loadRecyclerIcons();
         platforms.setText(makeStringFromArray(data.getPlatforms()));
         loadDescription();
     }
 
+    private void loadRecyclerIcons () {
+        String [] s = data.getLanguages();
+        for (int x = 0; x<s.length; x++) {
+            countries.add(new country(s[x]));
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.setData(countries);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
     private String makeStringFromArray (String [] array) {
         StringBuilder returnString = new StringBuilder();
         for (int x = 0; x<array.length; x++) {

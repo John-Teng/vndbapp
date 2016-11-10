@@ -76,22 +76,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/quickstats"
-            android:background="#DCDCDC"/>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/imagePager"
-            android:layout_height="250dp"
-            android:layout_width="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/details_content"/>
-
-        <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/picture_viewer"-->
-        <!--android:layout_below="@+id/description"-->
-        <!--android:layout_alignParentStart="true">-->
-        <!--</android.support.v7.widget.RecyclerView>-->
+            android:background="#DCDCDC"
+            android:id="@+id/view" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -102,21 +88,32 @@
             android:paddingBottom="15dp"
             android:layout_alignParentStart="true">
 
-            <TextView
+            <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="5dp"
-                android:text="English, Japanese, Chinese, Russian"
-                android:textAlignment="center"
-                android:id="@+id/languages"
+                android:id="@+id/countries"
                 android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/quickstats" />
+                android:layout_alignEnd="@+id/quickstats">
+            </android.support.v7.widget.RecyclerView>
+
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="15dp"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:text="English, Japanese, Chinese, Russian"-->
+            <!--android:textAlignment="center"-->
+            <!--android:id="@+id/languages"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignEnd="@+id/quickstats" />-->
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/languages"
+                android:layout_below="@id/countries"
                 android:background="#DCDCDC"/>
 
             <TextView
@@ -179,6 +176,13 @@
                 android:layout_gravity="center"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_alignParentEnd="true" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/imagePager"
+                android:layout_height="250dp"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/expand_button"
+                android:layout_alignParentStart="true" />
 
         </LinearLayout>
 

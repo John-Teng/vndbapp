@@ -42,7 +42,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_fire"
+            android:background="@drawable/ic_fire"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
@@ -107,7 +107,7 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
-            android:background="@mipmap/ic_star"
+            android:background="@drawable/ic_star"
             android:id="@+id/quickstats_rating_label"
             android:layout_above="@+id/quickstats_length_label"
             android:layout_alignParentStart="true" />

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/flag" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:text="CA"
+        android:textSize="14dp"
+        android:textAlignment="center"
+        android:id="@+id/country"
+        android:layout_below="@id/flag"
+        android:layout_alignStart="@id/flag"
+        android:layout_alignEnd="@+id/flag" />
+
+</RelativeLayout>
