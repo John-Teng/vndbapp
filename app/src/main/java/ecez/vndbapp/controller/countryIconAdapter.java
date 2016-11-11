@@ -16,13 +16,13 @@ import ecez.vndbapp.model.country;
 /**
  * Created by Teng on 10/10/2016.
  */
-public class iconAdapter extends RecyclerView.Adapter<iconAdapter.holder>{
+public class countryIconAdapter extends RecyclerView.Adapter<countryIconAdapter.holder>{
 
     private ArrayList<country> countries = new ArrayList<country>();
     private LayoutInflater inflater;
     private Context context;
 
-    public iconAdapter(ArrayList<country> countries, Context context) {
+    public countryIconAdapter(ArrayList<country> countries, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.countries = countries;
         this.context = context;
@@ -43,36 +43,45 @@ public class iconAdapter extends RecyclerView.Adapter<iconAdapter.holder>{
 
         switch (country.getCountry()) {
             case "en":
-                holder.country.setText("EN");
+                holder.country.setText("English");
                 holder.image.setImageResource(R.drawable.uk);
                 break;
             case "de":
-                holder.country.setText("DE");
+                holder.country.setText("German");
                 holder.image.setImageResource(R.drawable.germany);
                 break;
-            case "ew":
-                holder.country.setText("ES");
+            case "es":
+                holder.country.setText("Spanish");
                 holder.image.setImageResource(R.drawable.spain);
                 break;
             case "it":
-                holder.country.setText("IT");
+                holder.country.setText("Italian");
                 holder.image.setImageResource(R.drawable.italy);
                 break;
             case "ja":
-                holder.country.setText("JA");
+                holder.country.setText("Japanese");
                 holder.image.setImageResource(R.drawable.japan);
                 break;
             case "ko":
-                holder.country.setText("KO");
+                holder.country.setText("Korean");
                 holder.image.setImageResource(R.drawable.korea);
                 break;
             case "ru":
-                holder.country.setText("RU");
+                holder.country.setText("Russian");
                 holder.image.setImageResource(R.drawable.russia);
                 break;
             case "zh":
-                holder.country.setText("ZH");
+                holder.country.setText("Chinese");
                 holder.image.setImageResource(R.drawable.china);
+                break;
+
+            case "vi":
+                holder.country.setText("Vietnamese");
+                holder.image.setImageResource(R.drawable.vietnam);
+                break;
+            case "fr":
+                holder.country.setText("French");
+                holder.image.setImageResource(R.drawable.france);
                 break;
             default:
                 holder.country.setText(country.getCountry().toUpperCase());

@@ -23,7 +23,7 @@ import java.util.Arrays;
 
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.iconAdapter;
+import ecez.vndbapp.controller.countryIconAdapter;
 import ecez.vndbapp.controller.imagePagerAdapter;
 import ecez.vndbapp.controller.populateNovelDetails;
 import ecez.vndbapp.model.country;
@@ -33,7 +33,7 @@ import ecez.vndbapp.model.novelScreenShot;
 public class novelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
-    iconAdapter adapter;
+    countryIconAdapter adapter;
     LinearLayoutManager layoutManager;
     RecyclerView recyclerView;
     Toolbar toolbar;
@@ -88,7 +88,7 @@ public class novelDetails extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        adapter = new iconAdapter(countries, getApplicationContext());
+        adapter = new countryIconAdapter(countries, getApplicationContext());
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
