@@ -23,9 +23,11 @@ import java.util.Arrays;
 
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.consoleIconAdapter;
 import ecez.vndbapp.controller.countryIconAdapter;
 import ecez.vndbapp.controller.imagePagerAdapter;
 import ecez.vndbapp.controller.populateNovelDetails;
+import ecez.vndbapp.model.console;
 import ecez.vndbapp.model.country;
 import ecez.vndbapp.model.detailsData;
 import ecez.vndbapp.model.novelScreenShot;
@@ -33,19 +35,21 @@ import ecez.vndbapp.model.novelScreenShot;
 public class novelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
-    countryIconAdapter adapter;
-    LinearLayoutManager layoutManager;
-    RecyclerView recyclerView;
+    consoleIconAdapter consoleAdapter;
+    countryIconAdapter countryAdapter;
+    LinearLayoutManager countryLayoutManager, consoleLayoutManager;
+    RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
-    TextView title, developer, votes, rating, popularity, length, languages, platforms;
+    TextView title, developer, votes, rating, popularity, length;
     String descriptionText;
     Button expandButton;
     ExpandableTextView description;
     ImageView icon;
     ViewPager imagePager;
     detailsData data;
-    ArrayList<novelScreenShot> pictures = new ArrayList<novelScreenShot>();
-    ArrayList<country> countries = new ArrayList<country>();
+    ArrayList<novelScreenShot> pictures = new ArrayList<>();
+    ArrayList<country> countries = new ArrayList<>();
+    ArrayList<console> consoles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +71,13 @@ public class novelDetails extends AppCompatActivity {
         rating = (TextView)findViewById(R.id.quickstats_rating);
         popularity = (TextView)findViewById(R.id.quickstats_popularity);
         length = (TextView)findViewById(R.id.quickstats_length);
-        languages = (TextView)findViewById(R.id.languages);
-        platforms = (TextView)findViewById(R.id.platforms);
         description = (ExpandableTextView)findViewById(R.id.description);
         icon = (ImageView) findViewById(R.id.novel_icon);
         icon.setImageDrawable(novelDetails.novelIcon);
         novelDetails.novelIcon = null; //Set the icon back to null
 
-        recyclerView = (RecyclerView)findViewById(R.id.countries);
+        countryRecyclerView = (RecyclerView)findViewById(R.id.countries);
+        consoleRecyclerView = (RecyclerView)findViewById(R.id.consoles);
 
         imagePager = (ViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
@@ -88,10 +91,17 @@ public class novelDetails extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        adapter = new countryIconAdapter(countries, getApplicationContext());
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        countryLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        consoleLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        countryAdapter = new countryIconAdapter(countries, getApplicationContext());
+        countryRecyclerView.setLayoutManager(countryLayoutManager);
+        countryRecyclerView.setAdapter(countryAdapter);
+
+        consoleAdapter = new consoleIconAdapter(consoles, getApplicationContext());
+        consoleRecyclerView.setLayoutManager(consoleLayoutManager);
+        consoleRecyclerView.setAdapter(consoleAdapter);
+
 
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(id));
@@ -131,12 +141,12 @@ public class novelDetails extends AppCompatActivity {
         rating.setText(data.getRating());
         popularity.setText(Double.toString(data.getPopularity()) + "% popularity");
         length.setText(data.getLength());
-        loadRecyclerIcons();
-        platforms.setText(makeStringFromArray(data.getPlatforms()));
+        loadCountryIcons();
+        loadConsoleIcons();
         loadDescription();
     }
 
-    private void loadRecyclerIcons () {
+    private void loadCountryIcons () {
         String [] s = data.getLanguages();
         for (int x = 0; x<s.length; x++) {
             countries.add(new country(s[x]));
@@ -144,11 +154,26 @@ public class novelDetails extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adapter.setData(countries);
-                adapter.notifyDataSetChanged();
+                countryAdapter.setData(countries);
+                countryAdapter.notifyDataSetChanged();
             }
         });
     }
+
+    private void loadConsoleIcons () {
+        String [] s = data.getPlatforms();
+        for (int x = 0; x<s.length; x++) {
+            consoles.add(new console(s[x]));
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                consoleAdapter.setData(consoles);
+                consoleAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
     private String makeStringFromArray (String [] array) {
         StringBuilder returnString = new StringBuilder();
         for (int x = 0; x<array.length; x++) {

@@ -119,22 +119,25 @@
                 android:layout_below="@id/countries"
                 android:background="#DCDCDC"/>
 
-            <TextView
-                android:layout_width="match_parent"
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:overScrollMode="never"
                 android:paddingTop="15dp"
                 android:paddingBottom="5dp"
-                android:text="PC, PS4, XBOX"
-                android:textAlignment="center"
-                android:id="@+id/platforms"
+                android:id="@+id/consoles"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/languages"
                 android:layout_alignParentEnd="true" />
 
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/platforms"
+                android:layout_below="@id/consoles"
                 android:background="#DCDCDC"/>
 
             <!--<TextView-->

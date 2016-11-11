@@ -34,7 +34,7 @@ public class consoleIconAdapter extends RecyclerView.Adapter<consoleIconAdapter.
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.country_icon, parent, false);
+        View view = inflater.inflate(R.layout.console_icon, parent, false);
         return new holder(view);
     }
 
@@ -43,9 +43,12 @@ public class consoleIconAdapter extends RecyclerView.Adapter<consoleIconAdapter.
         console console = consoles.get(position);
 
         switch (console.getConsoleName()) {
-            case "en":
-                holder.country.setText("English");
-                holder.image.setImageResource(R.drawable.uk);
+            case "win":
+                holder.consolePicture.setImageResource(R.drawable.windows_logo);
+                break;
+            default:
+                holder.consoleText.setText(console.getConsoleName().toUpperCase());
+                holder.consolePicture.setImageResource(R.drawable.windows_logo);
                 break;
         }
 
@@ -58,13 +61,13 @@ public class consoleIconAdapter extends RecyclerView.Adapter<consoleIconAdapter.
 
     class holder extends RecyclerView.ViewHolder {
 
-        private ImageView image;
-        private TextView country;
+        private ImageView consolePicture;
+        private TextView consoleText;
         public holder(View itemView) {
 
             super(itemView);
-            image = (ImageView)itemView.findViewById(R.id.flag);
-            country = (TextView)itemView.findViewById(R.id.country);
+            consolePicture = (ImageView)itemView.findViewById(R.id.console);
+            consoleText = (TextView)itemView.findViewById(R.id.console_text);
         }
     }
 
