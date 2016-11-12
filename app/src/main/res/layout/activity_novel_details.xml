@@ -4,8 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,15 +48,13 @@
                     android:layout_alignLeft="@id/appbar_title"
                     android:layout_below="@id/appbar_title" />
 
-
             </RelativeLayout>/>
-
         </android.support.v7.widget.Toolbar>
-
 
         <ImageView
             android:layout_width="150dp"
             android:layout_height="220dp"
+            android:paddingRight="5dp"
             android:layout_below="@id/details_toolbar"
             android:id="@+id/novel_icon" />
 
@@ -86,32 +82,34 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/novel_icon"
             android:paddingBottom="15dp"
+            android:background="@color/colorLightGray"
             android:layout_alignParentStart="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Languages"
+                android:background="@color/colorGray"
+                android:paddingLeft="15dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/colorBlack"
+                android:textAlignment="textStart"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:id="@+id/countries_label" />
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:background="@color/colorLightGray"
                 android:layout_gravity="center"
                 android:overScrollMode="never"
-                android:paddingTop="15dp"
                 android:paddingBottom="5dp"
                 android:id="@+id/countries"
                 android:layout_alignParentStart="true"
                 android:layout_alignEnd="@+id/quickstats">
             </android.support.v7.widget.RecyclerView>
-
-
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingTop="15dp"-->
-            <!--android:paddingBottom="5dp"-->
-            <!--android:text="English, Japanese, Chinese, Russian"-->
-            <!--android:textAlignment="center"-->
-            <!--android:id="@+id/languages"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignEnd="@+id/quickstats" />-->
 
             <View
                 android:layout_width="match_parent"
@@ -120,39 +118,39 @@
                 android:background="#DCDCDC"/>
 
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:overScrollMode="never"
-                android:paddingTop="15dp"
-                android:paddingBottom="5dp"
-                android:id="@+id/consoles"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/languages"
-                android:layout_alignParentEnd="true" />
-
-
-            <View
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/consoles"
-                android:background="#DCDCDC"/>
+                android:layout_height="wrap_content"
+                android:text="Screenshots"
+                android:paddingLeft="15dp"
+                android:paddingBottom="3dp"
+                android:background="@color/colorGray"
+                android:textColor="@color/colorBlack"
+                android:textAlignment="textStart"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:id="@+id/imagePager_label"/>
 
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingTop="20dp"-->
-            <!--android:paddingBottom="15dp"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:paddingRight="10dp"-->
-            <!--android:text="Description goes here"-->
-            <!--android:id="@+id/description"-->
-            <!--android:layout_below="@+id/platforms"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentEnd="true" />-->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/imagePager"
+                android:background="@color/colorLightGray"
+                android:layout_height="250dp"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/expand_button"
+                android:layout_alignParentStart="true" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:paddingLeft="15dp"
+                android:paddingBottom="3dp"
+                android:background="@color/colorGray"
+                android:textColor="@color/colorBlack"
+                android:textAlignment="textStart"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:id="@+id/description_label" />
 
             <at.blogc.android.views.ExpandableTextView
                 android:layout_width="match_parent"
@@ -183,22 +181,40 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_alignParentEnd="true" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/imagePager"
-                android:layout_height="250dp"
+            <View
                 android:layout_width="match_parent"
-                android:layout_below="@+id/expand_button"
-                android:layout_alignParentStart="true" />
+                android:layout_height="1dp"
+                android:layout_below="@id/expand_button"
+                android:background="#DCDCDC"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Platforms"
+                android:paddingLeft="15dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/colorBlack"
+                android:textAlignment="textStart"
+                android:background="@color/colorGray"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/countries"
+                android:id="@+id/consoles_label" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:background="@color/colorLightGray"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:overScrollMode="never"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:id="@+id/consoles"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/consoles_label"
+                android:layout_alignParentEnd="true" />
 
         </LinearLayout>
-
-
-
-        <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:layout_below="@id/description"-->
-        <!--android:background="#DCDCDC"/>-->
-
     </RelativeLayout>
 </ScrollView>

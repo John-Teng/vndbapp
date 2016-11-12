@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-    android:id="@+id/rating">
+        android:id="@+id/rating">
 
 
         <ImageView
@@ -27,17 +27,19 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingRight="5dp"
-            android:textSize="13dp"
+            android:paddingLeft="5dp"
+            android:textSize="14dp"
             android:id="@+id/quickstats_votes"
-            android:layout_alignTop="@id/quickstats_votes_label"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+            android:gravity="center"
+            android:layout_alignTop="@+id/quickstats_votes_label"
+            android:layout_alignBottom="@+id/quickstats_votes_label"
+            android:layout_toRightOf="@id/quickstats_votes_label"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@id/quickstats_votes"
-            android:background="@color/colorLightGray"/>
+            android:background="@color/colorGray"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -54,21 +56,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100.0%"
-            android:textSize="13dp"
+            android:textSize="14dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingRight="5dp"
+            android:paddingLeft="5dp"
             android:id="@+id/quickstats_popularity"
-            android:layout_alignTop="@id/quickstats_popularity_label"
-            android:layout_above="@+id/quickstats_votes"
-            android:layout_alignParentEnd="true" />
+            android:gravity="center"
+            android:layout_alignTop="@+id/quickstats_popularity_label"
+            android:layout_alignBottom="@+id/quickstats_popularity_label"
+            android:layout_toRightOf="@id/quickstats_popularity_label"/>
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@id/quickstats_popularity_label"
-            android:background="@color/colorLightGray"/>
+            android:background="@color/colorGray"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -87,19 +91,21 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingRight="5dp"
-            android:textSize="13dp"
+            android:paddingLeft="5dp"
+            android:textSize="14dp"
             android:text="Very Long (> 50 hours)"
             android:id="@+id/quickstats_length"
-            android:layout_above="@+id/quickstats_popularity"
-            android:layout_alignTop="@id/quickstats_length_label"
-            android:layout_alignParentEnd="true" />
+            android:gravity="center"
+            android:layout_alignTop="@+id/quickstats_length_label"
+            android:layout_alignBottom="@+id/quickstats_length_label"
+            android:layout_toRightOf="@id/quickstats_length_label"/>
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@id/quickstats_length_label"
-            android:background="@color/colorLightGray"/>
+            android:background="@color/colorGray"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -118,17 +124,20 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingRight="5dp"
-            android:textSize="13dp"
+            android:paddingLeft="5dp"
+            android:textSize="14dp"
             android:text="8.21 (very good)"
             android:id="@+id/quickstats_rating"
+            android:gravity="center"
             android:layout_alignTop="@+id/quickstats_rating_label"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignBottom="@+id/quickstats_rating_label"
+            android:layout_toRightOf="@id/quickstats_rating_label"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@id/quickstats_rating_label"
-            android:background="@color/colorLightGray"/>
+            android:background="@color/colorGray"/>
 
 
 
