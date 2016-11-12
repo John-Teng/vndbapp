@@ -1,7 +1,10 @@
 package ecez.vndbapp.controller;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +34,12 @@ public class consoleIconAdapter extends RecyclerView.Adapter<consoleIconAdapter.
     public void setData (ArrayList<console> newData) {
         this.consoles = newData; //Adds additional data
     }
+    public float convertDpToPixel(float dp){
+        Resources resources = this.context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
@@ -41,17 +50,76 @@ public class consoleIconAdapter extends RecyclerView.Adapter<consoleIconAdapter.
     @Override
     public void onBindViewHolder(holder holder, int position) {
         console console = consoles.get(position);
+        Log.d("console",console.getConsoleName());
 
         switch (console.getConsoleName()) {
+            case "gba":
+                holder.consolePicture.setImageResource(R.drawable.gba_logo);
+                holder.consoleText.setText("");
+                break;
+            case "nds":
+                holder.consolePicture.setImageResource(R.drawable.nds_logo);
+                holder.consoleText.setText("");
+                break;
+            case "n3d":
+                holder.consolePicture.setImageResource(R.drawable.n3ds_logo);
+                holder.consoleText.setText("");
+                break;
+            case "psp":
+                holder.consolePicture.setImageResource(R.drawable.psp_logo);
+                holder.consoleText.setText("");
+                break;
+            case "ps2":
+                holder.consolePicture.setImageResource(R.drawable.ps2_logo);
+                holder.consoleText.setText("");
+                break;
+            case "ps3":
+                holder.consolePicture.setImageResource(R.drawable.ps3_logo);
+                holder.consoleText.setText("");
+                break;
+            case "ps4":
+                holder.consolePicture.setImageResource(R.drawable.ps4_logo);
+                holder.consoleText.setText("");
+                break;
+            case "psv":
+                holder.consolePicture.setImageResource(R.drawable.psvita_logo);
+                holder.consoleText.setText("");
+                break;
+            case "xb3":
+                holder.consolePicture.setImageResource(R.drawable.xbox360_logo);
+                holder.consoleText.setText("");
+                break;
             case "win":
                 holder.consolePicture.setImageResource(R.drawable.windows_logo);
+                holder.consolePicture.getLayoutParams().height = (int)convertDpToPixel(20);
+                holder.consoleText.setText("");
+                break;
+            case "ios":
+                holder.consolePicture.setImageResource(R.drawable.ios_logo);
+                holder.consolePicture.getLayoutParams().height = (int)convertDpToPixel(18);
+                holder.consoleText.setText("");
+                break;
+            case "wii":
+                holder.consolePicture.setImageResource(R.drawable.wii_logo);
+                holder.consolePicture.getLayoutParams().height = (int)convertDpToPixel(18);
+                holder.consoleText.setText("");
+                break;
+            case "and":
+                holder.consolePicture.setImageResource(R.drawable.android_logo);
+                holder.consolePicture.getLayoutParams().height = (int)convertDpToPixel(20);
+                holder.consoleText.setText("");
+                break;
+            case "lin":
+                holder.consolePicture.setImageResource(R.drawable.linux_logo);
+                holder.consolePicture.getLayoutParams().height = (int)convertDpToPixel(20);
+                holder.consoleText.setText("");
                 break;
             default:
+                holder.consolePicture.setImageResource(R.drawable.game_controller_logo);
                 holder.consoleText.setText(console.getConsoleName().toUpperCase());
-                holder.consolePicture.setImageResource(R.drawable.windows_logo);
                 break;
         }
-
+        Log.d("console","Set an image");
     }
 
     @Override
