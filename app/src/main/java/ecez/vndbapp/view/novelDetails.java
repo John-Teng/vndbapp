@@ -38,6 +38,7 @@ public class novelDetails extends AppCompatActivity {
     consoleIconAdapter consoleAdapter;
     countryIconAdapter countryAdapter;
     LinearLayoutManager countryLayoutManager, consoleLayoutManager;
+    imagePagerAdapter imageAdapter;
     RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
     TextView title, developer, votes, rating, popularity, length;
@@ -101,6 +102,11 @@ public class novelDetails extends AppCompatActivity {
         consoleAdapter = new consoleIconAdapter(consoles, getApplicationContext());
         consoleRecyclerView.setLayoutManager(consoleLayoutManager);
         consoleRecyclerView.setAdapter(consoleAdapter);
+
+
+        imageAdapter = new imagePagerAdapter(getApplicationContext(),pictures);
+        imagePager.setAdapter(imageAdapter);
+        imagePager.setOffscreenPageLimit(9);
 
 
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
@@ -261,8 +267,8 @@ public class novelDetails extends AppCompatActivity {
             public void run() {
                 //adapter.setData(pictures);
                 //adapter.notifyDataSetChanged();
-                imagePager.setAdapter(new imagePagerAdapter(getApplicationContext(),pictures));
-                imagePager.setOffscreenPageLimit(9);
+                imageAdapter.setImage(pictures);
+                imageAdapter.notifyDataSetChanged();
 
             }
         });

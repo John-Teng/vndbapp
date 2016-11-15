@@ -1,6 +1,7 @@
 package ecez.vndbapp.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.novelScreenShot;
+import ecez.vndbapp.view.imageActivity;
+import ecez.vndbapp.view.novelDetails;
 
 /**
  * Created by Teng on 11/2/2016.
@@ -29,6 +32,10 @@ public class imagePagerAdapter extends PagerAdapter {
             this.pictures = pictures;
         }
 
+    public void setImage (ArrayList<novelScreenShot> pictures) {
+        this.pictures = pictures;
+    }
+
         @Override
         public int getCount() {
             return pictures.size();
@@ -41,9 +48,20 @@ public class imagePagerAdapter extends PagerAdapter {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            String picture = pictures.get(position).getImage();
+            final String picture = pictures.get(position).getImage();
             View pictures = mLayoutInflater.inflate(R.layout.image_pager_layout, container, false);
             ImageView imageView = (ImageView) pictures.findViewById(R.id.screenshot);
+
+            pictures.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, imageActivity.class);
+                    intent.putExtra("IMAGE_URL", picture);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                }
+            });
+
 
             Picasso.with(mContext).load(picture).into(imageView);
             container.addView(pictures);
