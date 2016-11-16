@@ -23,21 +23,20 @@ public class imageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
 
-
         Intent intent = getIntent();
         imageURL = intent.getStringExtra("IMAGE_URL");
         image = (ImageView)findViewById(R.id.fullscreen_image);
+        Picasso.with(getApplicationContext()).load(imageURL).into(image);
+        attacher = new PhotoViewAttacher(image);
 
         closeButton = (Button)findViewById(R.id.close_button);
-
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        Picasso.with(getApplicationContext()).load(imageURL).into(image);
-        attacher = new PhotoViewAttacher(image);
+
 
 
     }

@@ -134,6 +134,7 @@ public class novelDetails extends AppCompatActivity {
             public void run() {
                 data = d.getData();
                 pictures = new ArrayList<novelScreenShot>(Arrays.asList(d.getScreens()));
+                pictures.add(new novelScreenShot(data.getImage())); //Add the novel icon as the last image
             }
         };
         a.start();
@@ -150,6 +151,16 @@ public class novelDetails extends AppCompatActivity {
         loadCountryIcons();
         loadConsoleIcons();
         loadDescription();
+
+        icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), imageActivity.class);
+                intent.putExtra("IMAGE_URL", data.getImage());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
+            }
+        });
     }
 
     private void loadCountryIcons () {

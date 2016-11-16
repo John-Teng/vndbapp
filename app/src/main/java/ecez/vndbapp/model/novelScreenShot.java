@@ -16,6 +16,10 @@ public class novelScreenShot {
         this.image = image;
     }
 
+    public novelScreenShot(String image) {
+        this.image = image;
+    }
+
     public String getImage () {
         return this.image;
     }
