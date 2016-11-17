@@ -1,5 +1,6 @@
 package ecez.vndbapp.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -51,12 +52,14 @@ public class novelDetails extends AppCompatActivity {
     ArrayList<novelScreenShot> pictures = new ArrayList<>();
     ArrayList<country> countries = new ArrayList<>();
     ArrayList<console> consoles = new ArrayList<>();
+    public static Activity novelDetailsActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novel_details);
 
+        novelDetailsActivity = this;
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -103,11 +106,9 @@ public class novelDetails extends AppCompatActivity {
         consoleRecyclerView.setLayoutManager(consoleLayoutManager);
         consoleRecyclerView.setAdapter(consoleAdapter);
 
-
         imageAdapter = new imagePagerAdapter(getApplicationContext(),pictures);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(9);
-
 
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(id));
@@ -143,6 +144,7 @@ public class novelDetails extends AppCompatActivity {
         } catch (InterruptedException f) { f.printStackTrace(); }
         //Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
         loadImages();
+
         title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")");
         votes.setText(Integer.toString(data.getVoteCount())+ " votes");
         rating.setText(data.getRating());
@@ -276,11 +278,8 @@ public class novelDetails extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //adapter.setData(pictures);
-                //adapter.notifyDataSetChanged();
                 imageAdapter.setImage(pictures);
                 imageAdapter.notifyDataSetChanged();
-
             }
         });
     }

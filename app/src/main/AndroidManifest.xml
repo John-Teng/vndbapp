@@ -30,7 +30,8 @@
         <activity android:name=".view.novelDetails" />
 
         <activity android:name=".view.imageActivity"
-            android:theme="@style/Theme.CustomTranslucent">
+            android:theme="@style/Theme.CustomTranslucent"
+            android:launchMode="singleTask">
         </activity>
 
     </application>

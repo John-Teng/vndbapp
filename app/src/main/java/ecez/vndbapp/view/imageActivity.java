@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import ecez.vndbapp.R;
@@ -26,6 +27,7 @@ public class imageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         imageURL = intent.getStringExtra("IMAGE_URL");
         image = (ImageView)findViewById(R.id.fullscreen_image);
+        //Glide.with(this).load(imageURL).fitCenter().into(image);
         Picasso.with(getApplicationContext()).load(imageURL).into(image);
         attacher = new PhotoViewAttacher(image);
 
