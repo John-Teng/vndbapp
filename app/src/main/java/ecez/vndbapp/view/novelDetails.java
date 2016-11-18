@@ -142,7 +142,6 @@ public class novelDetails extends AppCompatActivity {
         try {
             a.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
-        //Picasso.with(getApplicationContext()).load(data.getImage()).fit().into(icon);
         loadImages();
 
         title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")");
@@ -153,16 +152,6 @@ public class novelDetails extends AppCompatActivity {
         loadCountryIcons();
         loadConsoleIcons();
         loadDescription();
-
-        icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), imageActivity.class);
-                intent.putExtra("IMAGE_URL", data.getImage());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(intent);
-            }
-        });
     }
 
     private void loadCountryIcons () {

@@ -1,9 +1,11 @@
 package ecez.vndbapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Teng on 11/1/2016.
  */
-public class novelScreenShot {
+public class novelScreenShot implements Serializable {
     int rid,height,width;
     Boolean nsfw;
     String image;

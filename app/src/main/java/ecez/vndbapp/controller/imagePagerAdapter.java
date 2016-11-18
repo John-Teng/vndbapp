@@ -16,6 +16,7 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.model.novelScreenShot;
 import ecez.vndbapp.view.imageActivity;
 import ecez.vndbapp.view.novelDetails;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by Teng on 11/2/2016.
@@ -47,16 +48,18 @@ public class imagePagerAdapter extends PagerAdapter {
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
             final String picture = pictures.get(position).getImage();
-            View pictures = mLayoutInflater.inflate(R.layout.image_pager_layout, container, false);
-            ImageView imageView = (ImageView) pictures.findViewById(R.id.screenshot);
+            View pagerLayout = mLayoutInflater.inflate(R.layout.image_pager_layout, container, false);
+            ImageView imageView = (ImageView) pagerLayout.findViewById(R.id.screenshot);
 
-            pictures.setOnClickListener(new View.OnClickListener() {
+
+            pagerLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, imageActivity.class);
-                    intent.putExtra("IMAGE_URL", picture);
+                    intent.putExtra("POSITION",position);
+                    intent.putExtra("IMAGE_URLS", pictures);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }
@@ -64,9 +67,9 @@ public class imagePagerAdapter extends PagerAdapter {
 
 
             Picasso.with(mContext).load(picture).into(imageView);
-            container.addView(pictures);
+            container.addView(pagerLayout);
 
-            return pictures;
+            return pagerLayout;
         }
 
         @Override
