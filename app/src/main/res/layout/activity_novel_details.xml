@@ -8,65 +8,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/details_toolbar"
+
+        <include
+            layout="@layout/novel_details_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorLightGray"
-            android:elevation="4dp"
-            app:popupTheme="@style/AppTheme.Material">
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="0dp"
-                    android:text="Fate / Stay Night ~Unlimited Blade Works~ the most mind-blowing route in the Fate series"
-                    android:textColor="@color/colorBlack"
-                    android:textAlignment="textStart"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:layout_alignParentLeft="true"
-                    android:id="@+id/appbar_title"
-                    android:layout_alignParentTop="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="8dp"
-                    android:text="Type Moon Interactive"
-                    android:textColor="@color/colorDarkerGray"
-                    android:textAlignment="textStart"
-                    android:textSize="14dp"
-                    android:textStyle="italic"
-                    android:id="@+id/appbar_subtitle"
-                    android:layout_alignLeft="@id/appbar_title"
-                    android:layout_below="@id/appbar_title" />
-
-            </RelativeLayout>/>
-        </android.support.v7.widget.Toolbar>
+            android:id="@+id/toolbar"/>
 
         <ImageView
             android:layout_width="150dp"
             android:layout_height="220dp"
             android:paddingRight="5dp"
-            android:layout_below="@id/details_toolbar"
+            android:layout_below="@id/toolbar"
             android:id="@+id/novel_icon" />
 
         <include
             layout="@layout/novel_details_quickstats"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/quickstats"
-            android:layout_below="@id/details_toolbar"
-            android:layout_above="@+id/details_content"
+            android:layout_above="@+id/details_content_layout"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/novel_icon" />
+            android:layout_toEndOf="@+id/novel_icon"
+            android:layout_below="@+id/toolbar" />
 
         <View
             android:layout_width="match_parent"
@@ -77,7 +41,7 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:id="@+id/details_content"
+            android:id="@+id/details_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/novel_icon"
@@ -214,6 +178,18 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/consoles_label"
                 android:layout_alignParentEnd="true" />
+
+
+            <include
+                layout="@layout/novel_details_character_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/character_panel"
+                android:layout_below="@id/details_toolbar"
+                android:layout_above="@+id/details_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/novel_icon" />
+
 
         </LinearLayout>
     </RelativeLayout>
