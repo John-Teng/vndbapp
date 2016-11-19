@@ -1,5 +1,6 @@
 package ecez.vndbapp.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
@@ -27,11 +28,13 @@ public class fullscreenImagePagerAdapter extends PagerAdapter {
     LayoutInflater mLayoutInflater;
     ArrayList<novelScreenShot> pictures;
     PhotoViewAttacher attacher;
+    Activity activityReference;
 
-    public fullscreenImagePagerAdapter(Context context, ArrayList<novelScreenShot> pictures) {
+    public fullscreenImagePagerAdapter(Context context, ArrayList<novelScreenShot> pictures, Activity activity) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.pictures = pictures;
+        this.activityReference = activity;
     }
 
     public void setImage (ArrayList<novelScreenShot> pictures) {
@@ -54,6 +57,8 @@ public class fullscreenImagePagerAdapter extends PagerAdapter {
         View pagerLayout = mLayoutInflater.inflate(R.layout.image_pager_layout, container, false);
         ImageView imageView = (ImageView) pagerLayout.findViewById(R.id.screenshot);
         attacher = new PhotoViewAttacher(imageView);
+
+        activityReference.registerForContextMenu(imageView);
 
         Picasso.with(mContext).load(picture).into(imageView);
         container.addView(pagerLayout);

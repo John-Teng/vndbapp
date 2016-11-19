@@ -11,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -106,15 +109,25 @@ public class novelDetails extends AppCompatActivity {
         consoleRecyclerView.setLayoutManager(consoleLayoutManager);
         consoleRecyclerView.setAdapter(consoleAdapter);
 
-        imageAdapter = new imagePagerAdapter(getApplicationContext(),pictures);
+        imageAdapter = new imagePagerAdapter(getApplicationContext(),pictures, this);
         imagePager.setAdapter(imageAdapter);
-        imagePager.setOffscreenPageLimit(9);
+        imagePager.setOffscreenPageLimit(15);
 
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(id));
         loadData(id);
     }
 
+    @Override
+    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        menu.add(Menu.NONE,0,0,"Download Image");
+        menu.add(Menu.NONE,1,1,"Open Image in Browser");
+    }
+
+    @Override
+    public boolean onContextItemSelected (MenuItem item){
+        return true;
+    }
 
     public String setYear (String releasedDate) {
         Log.d("release",releasedDate);
