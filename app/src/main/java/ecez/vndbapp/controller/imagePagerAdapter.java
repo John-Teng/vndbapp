@@ -61,10 +61,6 @@ public class imagePagerAdapter extends PagerAdapter {
             View pagerLayout = mLayoutInflater.inflate(R.layout.image_pager_layout, container, false);
             ImageView imageView = (ImageView) pagerLayout.findViewById(R.id.screenshot);
 
-            activityReference.registerForContextMenu(imageView);
-
-            Log.d("Class name",activityReference.getLocalClassName());
-
             if (shouldStartActivity) {    //if the calling class is novelDetails, setup click listeners
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override

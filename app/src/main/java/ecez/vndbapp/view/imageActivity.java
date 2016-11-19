@@ -1,29 +1,24 @@
 package ecez.vndbapp.view;
 
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.fullscreenImagePagerAdapter;
 import ecez.vndbapp.controller.imagePagerAdapter;
+import ecez.vndbapp.model.fixedViewPager;
 import ecez.vndbapp.model.novelScreenShot;
 
 public class imageActivity extends AppCompatActivity {
     Button closeButton;
     int position;
     ArrayList<novelScreenShot> imageURLS;
-    fullscreenImagePagerAdapter imageAdapter;
-    ViewPager imagePager;
+    imagePagerAdapter imageAdapter;
+    fixedViewPager imagePager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +37,11 @@ public class imageActivity extends AppCompatActivity {
             }
         });
 
-        imagePager = (ViewPager) findViewById(R.id.fullscreen_imagePager);
-        imageAdapter = new fullscreenImagePagerAdapter(getApplicationContext(),imageURLS, this);
+        imagePager = (fixedViewPager) findViewById(R.id.fullscreen_imagePager);
+        imageAdapter = new imagePagerAdapter(getApplicationContext(),imageURLS, this);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
         imagePager.setCurrentItem(position);
 
     }
-
-    @Override
-    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        menu.add(Menu.NONE,0,0,"Download Image");
-        menu.add(Menu.NONE,1,1,"Open Image in Browser");
-    }
-
-    @Override
-    public boolean onContextItemSelected (MenuItem item){
-        return true;
-    }
-
 }

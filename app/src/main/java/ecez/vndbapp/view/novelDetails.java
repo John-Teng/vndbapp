@@ -4,16 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,6 +30,7 @@ import ecez.vndbapp.controller.populateNovelDetails;
 import ecez.vndbapp.model.console;
 import ecez.vndbapp.model.country;
 import ecez.vndbapp.model.detailsData;
+import ecez.vndbapp.model.fixedViewPager;
 import ecez.vndbapp.model.novelScreenShot;
 
 public class novelDetails extends AppCompatActivity {
@@ -50,7 +47,7 @@ public class novelDetails extends AppCompatActivity {
     Button expandButton;
     ExpandableTextView description;
     ImageView icon;
-    ViewPager imagePager;
+    fixedViewPager imagePager;
     detailsData data;
     ArrayList<novelScreenShot> pictures = new ArrayList<>();
     ArrayList<country> countries = new ArrayList<>();
@@ -86,7 +83,7 @@ public class novelDetails extends AppCompatActivity {
         countryRecyclerView = (RecyclerView)findViewById(R.id.countries);
         consoleRecyclerView = (RecyclerView)findViewById(R.id.consoles);
 
-        imagePager = (ViewPager) findViewById(R.id.imagePager);
+        imagePager = (fixedViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
         description.setInterpolator(new OvershootInterpolator());
         expandButton.setOnClickListener(new View.OnClickListener() {
@@ -116,17 +113,6 @@ public class novelDetails extends AppCompatActivity {
         int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(id));
         loadData(id);
-    }
-
-    @Override
-    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        menu.add(Menu.NONE,0,0,"Download Image");
-        menu.add(Menu.NONE,1,1,"Open Image in Browser");
-    }
-
-    @Override
-    public boolean onContextItemSelected (MenuItem item){
-        return true;
     }
 
     public String setYear (String releasedDate) {

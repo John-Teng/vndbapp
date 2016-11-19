@@ -131,7 +131,7 @@
                 android:textStyle="bold"
                 android:id="@+id/imagePager_label"/>
 
-            <android.support.v4.view.ViewPager
+            <ecez.vndbapp.model.fixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/imagePager"
                 android:background="@color/colorLightGray"
                 android:layout_height="175dp"
