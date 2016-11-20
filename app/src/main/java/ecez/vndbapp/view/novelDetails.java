@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -26,7 +29,9 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.consoleIconAdapter;
 import ecez.vndbapp.controller.countryIconAdapter;
 import ecez.vndbapp.controller.imagePagerAdapter;
+import ecez.vndbapp.controller.populateCharacters;
 import ecez.vndbapp.controller.populateNovelDetails;
+import ecez.vndbapp.model.character;
 import ecez.vndbapp.model.console;
 import ecez.vndbapp.model.country;
 import ecez.vndbapp.model.detailsData;
@@ -36,30 +41,30 @@ import ecez.vndbapp.model.novelScreenShot;
 public class novelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
+    public
     consoleIconAdapter consoleAdapter;
     countryIconAdapter countryAdapter;
     LinearLayoutManager countryLayoutManager, consoleLayoutManager;
     imagePagerAdapter imageAdapter;
     RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
-    TextView title, developer, votes, rating, popularity, length;
+    TextView title, developer, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3;
     String descriptionText;
     Button expandButton;
     ExpandableTextView description;
-    ImageView icon;
+    ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     fixedViewPager imagePager;
     detailsData data;
     ArrayList<novelScreenShot> pictures = new ArrayList<>();
     ArrayList<country> countries = new ArrayList<>();
     ArrayList<console> consoles = new ArrayList<>();
-    public static Activity novelDetailsActivity;
+    ArrayList<character> characters = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novel_details);
 
-        novelDetailsActivity = this;
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -68,6 +73,15 @@ public class novelDetails extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.details_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+        characterIcon1 = (ImageView) findViewById(R.id.character_image1);
+        characterIcon2 = (ImageView) findViewById(R.id.character_image2);
+        characterIcon3 = (ImageView) findViewById(R.id.character_image3);
+        characterLabel1 = (TextView) findViewById(R.id.character_label1);
+        characterLabel2 = (TextView) findViewById(R.id.character_label2);
+        characterLabel3 = (TextView) findViewById(R.id.character_label3);
+
 
         title = (TextView)findViewById(R.id.appbar_title);
         developer = (TextView) findViewById(R.id.appbar_subtitle);
@@ -110,9 +124,11 @@ public class novelDetails extends AppCompatActivity {
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 
-        int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
+        final int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(id));
-        loadData(id);
+
+        loadNovelData(id);
+        loadCharacterData(id);
     }
 
     public String setYear (String releasedDate) {
@@ -123,7 +139,39 @@ public class novelDetails extends AppCompatActivity {
             return releasedDate.substring(0,releasedDate.indexOf("-"));
     }
 
-    private void loadData (int id) {
+
+    private void loadCharacterData (int id) {
+        final populateCharacters p = new populateCharacters(id);
+        p.start();
+        try {
+            p.join();
+        } catch (InterruptedException f) { f.printStackTrace(); }
+
+        Thread a = new Thread() {
+            public void run() {
+                characters = p.getCharacters();
+            }
+        };
+        a.start();
+        try {
+            a.join();
+        } catch (InterruptedException f) { f.printStackTrace(); }
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Picasso.with(getApplicationContext()).load(characters.get(0).getImage()).into(characterIcon1);
+                Picasso.with(getApplicationContext()).load(characters.get(1).getImage()).into(characterIcon2);
+                Picasso.with(getApplicationContext()).load(characters.get(2).getImage()).into(characterIcon3);
+                characterLabel1.setText(characters.get(0).getName());
+                characterLabel2.setText(characters.get(1).getName());
+                characterLabel3.setText(characters.get(2).getName());
+            }
+        });
+
+    }
+
+    private void loadNovelData (int id) {
         final populateNovelDetails d = new populateNovelDetails(id);
         d.start();
         try {

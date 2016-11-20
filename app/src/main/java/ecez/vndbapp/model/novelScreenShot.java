@@ -10,6 +10,10 @@ public class novelScreenShot implements Serializable {
     Boolean nsfw;
     String image;
 
+    public novelScreenShot () {
+
+    }
+
     public novelScreenShot (int rid, int height, int width, Boolean nsfw, String image) {
         this.rid = rid;
         this.height = height;

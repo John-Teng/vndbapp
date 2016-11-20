@@ -184,12 +184,7 @@
                 layout="@layout/novel_details_character_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/character_panel"
-                android:layout_below="@id/details_toolbar"
-                android:layout_above="@+id/details_content"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@+id/novel_icon" />
-
+                android:id="@+id/character_panel" />
 
         </LinearLayout>
     </RelativeLayout>

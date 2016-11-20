@@ -12,6 +12,10 @@ public class listItem {
     private int length, rank;
     private String image ,released, title, id;
 
+    public listItem () {
+
+    }
+
     public listItem (String title, Double rating, int length, String image, int rank, String id, String released) {
         this.title = title;
         this.rating = rating;

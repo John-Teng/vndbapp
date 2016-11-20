@@ -17,6 +17,10 @@ public class detailsData {
     private Double rating;
     private int votecount, rank, length;
 
+    public detailsData () {
+
+    }
+
     public detailsData (String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount, String released) {
         this.title = title;
         this.rating = rating;
