@@ -41,20 +41,20 @@ import ecez.vndbapp.model.novelScreenShot;
 public class novelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
-    public
     consoleIconAdapter consoleAdapter;
     countryIconAdapter countryAdapter;
     LinearLayoutManager countryLayoutManager, consoleLayoutManager;
     imagePagerAdapter imageAdapter;
     RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
-    TextView title, developer, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3;
+    TextView title, developer, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3;
     String descriptionText;
     Button expandButton;
     ExpandableTextView description;
     ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     fixedViewPager imagePager;
     detailsData data;
+    int novelID;
     ArrayList<novelScreenShot> pictures = new ArrayList<>();
     ArrayList<country> countries = new ArrayList<>();
     ArrayList<console> consoles = new ArrayList<>();
@@ -81,7 +81,9 @@ public class novelDetails extends AppCompatActivity {
         characterLabel1 = (TextView) findViewById(R.id.character_label1);
         characterLabel2 = (TextView) findViewById(R.id.character_label2);
         characterLabel3 = (TextView) findViewById(R.id.character_label3);
-
+        characterRole1 = (TextView) findViewById(R.id.character_role1);
+        characterRole2 = (TextView) findViewById(R.id.character_role2);
+        characterRole3 = (TextView) findViewById(R.id.character_role3);
 
         title = (TextView)findViewById(R.id.appbar_title);
         developer = (TextView) findViewById(R.id.appbar_subtitle);
@@ -124,11 +126,14 @@ public class novelDetails extends AppCompatActivity {
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 
-        final int id = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
-        Log.d("id",Integer.toString(id));
-
-        loadNovelData(id);
-        loadCharacterData(id);
+        this.novelID = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
+        Log.d("id",Integer.toString(this.novelID));
+        new Thread() {
+            public void run() {
+                loadNovelData(novelID);
+                loadCharacterData(novelID);
+            }
+        }.start();
     }
 
     public String setYear (String releasedDate) {
@@ -166,6 +171,9 @@ public class novelDetails extends AppCompatActivity {
                 characterLabel1.setText(characters.get(0).getName());
                 characterLabel2.setText(characters.get(1).getName());
                 characterLabel3.setText(characters.get(2).getName());
+                characterRole1.setText(characters.get(0).getRole(novelID));
+                characterRole2.setText(characters.get(1).getRole(novelID));
+                characterRole3.setText(characters.get(2).getRole(novelID));
             }
         });
 
@@ -190,15 +198,23 @@ public class novelDetails extends AppCompatActivity {
             a.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
         loadImages();
-
-        title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")");
-        votes.setText(Integer.toString(data.getVoteCount())+ " votes");
-        rating.setText(data.getRating());
-        popularity.setText(Double.toString(data.getPopularity()) + "% popularity");
-        length.setText(data.getLength());
+        loadViews();
         loadCountryIcons();
         loadConsoleIcons();
         loadDescription();
+    }
+
+    private void loadViews() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")");
+                votes.setText(Integer.toString(data.getVoteCount())+ " votes");
+                rating.setText(data.getRating());
+                popularity.setText(Double.toString(data.getPopularity()) + "% popularity");
+                length.setText(data.getLength());
+            }
+        });
     }
 
     private void loadCountryIcons () {
@@ -227,15 +243,6 @@ public class novelDetails extends AppCompatActivity {
                 consoleAdapter.notifyDataSetChanged();
             }
         });
-    }
-
-    private String makeStringFromArray (String [] array) {
-        StringBuilder returnString = new StringBuilder();
-        for (int x = 0; x<array.length; x++) {
-            returnString.append(array[x]);
-            returnString.append(" ");
-        }
-        return returnString.toString();
     }
 
     public static String removeSourceBrackets (String s) {

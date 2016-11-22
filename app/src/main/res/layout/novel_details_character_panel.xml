@@ -15,31 +15,31 @@
         <ImageView
             android:id="@+id/character_image1"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="2dp"
-            android:background="@color/colorGray"
+            android:background="@color/colorWhite"
             android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/character_image2"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:background="@color/colorGray"
+            android:background="@color/colorWhite"
             android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/character_image3"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:layout_marginTop="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="4dp"
-            android:background="@color/colorGray"
+            android:background="@color/colorWhite"
             android:layout_weight="1"/>
     </LinearLayout>
 

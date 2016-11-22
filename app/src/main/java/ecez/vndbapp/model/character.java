@@ -129,8 +129,27 @@ public class character {
         this.traits = traits;
     }
 
-    public String[][] getVns() {
-        return vns;
+    public String getRole(int id) {
+        String [] [] s = this.vns;
+        int x;
+
+        for (x = 0; x< s.length; x++) {
+            if (Integer.parseInt(s[x][0]) == id) {
+                break;
+            }
+        }
+        switch (s[x][3]) {
+            case "main":
+                return "Protagonist";
+            case "primary":
+                return "Main character";
+            case "side":
+                return "Side Character";
+            case "appears":
+                return "Makes an appearance";
+            default:
+                return "";
+        }
     }
 
     public void setVns(String[][] vns) {

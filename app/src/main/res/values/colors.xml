@@ -9,6 +9,7 @@
     <color name="colorLightGray">#F5F5F5</color>
     <color name="colorIndigo">#4527A0</color>
     <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>
