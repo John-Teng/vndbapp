@@ -165,9 +165,26 @@ public class novelDetails extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Picasso.with(getApplicationContext()).load(characters.get(0).getImage()).into(characterIcon1);
-                Picasso.with(getApplicationContext()).load(characters.get(1).getImage()).into(characterIcon2);
-                Picasso.with(getApplicationContext()).load(characters.get(2).getImage()).into(characterIcon3);
+                Picasso
+                        .with(getApplicationContext())
+                        .load(characters.get(0).getImage())
+                        .resize(characterIcon1.getWidth(),characterIcon1.getHeight())
+                        .centerCrop()
+                        .into(characterIcon1);
+
+                Picasso
+                        .with(getApplicationContext())
+                        .load(characters.get(1).getImage())
+                        .resize(characterIcon2.getWidth(),characterIcon2.getHeight())
+                        .centerCrop()
+                        .into(characterIcon2);
+                Picasso
+                        .with(getApplicationContext())
+                        .load(characters.get(2).getImage())
+                        .resize(characterIcon3.getWidth(),characterIcon3.getHeight())
+                        .centerCrop()
+                        .into(characterIcon3);
+
                 characterLabel1.setText(characters.get(0).getName());
                 characterLabel2.setText(characters.get(1).getName());
                 characterLabel3.setText(characters.get(2).getName());
