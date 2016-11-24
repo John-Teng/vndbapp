@@ -41,7 +41,7 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final View view = inflater.inflate(R.layout.card_item, parent, false);
+        final View view = inflater.inflate(R.layout.character_list_item, parent, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,8 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
     @Override
     public void onBindViewHolder(holder holder, int position) {
         character item = characters.get(position);
-
+        holder.nameText.setText(item.getName());
+        Picasso.with(context).load(item.getImage()).fit().into(holder.image);
     }
 
     @Override
@@ -69,8 +70,8 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
 
         public holder(View itemView) {
             super(itemView);
-            nameText = (TextView)itemView.findViewById(R.id.);
-            image = (ImageView)itemView.findViewById(R.id.);
+            nameText = (TextView)itemView.findViewById(R.id.character_list_name);
+            image = (ImageView)itemView.findViewById(R.id.character_list_image);
         }
     }
 

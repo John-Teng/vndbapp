@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.recyclerAdapter;
+import ecez.vndbapp.controller.characterAdapter;
 import ecez.vndbapp.model.character;
 
 /**
@@ -20,7 +20,7 @@ import ecez.vndbapp.model.character;
  */
 public class characterList extends Fragment {
         public static RecyclerView recyclerView;
-        private recyclerAdapter adapter;
+        private characterAdapter adapter;
         private ProgressBar progressBar;
         private ArrayList<character> characters = new ArrayList<character>();
         private View view;
@@ -36,7 +36,7 @@ public class characterList extends Fragment {
             LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
             recyclerView.setLayoutManager(layoutManager);
 
-            adapter = new recyclerAdapter(characters, this.getContext());
+            adapter = new characterAdapter (characters, this.getContext());
             recyclerView.setAdapter(adapter);
 
             return view;
