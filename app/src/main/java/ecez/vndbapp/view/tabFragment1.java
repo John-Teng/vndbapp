@@ -30,7 +30,7 @@ public class tabFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.tab1, container, false);
+        view = inflater.inflate(R.layout.top_fragment, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
         progressBar.setVisibility(view.VISIBLE);
