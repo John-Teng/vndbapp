@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/colorLightGray">
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
         android:background="@color/colorGray"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/character_list_image" />
 
     <TextView
         android:layout_width="wrap_content"
         android:paddingLeft="20dp"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:text="Protagonist"
         android:textSize="13dp"
         android:textStyle="italic"
+        android:textColor="@color/colorDarkerGray"
         android:id="@+id/character_list_role"
-        android:layout_alignBottom="@+id/character_list_image"
+        android:layout_below="@+id/character_list_name"
         android:layout_toEndOf="@+id/character_list_image" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
+        android:paddingTop="30dp"
         android:text="Emiya Shirou"
         android:textSize="18dp"
         android:textColor="@color/colorBlack"
         android:id="@+id/character_list_name"
-        android:layout_above="@+id/character_list_role"
+        android:layout_alignTop="@+id/character_list_image"
         android:layout_toEndOf="@+id/character_list_image" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/character_list_image"
+        android:background="@color/colorGray"/>
 </RelativeLayout>

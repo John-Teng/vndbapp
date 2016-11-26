@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -49,7 +50,7 @@ public class novelDetails extends AppCompatActivity {
     Toolbar toolbar;
     TextView title, developer, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3;
     String descriptionText;
-    Button expandButton;
+    Button expandButton, seeMoreCharacters;
     ExpandableTextView description;
     ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     fixedViewPager imagePager;
@@ -84,6 +85,7 @@ public class novelDetails extends AppCompatActivity {
         characterRole1 = (TextView) findViewById(R.id.character_role1);
         characterRole2 = (TextView) findViewById(R.id.character_role2);
         characterRole3 = (TextView) findViewById(R.id.character_role3);
+        seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
 
         title = (TextView)findViewById(R.id.appbar_title);
         developer = (TextView) findViewById(R.id.appbar_subtitle);
@@ -168,20 +170,20 @@ public class novelDetails extends AppCompatActivity {
                 Picasso
                         .with(getApplicationContext())
                         .load(characters.get(0).getImage())
-                        .resize(characterIcon1.getWidth(),characterIcon1.getHeight())
+                        .fit()
                         .centerCrop()
                         .into(characterIcon1);
 
                 Picasso
                         .with(getApplicationContext())
                         .load(characters.get(1).getImage())
-                        .resize(characterIcon2.getWidth(),characterIcon2.getHeight())
+                        .fit()
                         .centerCrop()
                         .into(characterIcon2);
                 Picasso
                         .with(getApplicationContext())
                         .load(characters.get(2).getImage())
-                        .resize(characterIcon3.getWidth(),characterIcon3.getHeight())
+                        .fit()
                         .centerCrop()
                         .into(characterIcon3);
 
@@ -191,6 +193,17 @@ public class novelDetails extends AppCompatActivity {
                 characterRole1.setText(characters.get(0).getRole(novelID));
                 characterRole2.setText(characters.get(1).getRole(novelID));
                 characterRole3.setText(characters.get(2).getRole(novelID));
+            }
+        });
+
+        seeMoreCharacters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), characterList.class);
+                intent.putExtra("NOVEL_ID", novelID);
+                intent.putExtra("CHARACTERS", (Serializable) characters);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
             }
         });
 

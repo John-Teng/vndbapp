@@ -1,12 +1,18 @@
 package ecez.vndbapp.view;
 
-import android.os.Bundle;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -15,32 +21,37 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.characterAdapter;
 import ecez.vndbapp.model.character;
 
-/**
- * Created by Teng on 11/23/2016.
- */
-public class characterList extends Fragment {
-        public static RecyclerView recyclerView;
-        private characterAdapter adapter;
-        private ProgressBar progressBar;
-        private ArrayList<character> characters = new ArrayList<character>();
-        private View view;
-        private int pageCount = 1;
+public class characterList extends AppCompatActivity {
+    public static RecyclerView recyclerView;
+    private characterAdapter adapter;
+    private ProgressBar progressBar;
+    private View view;
+    ArrayList<character> characters;
+    private Intent intent;
+    private int novelID;
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-            view = inflater.inflate(R.layout.character_list_fragment, container, false);
-            recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-            progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
-            progressBar.setVisibility(view.VISIBLE);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
-            recyclerView.setLayoutManager(layoutManager);
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(Color.GRAY);
 
-            adapter = new characterAdapter (characters, this.getContext());
-            recyclerView.setAdapter(adapter);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_character_list);
+        intent = getIntent();
+        novelID = intent.getIntExtra("NOVEL_ID",-1);
+        characters = (ArrayList<character>) intent.getSerializableExtra("CHARACTERS");
 
-            return view;
-        }
+        recyclerView = (RecyclerView)findViewById(R.id.character_recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
 
+        adapter = new characterAdapter (characters, getApplicationContext(), recyclerView, novelID);
+        recyclerView.setAdapter(adapter);
 
     }
+
+}
+

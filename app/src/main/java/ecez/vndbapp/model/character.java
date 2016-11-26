@@ -1,9 +1,13 @@
 package ecez.vndbapp.model;
 
+import android.util.Log;
+
+import java.io.Serializable;
+
 /**
  * Created by Teng on 11/20/2016.
  */
-public class character {
+public class character implements Serializable {
     Integer id, bust, waist, hip, height, weight;
     String name, original, gender, bloodt, aliases, description, image;
     Integer [] birthday;
@@ -131,25 +135,25 @@ public class character {
 
     public String getRole(int id) {
         String [] [] s = this.vns;
-        int x;
-
-        for (x = 0; x< s.length; x++) {
+        Log.d("vns", Integer.toString(id));
+        for (int x = 0; x < s.length; x++) {
             if (Integer.parseInt(s[x][0]) == id) {
-                break;
+                Log.d("vns", s[x][3]);
+                switch (s[x][3]) {
+                    case "main":
+                        return "Protagonist";
+                    case "primary":
+                        return "Main character";
+                    case "side":
+                        return "Side Character";
+                    case "appears":
+                        return "Makes an appearance";
+                    default:
+                        return "";
+                }
             }
         }
-        switch (s[x][3]) {
-            case "main":
-                return "Protagonist";
-            case "primary":
-                return "Main character";
-            case "side":
-                return "Side Character";
-            case "appears":
-                return "Makes an appearance";
-            default:
-                return "";
-        }
+        return "";
     }
 
     public void setVns(String[][] vns) {

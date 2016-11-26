@@ -1,9 +1,7 @@
 package ecez.vndbapp.controller;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,15 +12,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.character;
-import ecez.vndbapp.model.listItem;
-import ecez.vndbapp.view.novelDetails;
-import ecez.vndbapp.view.tabFragment1;
 
 /**
  * Created by Teng on 10/10/2016.
@@ -32,11 +25,15 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
     private ArrayList<character> characters;
     private LayoutInflater inflater;
     private Context context;
+    private RecyclerView recyclerViewReference;
+    private int novelID;
 
-    public characterAdapter (ArrayList<character> characters, Context context) {
+    public characterAdapter (ArrayList<character> characters, Context context, RecyclerView view, int novelID) {
         this.inflater = LayoutInflater.from(context);
         this.characters = characters;
         this.context = context;
+        this.recyclerViewReference = view;
+        this.novelID = novelID;
     }
 
     @Override
@@ -45,7 +42,7 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int itemPosition = tabFragment1.recyclerView.getChildLayoutPosition(view);
+                int itemPosition = recyclerViewReference.getChildLayoutPosition(view);
             }
         });
         return new holder(view);
@@ -55,7 +52,14 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
     public void onBindViewHolder(holder holder, int position) {
         character item = characters.get(position);
         holder.nameText.setText(item.getName());
-        Picasso.with(context).load(item.getImage()).fit().into(holder.image);
+        Log.d("role",item.getRole(novelID));
+        holder.roleText.setText(item.getRole(novelID));
+        Picasso
+                .with(context)
+                .load(item.getImage())
+                .fit()
+                .centerCrop()
+                .into(holder.image);
     }
 
     @Override
@@ -65,13 +69,14 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
 
     class holder extends RecyclerView.ViewHolder {
 
-        private TextView nameText;
+        private TextView nameText, roleText;
         private ImageView image;
 
         public holder(View itemView) {
             super(itemView);
             nameText = (TextView)itemView.findViewById(R.id.character_list_name);
             image = (ImageView)itemView.findViewById(R.id.character_list_image);
+            roleText = (TextView)itemView.findViewById(R.id.character_list_role);
         }
     }
 
