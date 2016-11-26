@@ -123,6 +123,7 @@ public class novelDetails extends AppCompatActivity {
         consoleAdapter = new consoleIconAdapter(consoles, getApplicationContext());
         consoleRecyclerView.setLayoutManager(consoleLayoutManager);
         consoleRecyclerView.setAdapter(consoleAdapter);
+        consoleRecyclerView.setItemViewCacheSize(20);
 
         imageAdapter = new imagePagerAdapter(getApplicationContext(),pictures, this);
         imagePager.setAdapter(imageAdapter);
