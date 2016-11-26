@@ -7,7 +7,8 @@ import java.io.Serializable;
 /**
  * Created by Teng on 11/20/2016.
  */
-public class character implements Serializable {
+public class Character implements Serializable {
+
     Integer id, bust, waist, hip, height, weight;
     String name, original, gender, bloodt, aliases, description, image;
     Integer [] birthday;
@@ -143,7 +144,7 @@ public class character implements Serializable {
                     case "main":
                         return "Protagonist";
                     case "primary":
-                        return "Main character";
+                        return "Main Character";
                     case "side":
                         return "Side Character";
                     case "appears":
@@ -160,7 +161,7 @@ public class character implements Serializable {
         this.vns = vns;
     }
 
-    public character () {
+    public Character() {
 
     }
 

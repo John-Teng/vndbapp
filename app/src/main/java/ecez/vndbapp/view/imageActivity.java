@@ -9,16 +9,16 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.imagePagerAdapter;
-import ecez.vndbapp.model.fixedViewPager;
-import ecez.vndbapp.model.novelScreenShot;
+import ecez.vndbapp.controller.ImagePagerAdapter;
+import ecez.vndbapp.model.FixedViewPager;
+import ecez.vndbapp.model.NovelScreenShot;
 
-public class imageActivity extends AppCompatActivity {
+public class ImageActivity extends AppCompatActivity {
     Button closeButton;
     int position;
-    ArrayList<novelScreenShot> imageURLS;
-    imagePagerAdapter imageAdapter;
-    fixedViewPager imagePager;
+    ArrayList<NovelScreenShot> imageURLS;
+    ImagePagerAdapter imageAdapter;
+    FixedViewPager imagePager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class imageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image);
 
         Intent intent = getIntent();
-        position = intent.getIntExtra("POSITION",0);
-        imageURLS = (ArrayList<novelScreenShot>) intent.getSerializableExtra("IMAGE_URLS");
+        position = intent.getIntExtra("POSITION", 0);
+        imageURLS = (ArrayList<NovelScreenShot>) intent.getSerializableExtra("IMAGE_URLS");
 
         closeButton = (Button)findViewById(R.id.close_button);
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -37,8 +37,8 @@ public class imageActivity extends AppCompatActivity {
             }
         });
 
-        imagePager = (fixedViewPager) findViewById(R.id.fullscreen_imagePager);
-        imageAdapter = new imagePagerAdapter(getApplicationContext(),imageURLS, this);
+        imagePager = (FixedViewPager) findViewById(R.id.fullscreen_imagePager);
+        imageAdapter = new ImagePagerAdapter(getApplicationContext(),imageURLS, imagePager);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
         imagePager.setCurrentItem(position);

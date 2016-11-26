@@ -3,25 +3,17 @@ package ecez.vndbapp.model;
 /**
  * Created by Teng on 10/27/2016.
  */
-public class detailsData {
+public class DetailsData {
 
-    private String image;
-    private String title;
-    private String id;
-    private String description;
-
-
-    private String released;
+    private String image, title, id ,description, released;
     private String [] languages, platforms;
     private double popularity;
     private Double rating;
     private int votecount, rank, length;
 
-    public detailsData () {
+    public DetailsData() {}
 
-    }
-
-    public detailsData (String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount, String released) {
+    public DetailsData(String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount, String released) {
         this.title = title;
         this.rating = rating;
         this.length = length;

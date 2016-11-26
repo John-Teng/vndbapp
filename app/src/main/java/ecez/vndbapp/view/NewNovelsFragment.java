@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 
 import ecez.vndbapp.R;
 
-public class tabFragment2 extends Fragment {
+public class NewNovelsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.top_fragment, container, false);
+        return inflater.inflate(R.layout.top_novels_fragment, container, false);
     }
 }

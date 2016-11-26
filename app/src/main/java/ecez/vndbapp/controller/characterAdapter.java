@@ -1,6 +1,5 @@
 package ecez.vndbapp.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,20 +14,20 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.model.character;
+import ecez.vndbapp.model.Character;
 
 /**
  * Created by Teng on 10/10/2016.
  */
-public class characterAdapter extends RecyclerView.Adapter<characterAdapter.holder>{
+public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.holder>{
 
-    private ArrayList<character> characters;
+    private ArrayList<Character> characters;
     private LayoutInflater inflater;
     private Context context;
     private RecyclerView recyclerViewReference;
     private int novelID;
 
-    public characterAdapter (ArrayList<character> characters, Context context, RecyclerView view, int novelID) {
+    public CharacterAdapter(ArrayList<Character> characters, Context context, RecyclerView view, int novelID) {
         this.inflater = LayoutInflater.from(context);
         this.characters = characters;
         this.context = context;
@@ -38,7 +37,7 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final View view = inflater.inflate(R.layout.character_list_item, parent, false);
+        final View view = inflater.inflate(R.layout.list_character_item, parent, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +49,7 @@ public class characterAdapter extends RecyclerView.Adapter<characterAdapter.hold
 
     @Override
     public void onBindViewHolder(holder holder, int position) {
-        character item = characters.get(position);
+        Character item = characters.get(position);
         holder.nameText.setText(item.getName());
         Log.d("role",item.getRole(novelID));
         holder.roleText.setText(item.getRole(novelID));

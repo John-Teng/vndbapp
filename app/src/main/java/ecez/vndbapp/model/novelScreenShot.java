@@ -5,16 +5,14 @@ import java.io.Serializable;
 /**
  * Created by Teng on 11/1/2016.
  */
-public class novelScreenShot implements Serializable {
+public class NovelScreenShot implements Serializable {
     int rid,height,width;
     Boolean nsfw;
     String image;
 
-    public novelScreenShot () {
+    public NovelScreenShot() {}
 
-    }
-
-    public novelScreenShot (int rid, int height, int width, Boolean nsfw, String image) {
+    public NovelScreenShot(int rid, int height, int width, Boolean nsfw, String image) {
         this.rid = rid;
         this.height = height;
         this.width = width;
@@ -22,7 +20,7 @@ public class novelScreenShot implements Serializable {
         this.image = image;
     }
 
-    public novelScreenShot(String image) {
+    public NovelScreenShot(String image) {
         this.image = image;
     }
 

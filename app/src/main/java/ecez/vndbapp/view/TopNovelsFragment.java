@@ -13,29 +13,29 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.endlessRecyclerViewScrollListener;
-import ecez.vndbapp.controller.populateListItems;
-import ecez.vndbapp.controller.recyclerAdapter;
-import ecez.vndbapp.model.serverRequest;
-import ecez.vndbapp.model.listItem;
+import ecez.vndbapp.controller.EndlessRecyclerViewScrollListener;
+import ecez.vndbapp.controller.PopulateListItems;
+import ecez.vndbapp.controller.RecyclerAdapter;
+import ecez.vndbapp.model.ServerRequest;
+import ecez.vndbapp.model.ListItem;
 
-public class tabFragment1 extends Fragment {
+public class TopNovelsFragment extends Fragment {
     public static RecyclerView recyclerView;
-    private recyclerAdapter adapter;
+    private RecyclerAdapter adapter;
     private ProgressBar progressBar;
-    private ArrayList<listItem> loadedCards = new ArrayList<listItem>();
+    private ArrayList<ListItem> loadedCards = new ArrayList<ListItem>();
     private View view;
     private int pageCount = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.top_fragment, container, false);
+        view = inflater.inflate(R.layout.top_novels_fragment, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
         progressBar.setVisibility(view.VISIBLE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
-        endlessRecyclerViewScrollListener endlessScrollListener = new endlessRecyclerViewScrollListener(layoutManager) {
+        EndlessRecyclerViewScrollListener endlessScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 new Thread() {
@@ -56,7 +56,7 @@ public class tabFragment1 extends Fragment {
         Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
 
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new recyclerAdapter(loadedCards, this.getContext());
+        adapter = new RecyclerAdapter(loadedCards, this.getContext());
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(loadedCards.size()));
         recyclerView.setAdapter(adapter);
 
@@ -65,7 +65,7 @@ public class tabFragment1 extends Fragment {
 
    public void initialLoad () {
        Thread a = new Thread() {
-           public void run() {vndatabaseapp.loggedIn = serverRequest.login();}
+           public void run() {vndatabaseapp.loggedIn = ServerRequest.login();}
        };
        a.start();
        try {
@@ -75,7 +75,7 @@ public class tabFragment1 extends Fragment {
     }
 
     public void updateList () {
-        final populateListItems l = new populateListItems(new ArrayList<listItem>(),pageCount);
+        final PopulateListItems l = new PopulateListItems(new ArrayList<ListItem>(),pageCount);
         l.start();
         try {
             l.join();

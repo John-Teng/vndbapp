@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import ecez.vndbapp.controller.pagerAdapter;
+import ecez.vndbapp.controller.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.model.serverRequest;
+import ecez.vndbapp.model.ServerRequest;
 
 public class vndatabaseapp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,7 +57,7 @@ public class vndatabaseapp extends AppCompatActivity
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(2);
-        final pagerAdapter adapter = new pagerAdapter
+        final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -68,17 +68,15 @@ public class vndatabaseapp extends AppCompatActivity
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
     @Override
     public void onDestroy () {
-        serverRequest.disconnect();
+        ServerRequest.disconnect();
         super.onDestroy();
     }
     @Override

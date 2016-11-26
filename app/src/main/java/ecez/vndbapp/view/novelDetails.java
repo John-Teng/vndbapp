@@ -1,10 +1,8 @@
 package ecez.vndbapp.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,31 +19,30 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.consoleIconAdapter;
-import ecez.vndbapp.controller.countryIconAdapter;
-import ecez.vndbapp.controller.imagePagerAdapter;
-import ecez.vndbapp.controller.populateCharacters;
-import ecez.vndbapp.controller.populateNovelDetails;
-import ecez.vndbapp.model.character;
-import ecez.vndbapp.model.console;
-import ecez.vndbapp.model.country;
-import ecez.vndbapp.model.detailsData;
-import ecez.vndbapp.model.fixedViewPager;
-import ecez.vndbapp.model.novelScreenShot;
+import ecez.vndbapp.controller.ConsoleIconAdapter;
+import ecez.vndbapp.controller.CountryIconAdapter;
+import ecez.vndbapp.controller.ImagePagerAdapter;
+import ecez.vndbapp.controller.PopulateCharacters;
+import ecez.vndbapp.controller.PopulateNovelDetails;
+import ecez.vndbapp.model.Character;
+import ecez.vndbapp.model.Console;
+import ecez.vndbapp.model.Country;
+import ecez.vndbapp.model.DetailsData;
+import ecez.vndbapp.model.FixedViewPager;
+import ecez.vndbapp.model.NovelScreenShot;
 
-public class novelDetails extends AppCompatActivity {
+public class NovelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
-    consoleIconAdapter consoleAdapter;
-    countryIconAdapter countryAdapter;
+    ConsoleIconAdapter consoleAdapter;
+    CountryIconAdapter countryAdapter;
     LinearLayoutManager countryLayoutManager, consoleLayoutManager;
-    imagePagerAdapter imageAdapter;
+    ImagePagerAdapter imageAdapter;
     RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
     TextView title, developer, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3;
@@ -53,13 +50,13 @@ public class novelDetails extends AppCompatActivity {
     Button expandButton, seeMoreCharacters;
     ExpandableTextView description;
     ImageView icon, characterIcon1, characterIcon2, characterIcon3;
-    fixedViewPager imagePager;
-    detailsData data;
+    FixedViewPager imagePager;
+    DetailsData data;
     int novelID;
-    ArrayList<novelScreenShot> pictures = new ArrayList<>();
-    ArrayList<country> countries = new ArrayList<>();
-    ArrayList<console> consoles = new ArrayList<>();
-    ArrayList<character> characters = new ArrayList<>();
+    ArrayList<NovelScreenShot> pictures = new ArrayList<>();
+    ArrayList<Country> countries = new ArrayList<>();
+    ArrayList<Console> consoles = new ArrayList<>();
+    ArrayList<Character> characters = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,13 +92,13 @@ public class novelDetails extends AppCompatActivity {
         length = (TextView)findViewById(R.id.quickstats_length);
         description = (ExpandableTextView)findViewById(R.id.description);
         icon = (ImageView) findViewById(R.id.novel_icon);
-        icon.setImageDrawable(novelDetails.novelIcon);
-        novelDetails.novelIcon = null; //Set the icon back to null
+        icon.setImageDrawable(NovelDetails.novelIcon);
+        NovelDetails.novelIcon = null; //Set the icon back to null
 
         countryRecyclerView = (RecyclerView)findViewById(R.id.countries);
         consoleRecyclerView = (RecyclerView)findViewById(R.id.consoles);
 
-        imagePager = (fixedViewPager) findViewById(R.id.imagePager);
+        imagePager = (FixedViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
         description.setInterpolator(new OvershootInterpolator());
         expandButton.setOnClickListener(new View.OnClickListener() {
@@ -116,16 +113,16 @@ public class novelDetails extends AppCompatActivity {
         countryLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         consoleLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        countryAdapter = new countryIconAdapter(countries, getApplicationContext());
+        countryAdapter = new CountryIconAdapter(countries, getApplicationContext());
         countryRecyclerView.setLayoutManager(countryLayoutManager);
         countryRecyclerView.setAdapter(countryAdapter);
 
-        consoleAdapter = new consoleIconAdapter(consoles, getApplicationContext());
+        consoleAdapter = new ConsoleIconAdapter(consoles, getApplicationContext());
         consoleRecyclerView.setLayoutManager(consoleLayoutManager);
         consoleRecyclerView.setAdapter(consoleAdapter);
         consoleRecyclerView.setItemViewCacheSize(20);
 
-        imageAdapter = new imagePagerAdapter(getApplicationContext(),pictures, this);
+        imageAdapter = new ImagePagerAdapter(getApplicationContext(),pictures, imagePager, true);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 
@@ -139,7 +136,7 @@ public class novelDetails extends AppCompatActivity {
         }.start();
     }
 
-    public String setYear (String releasedDate) {
+    public String setYear (String releasedDate) { //Refactor
         Log.d("release",releasedDate);
         if (releasedDate.equals("tba"))
             return "TBA";
@@ -149,7 +146,7 @@ public class novelDetails extends AppCompatActivity {
 
 
     private void loadCharacterData (int id) {
-        final populateCharacters p = new populateCharacters(id);
+        final PopulateCharacters p = new PopulateCharacters(id);
         p.start();
         try {
             p.join();
@@ -200,9 +197,9 @@ public class novelDetails extends AppCompatActivity {
         seeMoreCharacters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), characterList.class);
+                Intent intent = new Intent(getApplicationContext(), CharacterList.class);
                 intent.putExtra("NOVEL_ID", novelID);
-                intent.putExtra("CHARACTERS", (Serializable) characters);
+                intent.putExtra("CHARACTERS", characters);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
             }
@@ -211,7 +208,7 @@ public class novelDetails extends AppCompatActivity {
     }
 
     private void loadNovelData (int id) {
-        final populateNovelDetails d = new populateNovelDetails(id);
+        final PopulateNovelDetails d = new PopulateNovelDetails(id);
         d.start();
         try {
             d.join();
@@ -220,8 +217,8 @@ public class novelDetails extends AppCompatActivity {
         Thread a = new Thread() {
             public void run() {
                 data = d.getData();
-                pictures = new ArrayList<novelScreenShot>(Arrays.asList(d.getScreens()));
-                pictures.add(new novelScreenShot(data.getImage())); //Add the novel icon as the last image
+                pictures = new ArrayList<>(Arrays.asList(d.getScreens()));
+                pictures.add(new NovelScreenShot(data.getImage())); //Add the novel icon as the last image
             }
         };
         a.start();
@@ -239,7 +236,7 @@ public class novelDetails extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")");
+                title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")"); //Refactor
                 votes.setText(Integer.toString(data.getVoteCount())+ " votes");
                 rating.setText(data.getRating());
                 popularity.setText(Double.toString(data.getPopularity()) + "% popularity");
@@ -251,7 +248,7 @@ public class novelDetails extends AppCompatActivity {
     private void loadCountryIcons () {
         String [] s = data.getLanguages();
         for (int x = 0; x<s.length; x++) {
-            countries.add(new country(s[x]));
+            countries.add(new Country(s[x]));
         }
         runOnUiThread(new Runnable() {
             @Override
@@ -265,7 +262,7 @@ public class novelDetails extends AppCompatActivity {
     private void loadConsoleIcons () {
         String [] s = data.getPlatforms();
         for (int x = 0; x<s.length; x++) {
-            consoles.add(new console(s[x]));
+            consoles.add(new Console(s[x]));
         }
         runOnUiThread(new Runnable() {
             @Override
@@ -277,7 +274,7 @@ public class novelDetails extends AppCompatActivity {
     }
 
     public static String removeSourceBrackets (String s) {
-        int openBraceCount = 0, closeBraceCount = 0, startSearchPosition=0, braceStartPosition=0,nextOpenBrace,nextClosedBrace;
+        int openBraceCount = 0, closeBraceCount = 0, startSearchPosition, braceStartPosition, nextOpenBrace, nextClosedBrace;
         Boolean removed = false;
 
         while (s.contains("[")&&s.contains("]")) { //repeat while the string contains braces
@@ -285,42 +282,27 @@ public class novelDetails extends AppCompatActivity {
             openBraceCount++;
 
             while (!removed) {
-                System.out.println("The search is starting at " + Integer.toString(startSearchPosition));
                 nextOpenBrace = s.indexOf("[", startSearchPosition+1);
                 nextClosedBrace = s.indexOf("]", startSearchPosition+1);
-                System.out.println("The value of nextOpenBrace is " + Integer.toString(nextOpenBrace) + " while the value of nextClosedBrace is " + Integer.toString(nextClosedBrace));
 
                 if (nextClosedBrace == -1) //Not the same number of open braces as closed braces
                     return "The passed string does not have the same number of opening braces as closing braces";
                 else if (nextOpenBrace == -1) { //There are no more open braces in the string
                     closeBraceCount ++;
                     startSearchPosition = nextClosedBrace;
-                    System.out.println("nextOpenBrace == -1");
-                    System.out.println("The brace is at location" + Integer.toString(nextClosedBrace));
                 }
                 else if (nextOpenBrace < nextClosedBrace) {      //There are 2 open braces in a row
-                    System.out.println("nextOpenBrace < nextClosedBrace");
-                    System.out.println("Open brace at location" + Integer.toString(nextOpenBrace));
                     startSearchPosition = nextOpenBrace;
                     openBraceCount++;
                 } else { //Next is a closed brace
                     closeBraceCount++;
                     startSearchPosition = nextClosedBrace;
-                    System.out.println("nextOpenBrace > nextClosedBrace");
-                    System.out.println("The brace is at location" + Integer.toString(nextClosedBrace));
                 }
-                System.out.println("The number of open braces is " + Integer.toString(openBraceCount) + " the number of close braces is " + Integer.toString(closeBraceCount));
-
                 if (closeBraceCount == openBraceCount) {
-                    System.out.println("Removing from index " + Integer.toString(startSearchPosition) + " to index " + Integer.toString(nextClosedBrace+1));
-                    System.out.println("Max string index is " + Integer.toString(s.length()-1));
-
                     String removeMe = s.substring(braceStartPosition, nextClosedBrace+1);
-                    System.out.println("Removing the string " + removeMe);
                     s = s.replace(removeMe, "");
                     removed = true;
                 }
-                System.out.println("FINISHED INNER ITERATION");
             }
             removed = false;
             openBraceCount = closeBraceCount = 0;

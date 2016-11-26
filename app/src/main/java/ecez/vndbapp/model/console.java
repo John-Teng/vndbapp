@@ -3,11 +3,11 @@ package ecez.vndbapp.model;
 /**
  * Created by Teng on 11/10/2016.
  */
-public class console {
+public class Console {
 
     private String consoleName;
 
-    public console(String console) {
+    public Console(String console) {
         this.consoleName = console;
     }
 

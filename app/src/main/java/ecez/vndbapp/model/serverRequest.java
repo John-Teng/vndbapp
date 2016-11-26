@@ -19,7 +19,7 @@ import ecez.vndbapp.view.vndatabaseapp;
 /**
  * Created by Teng on 10/13/2016.
  */
-public class serverRequest  {
+public class ServerRequest {
 
     private static final String HOST = "api.vndb.org";
     private static final int PORT = 19535;
@@ -73,7 +73,6 @@ public class serverRequest  {
 
     }
 
-
     public static String writeToServer(final String queryType, final String type, final String flags, final String filters, final String options) {
         final StringBuilder command = new StringBuilder();
         command.append(queryType);
@@ -125,7 +124,7 @@ public class serverRequest  {
     }
     public static boolean login() {
         Log.d("Login Attempt", "Attempting to Login to the server");
-        if (!serverRequest.connect())
+        if (!ServerRequest.connect())
             return false;
         vndatabaseapp.connectedToServer = true;
         String response;
@@ -138,8 +137,8 @@ public class serverRequest  {
             return true;
         else
             return false;
-        }
     }
+}
 
 
 

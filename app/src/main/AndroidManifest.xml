@@ -25,12 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.novelDetails" />
+        <activity android:name=".view.NovelDetails" />
         <activity
-            android:name=".view.imageActivity"
+            android:name=".view.ImageActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.CustomTranslucent"></activity>
-        <activity android:name=".view.characterList"></activity>
+        <activity android:name=".view.CharacterList"></activity>
     </application>
 
 </manifest>

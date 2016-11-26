@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,24 +13,23 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.model.console;
-import ecez.vndbapp.model.country;
+import ecez.vndbapp.model.Console;
 
 /**
  * Created by Teng on 10/10/2016.
  */
-public class consoleIconAdapter extends RecyclerView.Adapter<consoleIconAdapter.holder>{
+public class ConsoleIconAdapter extends RecyclerView.Adapter<ConsoleIconAdapter.holder>{
 
-    private ArrayList<console> consoles = new ArrayList<console>();
+    private ArrayList<Console> consoles = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
 
-    public consoleIconAdapter(ArrayList<console> consoles, Context context) {
+    public ConsoleIconAdapter(ArrayList<Console> consoles, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.consoles = consoles;
         this.context = context;
     }
-    public void setData (ArrayList<console> newData) {
+    public void setData (ArrayList<Console> newData) {
         this.consoles = newData; //Adds additional data
     }
     public float convertDpToPixel(float dp){
@@ -43,14 +41,13 @@ public class consoleIconAdapter extends RecyclerView.Adapter<consoleIconAdapter.
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.console_icon, parent, false);
+        View view = inflater.inflate(R.layout.icon_console, parent, false);
         return new holder(view);
     }
 
     @Override
     public void onBindViewHolder(holder holder, int position) {
-        console console = consoles.get(position);
-        Log.d("console",console.getConsoleName());
+        Console console = consoles.get(position);
 
         switch (console.getConsoleName()) {
             case "gba":
@@ -119,7 +116,6 @@ public class consoleIconAdapter extends RecyclerView.Adapter<consoleIconAdapter.
                 holder.consoleText.setText(console.getConsoleName().toUpperCase());
                 break;
         }
-        Log.d("console","Set an image");
     }
 
     @Override

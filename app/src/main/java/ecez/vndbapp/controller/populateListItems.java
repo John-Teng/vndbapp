@@ -11,27 +11,27 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import ecez.vndbapp.model.listItem;
-import ecez.vndbapp.model.serverRequest;
+import ecez.vndbapp.model.ListItem;
+import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.view.vndatabaseapp;
 
 /**
  * Created by Teng on 10/22/2016.
  */
-public class populateListItems extends Thread {
-    private ArrayList<listItem> list;
+public class PopulateListItems extends Thread {
+    private ArrayList<ListItem> list;
     private String jsonString;
     private int page;
     private final int resultPerPage = 25;
 
-    public populateListItems (ArrayList<listItem> list, int page) {
+    public PopulateListItems(ArrayList<ListItem> list, int page) {
         this.list = list;
         this.page = page;
     }
     @Override
     public void run () {
         if (vndatabaseapp.loggedIn == true)
-            jsonString = serverRequest.writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\"rating\",\"reverse\":true}");
+            jsonString = ServerRequest.writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\"rating\",\"reverse\":true}");
         else
             Log.d("Connection failure", "Cannot connect to server");
         Log.d("JSON Response",jsonString);
@@ -49,15 +49,15 @@ public class populateListItems extends Thread {
             Log.d("number of itmes",Integer.toString(numberOfResponses));
         } catch (JSONException e) {e.printStackTrace();}
         Log.d("json",jsonResponse.toString());
-        listItem[] l = gson.fromJson(jsonResponse.toString(),listItem[].class);
-        this.list = new ArrayList<listItem>(Arrays.asList(l));
+        ListItem[] l = gson.fromJson(jsonResponse.toString(),ListItem[].class);
+        this.list = new ArrayList<ListItem>(Arrays.asList(l));
         int y = (resultPerPage*page-(resultPerPage-1));
-        for (listItem x:this.list) {
+        for (ListItem x:this.list) {
             x.setRank(y);
             y ++;
         }
     }
-    public ArrayList<listItem> getList () {
+    public ArrayList<ListItem> getList () {
         return this.list;
     }
 }

@@ -3,11 +3,11 @@ package ecez.vndbapp.model;
 /**
  * Created by Teng on 10/31/2016.
  */
-public class country {
+public class Country {
 
     private String country;
 
-    public country(String country) {
+    public Country(String country) {
         this.country = country;
     }
 

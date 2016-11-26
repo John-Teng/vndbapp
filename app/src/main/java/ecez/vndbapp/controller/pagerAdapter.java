@@ -4,14 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import ecez.vndbapp.view.tabFragment1;
-import ecez.vndbapp.view.tabFragment2;
-import ecez.vndbapp.view.tabFragment3;
+import ecez.vndbapp.view.TopNovelsFragment;
+import ecez.vndbapp.view.PopularNovelsFragment;
+import ecez.vndbapp.view.NewNovelsFragment;
 
-public class pagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public pagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -21,13 +21,13 @@ public class pagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                tabFragment1 tab1 = new tabFragment1();
+                TopNovelsFragment tab1 = new TopNovelsFragment();
                 return tab1;
             case 1:
-                tabFragment2 tab2 = new tabFragment2();
+                PopularNovelsFragment tab2 = new PopularNovelsFragment();
                 return tab2;
             case 2:
-                tabFragment3 tab3 = new tabFragment3();
+                NewNovelsFragment tab3 = new NewNovelsFragment();
                 return tab3;
             default:
                 return null;

@@ -8,10 +8,10 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="ecez.vndbapp.view.imageActivity">
+    tools:context=".view.ImageActivity">
     <!--style="@style/Theme.CustomTranslucent"-->
 
-    <ecez.vndbapp.model.fixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    <ecez.vndbapp.model.FixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fullscreen_imagePager"
         android:background="@color/colorTransparent"
         android:layout_height="match_parent"

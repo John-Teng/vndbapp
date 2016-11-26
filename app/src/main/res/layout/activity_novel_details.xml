@@ -51,7 +51,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_above="@id/countries_label"
                 android:background="#DCDCDC"/>
 
             <TextView
@@ -100,7 +99,7 @@
                 android:textSize="20dp"
                 android:id="@+id/imagePager_label"/>
 
-            <ecez.vndbapp.model.fixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+            <ecez.vndbapp.model.FixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/imagePager"
                 android:background="@color/colorLightGray"
                 android:layout_height="175dp"

@@ -11,35 +11,33 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.model.country;
+import ecez.vndbapp.model.Country;
 
 /**
  * Created by Teng on 10/10/2016.
  */
-public class countryIconAdapter extends RecyclerView.Adapter<countryIconAdapter.holder>{
+public class CountryIconAdapter extends RecyclerView.Adapter<CountryIconAdapter.holder>{
 
-    private ArrayList<country> countries = new ArrayList<country>();
+    private ArrayList<Country> countries = new ArrayList<>();
     private LayoutInflater inflater;
-    private Context context;
 
-    public countryIconAdapter(ArrayList<country> countries, Context context) {
+    public CountryIconAdapter(ArrayList<Country> countries, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.countries = countries;
-        this.context = context;
     }
-    public void setData (ArrayList<country> newData) {
+    public void setData (ArrayList<Country> newData) {
         this.countries = newData; //Adds additional data
     }
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.country_icon, parent, false);
+        View view = inflater.inflate(R.layout.icon_country, parent, false);
         return new holder(view);
     }
 
     @Override
     public void onBindViewHolder(holder holder, int position) {
-        country country = countries.get(position);
+        Country country = countries.get(position);
 
         switch (country.getCountry()) {
             case "en":
@@ -87,7 +85,6 @@ public class countryIconAdapter extends RecyclerView.Adapter<countryIconAdapter.
                 holder.country.setText(country.getCountry().toUpperCase());
                 holder.image.setImageResource(R.drawable.eu);
         }
-
     }
 
     @Override

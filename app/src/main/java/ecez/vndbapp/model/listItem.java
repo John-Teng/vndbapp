@@ -6,17 +6,15 @@ import android.widget.ProgressBar;
 /**
  * Created by Teng on 10/10/2016.
  */
-public class listItem {
+public class ListItem {
 
     private Double rating;
     private int length, rank;
     private String image ,released, title, id;
 
-    public listItem () {
+    public ListItem() {}
 
-    }
-
-    public listItem (String title, Double rating, int length, String image, int rank, String id, String released) {
+    public ListItem(String title, Double rating, int length, String image, int rank, String id, String released) {
         this.title = title;
         this.rating = rating;
         this.length = length;
@@ -91,7 +89,5 @@ public class listItem {
     public int getRank() {
         return rank;
     }
-//    public void setImageResourceId(String imageResourceId) {
-//        this.image = imageResourceId;
-//    }
+
 }
