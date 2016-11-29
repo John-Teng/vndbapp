@@ -29,8 +29,9 @@
         <activity
             android:name=".view.ImageActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.CustomTranslucent"></activity>
-        <activity android:name=".view.CharacterList"></activity>
+            android:theme="@style/Theme.CustomTranslucent" />
+        <activity android:name=".view.CharacterList" />
+        <activity android:name=".view.CharacterProfile"></activity>
     </application>
 
 </manifest>
