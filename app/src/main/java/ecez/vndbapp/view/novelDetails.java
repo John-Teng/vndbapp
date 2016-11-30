@@ -68,7 +68,7 @@ public class NovelDetails extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(Color.GRAY);
 
-        toolbar = (Toolbar) findViewById(R.id.details_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.default_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -84,8 +84,8 @@ public class NovelDetails extends AppCompatActivity {
         characterRole3 = (TextView) findViewById(R.id.character_role3);
         seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
 
-        title = (TextView)findViewById(R.id.appbar_title);
-        developer = (TextView) findViewById(R.id.appbar_subtitle);
+        title = (TextView)findViewById(R.id.toolbar_title);
+        developer = (TextView) findViewById(R.id.toolbar_subtitle);
         votes = (TextView) findViewById(R.id.quickstats_votes);
         rating = (TextView)findViewById(R.id.quickstats_rating);
         popularity = (TextView)findViewById(R.id.quickstats_popularity);

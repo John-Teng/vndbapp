@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorLightGray"
     android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:paddingLeft="20dp"
         android:gravity="center_vertical"
+        android:background="@color/colorLightGray"
         android:textSize="18dp"
         android:text="General Details"
         android:id="@+id/character_profile_stats_label" />
@@ -21,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -30,6 +34,7 @@
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:text="Original Name"
+            android:background="@color/colorLightGray"
             android:id="@+id/character_original_name_label" />
 
         <TextView
@@ -37,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Lelouch Lamperouge"
+            android:background="@color/colorLightGray"
             android:paddingRight="10dp"
             android:id="@+id/character_original_name" />
     </LinearLayout>
@@ -52,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -61,6 +68,7 @@
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:text="Gender"
+            android:background="@color/colorLightGray"
             android:id="@+id/character_gender_label" />
 
         <TextView
@@ -69,6 +77,7 @@
             android:layout_weight="1"
             android:text="Triggered"
             android:paddingRight="10dp"
+            android:background="@color/colorLightGray"
             android:id="@+id/character_gender" />
     </LinearLayout>
 
@@ -81,6 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -90,6 +100,7 @@
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:text="Blood Type"
+            android:background="@color/colorLightGray"
             android:id="@+id/character_blood_type_label" />
 
         <TextView
@@ -98,6 +109,7 @@
             android:layout_weight="1"
             android:text="O Neg"
             android:paddingRight="10dp"
+            android:background="@color/colorLightGray"
             android:id="@+id/character_blood_type" />
     </LinearLayout>
     <View
@@ -110,6 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -118,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="10dp"
+            android:background="@color/colorLightGray"
             android:text="Birthday"
             android:id="@+id/character_birthday_label" />
 
@@ -126,6 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="11 / 17"
+            android:background="@color/colorLightGray"
             android:paddingRight="10dp"
             android:id="@+id/character_birthday" />
     </LinearLayout>
@@ -140,6 +155,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -148,6 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="10dp"
+            android:background="@color/colorLightGray"
             android:text="Other Names"
             android:id="@+id/character_aliases_label" />
 
@@ -155,6 +172,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorLightGray"
             android:text="Bob the builder"
             android:paddingRight="10dp"
             android:id="@+id/character_aliases" />

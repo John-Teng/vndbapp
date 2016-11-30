@@ -10,7 +10,7 @@
 
 
         <include
-            layout="@layout/novel_details_toolbar"
+            layout="@layout/default_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"/>

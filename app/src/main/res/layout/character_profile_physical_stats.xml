@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorLightGray"
     android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
@@ -9,6 +11,7 @@
         android:gravity="center_vertical"
         android:textSize="18dp"
         android:text="Physical Details"
+        android:background="@color/colorLightGray"
         android:id="@+id/character_profile_physical_stats_label" />
 
 
@@ -21,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -29,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="10dp"
+            android:background="@color/colorLightGray"
             android:text="Height"
             android:id="@+id/character_height_label" />
 
@@ -36,6 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorLightGray"
             android:text="180 cm"
             android:paddingRight="10dp"
             android:id="@+id/character_height" />
@@ -51,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -60,6 +67,7 @@
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:text="Weight"
+            android:background="@color/colorLightGray"
             android:id="@+id/character_weight_label" />
 
         <TextView
@@ -67,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="60 kg"
+            android:background="@color/colorLightGray"
             android:paddingRight="10dp"
             android:id="@+id/character_weight" />
     </LinearLayout>
@@ -80,6 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -87,6 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorLightGray"
             android:paddingLeft="10dp"
             android:text="Bust"
             android:id="@+id/character_bust_label" />
@@ -94,6 +105,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/colorLightGray"
             android:layout_weight="1"
             android:text="-5 cm"
             android:paddingRight="10dp"
@@ -109,6 +121,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -116,6 +129,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorLightGray"
             android:paddingLeft="10dp"
             android:text="Waist"
             android:id="@+id/character_waist_label" />
@@ -124,6 +138,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/colorLightGray"
             android:text="4 m"
             android:paddingRight="10dp"
             android:id="@+id/character_waist" />
@@ -138,6 +153,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/colorLightGray"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:weightSum="2">
@@ -147,6 +163,7 @@
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:text="Hip"
+            android:background="@color/colorLightGray"
             android:id="@+id/character_hip_label" />
 
         <TextView
@@ -155,6 +172,7 @@
             android:layout_weight="1"
             android:text="20 cm"
             android:paddingRight="10dp"
+            android:background="@color/colorLightGray"
             android:id="@+id/character_hip" />
     </LinearLayout>
     <View
