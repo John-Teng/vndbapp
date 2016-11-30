@@ -1,6 +1,7 @@
 package ecez.vndbapp.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.Character;
+import ecez.vndbapp.view.CharacterProfile;
+import ecez.vndbapp.view.ImageActivity;
 
 /**
  * Created by Teng on 10/10/2016.
@@ -42,6 +45,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.hold
             @Override
             public void onClick(View v) {
                 int itemPosition = recyclerViewReference.getChildLayoutPosition(view);
+                Intent intent = new Intent(context, CharacterProfile.class);
+                intent.putExtra("CHARACTER", characters.get(itemPosition));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
         return new holder(view);

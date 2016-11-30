@@ -118,8 +118,10 @@ public class Character implements Serializable {
         this.image = image;
     }
 
-    public Integer[] getBirthday() {
-        return birthday;
+    public String getBirthday() {
+        if (birthday[0] == null || birthday[1]==null)
+            return null;
+        return birthday[1] + "/" + birthday[0];
     }
 
     public void setBirthday(Integer[] birthday) {
