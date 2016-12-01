@@ -31,7 +31,6 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin">
 
-
             <include
                 layout="@layout/character_profile_stats"
                 android:layout_width="match_parent"

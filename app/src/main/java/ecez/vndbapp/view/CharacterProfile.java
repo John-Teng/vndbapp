@@ -43,16 +43,16 @@ public class CharacterProfile extends AppCompatActivity {
         hip = (TextView) findViewById(R.id.character_hip);
         picture = (ImageView) findViewById(R.id.character_profile_image);
 
-        TextView originalNameLabel = (TextView) findViewById(R.id.character_original_name_label);
-        TextView genderLabel = (TextView) findViewById(R.id.character_gender_label);
-        TextView bloodTypeLabel = (TextView) findViewById(R.id.character_blood_type_label);
-        TextView birthdayLabel = (TextView) findViewById(R.id.character_birthday_label);
-        TextView otherNamesLabel = (TextView) findViewById(R.id.character_aliases_label);
-        TextView heightLabel = (TextView) findViewById(R.id.character_height_label);
-        TextView weightLabel = (TextView) findViewById(R.id.character_weight_label);
-        TextView bustLabel = (TextView) findViewById(R.id.character_bust_label);
-        TextView waistLabel = (TextView) findViewById(R.id.character_waist_label);
-        TextView hipLabel = (TextView) findViewById(R.id.character_hip_label);
+        View originalNameLayout = findViewById(R.id.character_original_name_layout);
+        View genderLayout = findViewById(R.id.character_gender_layout);
+        View bloodTypeLayout =  findViewById(R.id.character_blood_type_layout);
+        View birthdayLayout =  findViewById(R.id.character_birthday_layout);
+        View otherNamesLayout =  findViewById(R.id.character_aliases_layout);
+        View heightLayout = findViewById(R.id.character_height_layout);
+        View weightLayout =  findViewById(R.id.character_weight_layout);
+        View bustLayout = findViewById(R.id.character_bust_layout);
+        View waistLayout =  findViewById(R.id.character_waist_layout);
+        View hipLayout = findViewById(R.id.character_hip_layout);
 
         Picasso
                 .with(getApplicationContext())
@@ -63,16 +63,16 @@ public class CharacterProfile extends AppCompatActivity {
 
         name.setText(character.getName());
         loadTextView(description, character.getDescription());
-        loadTextView(originalName,originalNameLabel,character.getOriginal());
-        loadTextView(gender,genderLabel,character.getGender());
-        loadTextView(bloodType,bloodTypeLabel,character.getBloodt());
-        loadTextView(birthday,birthdayLabel,character.getBirthday());
-        loadTextView(otherNames,otherNamesLabel,character.getAliases());
-        loadTextView(height,heightLabel,character.getHeight());
-        loadTextView(weight,weightLabel,character.getWeight());
-        loadTextView(bust,bustLabel,character.getBust());
-        loadTextView(waist,waistLabel,character.getWaist());
-        loadTextView(hip,hipLabel,character.getHip());
+        loadTextView(originalName,originalNameLayout,character.getOriginal());
+        loadTextView(gender,genderLayout,character.getGender());
+        loadTextView(bloodType,bloodTypeLayout,character.getBloodt());
+        loadTextView(birthday,birthdayLayout,character.getBirthday());
+        loadTextView(otherNames,otherNamesLayout,character.getAliases());
+        loadTextView(height,heightLayout,character.getHeight());
+        loadTextView(weight,weightLayout,character.getWeight());
+        loadTextView(bust,bustLayout,character.getBust());
+        loadTextView(waist,waistLayout,character.getWaist());
+        loadTextView(hip,hipLayout,character.getHip());
 
         picture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,18 +94,18 @@ public class CharacterProfile extends AppCompatActivity {
         }
     }
 
-    private void loadTextView(TextView field, TextView label, Integer data) {
+    private void loadTextView(TextView field, View layout, Integer data) {
         if (data == null) {
-            label.setVisibility(View.GONE);
+            layout.setVisibility(View.GONE);
             field.setVisibility(View.GONE);
         } else {
             field.setText(Integer.toString(data));
         }
     }
 
-    private void loadTextView(TextView field, TextView label, String data) {
+    private void loadTextView(TextView field, View Layout, String data) {
         if (data == null) {
-            label.setVisibility(View.GONE);
+            Layout.setVisibility(View.GONE);
             field.setVisibility(View.GONE);
         } else {
             field.setText(data);

@@ -14,169 +14,200 @@
         android:text="General Details"
         android:id="@+id/character_profile_stats_label" />
 
-
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DCDCDC"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/character_original_name_layout">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/colorLightGray"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Original Name"
+                android:background="@color/colorLightGray"
+                android:id="@+id/character_original_name_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lelouch Lamperouge"
+                android:background="@color/colorLightGray"
+                android:paddingRight="10dp"
+                android:id="@+id/character_original_name" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/character_gender_layout">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/imagePager"
+            android:background="#DCDCDC"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/colorLightGray"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Gender"
+                android:background="@color/colorLightGray"
+                android:id="@+id/character_gender_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Triggered"
+                android:paddingRight="10dp"
+                android:background="@color/colorLightGray"
+                android:id="@+id/character_gender" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
+        android:orientation="vertical"
+        android:id="@+id/character_blood_type_layout">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/imagePager"
+            android:background="#DCDCDC"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="Original Name"
+            android:orientation="horizontal"
             android:background="@color/colorLightGray"
-            android:id="@+id/character_original_name_label" />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Blood Type"
+                android:background="@color/colorLightGray"
+                android:id="@+id/character_blood_type_label" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Lelouch Lamperouge"
-            android:background="@color/colorLightGray"
-            android:paddingRight="10dp"
-            android:id="@+id/character_original_name" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="O Neg"
+                android:paddingRight="10dp"
+                android:background="@color/colorLightGray"
+                android:id="@+id/character_blood_type" />
+        </LinearLayout>
     </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/imagePager"
-        android:background="#DCDCDC"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="Gender"
-            android:background="@color/colorLightGray"
-            android:id="@+id/character_gender_label" />
+        android:orientation="vertical"
+        android:id="@+id/character_birthday_layout">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/imagePager"
+            android:background="#DCDCDC"/>
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Triggered"
-            android:paddingRight="10dp"
+            android:orientation="horizontal"
             android:background="@color/colorLightGray"
-            android:id="@+id/character_gender" />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:background="@color/colorLightGray"
+                android:text="Birthday"
+                android:id="@+id/character_birthday_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="11 / 17"
+                android:background="@color/colorLightGray"
+                android:paddingRight="10dp"
+                android:id="@+id/character_birthday" />
+        </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/imagePager"
-        android:background="#DCDCDC"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="Blood Type"
-            android:background="@color/colorLightGray"
-            android:id="@+id/character_blood_type_label" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="O Neg"
-            android:paddingRight="10dp"
-            android:background="@color/colorLightGray"
-            android:id="@+id/character_blood_type" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/imagePager"
-        android:background="#DCDCDC"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:background="@color/colorLightGray"
-            android:text="Birthday"
-            android:id="@+id/character_birthday_label" />
+        android:orientation="vertical"
+        android:id="@+id/character_aliases_layout">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/imagePager"
+            android:background="#DCDCDC"/>
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="11 / 17"
+            android:orientation="horizontal"
             android:background="@color/colorLightGray"
-            android:paddingRight="10dp"
-            android:id="@+id/character_birthday" />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:background="@color/colorLightGray"
+                android:text="Other Names"
+                android:id="@+id/character_aliases_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightGray"
+                android:text="Bob the builder"
+                android:paddingRight="10dp"
+                android:id="@+id/character_aliases" />
+        </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/imagePager"
-        android:background="#DCDCDC"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:background="@color/colorLightGray"
-            android:text="Other Names"
-            android:id="@+id/character_aliases_label" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorLightGray"
-            android:text="Bob the builder"
-            android:paddingRight="10dp"
-            android:id="@+id/character_aliases" />
-    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

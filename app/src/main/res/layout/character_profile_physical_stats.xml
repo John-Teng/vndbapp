@@ -14,167 +14,201 @@
         android:background="@color/colorLightGray"
         android:id="@+id/character_profile_physical_stats_label" />
 
-
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DCDCDC"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/character_height_layout">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/colorLightGray"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:background="@color/colorLightGray"
+                android:text="Height"
+                android:id="@+id/character_height_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightGray"
+                android:text="180 cm"
+                android:paddingRight="10dp"
+                android:id="@+id/character_height" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:background="@color/colorLightGray"
-            android:text="Height"
-            android:id="@+id/character_height_label" />
+        android:orientation="vertical"
+        android:id="@+id/character_weight_layout">
 
-        <TextView
-            android:layout_width="0dp"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:orientation="horizontal"
             android:background="@color/colorLightGray"
-            android:text="180 cm"
-            android:paddingRight="10dp"
-            android:id="@+id/character_height" />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Weight"
+                android:background="@color/colorLightGray"
+                android:id="@+id/character_weight_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="60 kg"
+                android:background="@color/colorLightGray"
+                android:paddingRight="10dp"
+                android:id="@+id/character_weight" />
+        </LinearLayout>
     </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DCDCDC"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="Weight"
-            android:background="@color/colorLightGray"
-            android:id="@+id/character_weight_label" />
+        android:orientation="vertical"
+        android:id="@+id/character_bust_layout">
 
-        <TextView
-            android:layout_width="0dp"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="60 kg"
+            android:orientation="horizontal"
             android:background="@color/colorLightGray"
-            android:paddingRight="10dp"
-            android:id="@+id/character_weight" />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightGray"
+                android:paddingLeft="10dp"
+                android:text="Bust"
+                android:id="@+id/character_bust_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:layout_weight="1"
+                android:text="-5 cm"
+                android:paddingRight="10dp"
+                android:id="@+id/character_bust" />
+        </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DCDCDC"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorLightGray"
-            android:paddingLeft="10dp"
-            android:text="Bust"
-            android:id="@+id/character_bust_label" />
+        android:orientation="vertical"
+        android:id="@+id/character_waist_layout">
 
-        <TextView
-            android:layout_width="0dp"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:background="@color/colorLightGray"
-            android:layout_weight="1"
-            android:text="-5 cm"
-            android:paddingRight="10dp"
-            android:id="@+id/character_bust" />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightGray"
+                android:paddingLeft="10dp"
+                android:text="Waist"
+                android:id="@+id/character_waist_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorLightGray"
+                android:text="4 m"
+                android:paddingRight="10dp"
+                android:id="@+id/character_waist" />
+        </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DCDCDC"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/colorLightGray"
-            android:paddingLeft="10dp"
-            android:text="Waist"
-            android:id="@+id/character_waist_label" />
+        android:orientation="vertical"
+        android:id="@+id/character_hip_layout">
 
-        <TextView
-            android:layout_width="0dp"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:orientation="horizontal"
             android:background="@color/colorLightGray"
-            android:text="4 m"
-            android:paddingRight="10dp"
-            android:id="@+id/character_waist" />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Hip"
+                android:background="@color/colorLightGray"
+                android:id="@+id/character_hip_label" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="20 cm"
+                android:paddingRight="10dp"
+                android:background="@color/colorLightGray"
+                android:id="@+id/character_hip" />
+        </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DCDCDC"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="Hip"
-            android:background="@color/colorLightGray"
-            android:id="@+id/character_hip_label" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="20 cm"
-            android:paddingRight="10dp"
-            android:background="@color/colorLightGray"
-            android:id="@+id/character_hip" />
-    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

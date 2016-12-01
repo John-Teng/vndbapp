@@ -22,41 +22,49 @@ public class Character implements Serializable {
         this.id = id;
     }
 
-    public Integer getBust() {
-        return bust;
+    public String getBust() {
+        if (bust==null)
+            return null;
+        return bust+" cm";
     }
 
     public void setBust(Integer bust) {
         this.bust = bust;
     }
 
-    public Integer getWaist() {
-        return waist;
+    public String getWaist() {
+        if (waist==null)
+            return null;
+        return waist+" cm";
     }
 
     public void setWaist(Integer waist) {
         this.waist = waist;
     }
 
-    public Integer getHip() {
-        return hip;
-    }
+    public String getHip() {
+        if (hip==null)
+            return null;
+        return hip+" cm";    }
 
     public void setHip(Integer hip) {
         this.hip = hip;
     }
 
-    public Integer getHeight() {
-        return height;
+    public String getHeight() {
+        if (height==null)
+            return null;
+        return height+" cm";
     }
 
     public void setHeight(Integer height) {
         this.height = height;
     }
 
-    public Integer getWeight() {
-        return weight;
-    }
+    public String getWeight() {
+        if (weight==null)
+            return null;
+        return weight+" kg";    }
 
     public void setWeight(Integer weight) {
         this.weight = weight;
@@ -79,7 +87,18 @@ public class Character implements Serializable {
     }
 
     public String getGender() {
-        return gender;
+        if (gender==null)
+            return null;
+        switch (gender) {
+            case "m":
+                return "Male";
+            case "f":
+                return "Female";
+            case "b":
+                return "Both";
+            default:
+                return "Unknown";
+        }
     }
 
     public void setGender(String gender) {
@@ -87,7 +106,9 @@ public class Character implements Serializable {
     }
 
     public String getBloodt() {
-        return bloodt;
+        if (bloodt==null)
+            return null;
+        return bloodt.toUpperCase();
     }
 
     public void setBloodt(String bloodt) {
