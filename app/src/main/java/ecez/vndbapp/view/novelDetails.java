@@ -150,7 +150,9 @@ public class NovelDetails extends AppCompatActivity {
         p.start();
         try {
             p.join();
-        } catch (InterruptedException f) { f.printStackTrace(); }
+        } catch (InterruptedException f) {
+            f.printStackTrace();
+        }
 
         Thread a = new Thread() {
             public void run() {
@@ -160,7 +162,9 @@ public class NovelDetails extends AppCompatActivity {
         a.start();
         try {
             a.join();
-        } catch (InterruptedException f) { f.printStackTrace(); }
+        } catch (InterruptedException f) {
+            f.printStackTrace();
+        }
 
         runOnUiThread(new Runnable() {
             @Override
@@ -205,6 +209,27 @@ public class NovelDetails extends AppCompatActivity {
             }
         });
 
+        final View characterLabel1 = findViewById(R.id.character_layout1);
+        final View characterLabel2 = findViewById(R.id.character_layout2);
+        final View characterLabel3 = findViewById(R.id.character_layout3);
+
+        View.OnClickListener clickHandler = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CharacterProfile.class);
+                if (v==characterLabel1)
+                    intent.putExtra("CHARACTER", characters.get(0));
+                else if (v == characterLabel2)
+                    intent.putExtra("CHARACTER", characters.get(1));
+                else
+                    intent.putExtra("CHARACTER", characters.get(2));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
+            }
+        };
+        characterLabel1.setOnClickListener(clickHandler);
+        characterLabel2.setOnClickListener(clickHandler);
+        characterLabel3.setOnClickListener(clickHandler);
     }
 
     private void loadNovelData (int id) {

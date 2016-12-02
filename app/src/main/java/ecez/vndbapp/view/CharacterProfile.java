@@ -1,9 +1,12 @@
 package ecez.vndbapp.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +28,11 @@ public class CharacterProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_profile);
+
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(Color.GRAY);
 
         Intent intent = getIntent();
         character = (Character) intent.getSerializableExtra("CHARACTER");
@@ -74,16 +82,6 @@ public class CharacterProfile extends AppCompatActivity {
         loadTextView(waist,waistLayout,character.getWaist());
         loadTextView(hip,hipLayout,character.getHip());
 
-        picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ImageActivity.class);
-                intent.putExtra("POSITION", 0);
-                intent.putExtra("IMAGE_URLS", new ArrayList<NovelScreenShot>().add(new NovelScreenShot(character.getImage())));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(intent);
-            }
-        });
     }
 
     private void loadTextView (TextView field, String data) {
