@@ -23,6 +23,8 @@ public class CharacterProfile extends AppCompatActivity {
     private TextView name, originalName, gender, bloodType, birthday, otherNames,
             description, height, weight, bust, waist, hip;
     private ImageView picture;
+    final int NUM_OF_BASIC_STATS = 5, NUM_OF_PHYSICAL_STATS = 5;
+    private int [] numOfHiddenStats = {0,0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,17 +73,21 @@ public class CharacterProfile extends AppCompatActivity {
 
         name.setText(character.getName());
         loadTextView(description, character.getDescription());
-        loadTextView(originalName,originalNameLayout,character.getOriginal());
-        loadTextView(gender,genderLayout,character.getGender());
-        loadTextView(bloodType,bloodTypeLayout,character.getBloodt());
-        loadTextView(birthday,birthdayLayout,character.getBirthday());
-        loadTextView(otherNames,otherNamesLayout,character.getAliases());
-        loadTextView(height,heightLayout,character.getHeight());
-        loadTextView(weight,weightLayout,character.getWeight());
-        loadTextView(bust,bustLayout,character.getBust());
-        loadTextView(waist,waistLayout,character.getWaist());
-        loadTextView(hip,hipLayout,character.getHip());
+        loadTextView(originalName,originalNameLayout,character.getOriginal(), StatType.BASICSTAT);
+        loadTextView(gender,genderLayout,character.getGender(),StatType.BASICSTAT);
+        loadTextView(bloodType,bloodTypeLayout,character.getBloodt(),StatType.BASICSTAT);
+        loadTextView(birthday,birthdayLayout,character.getBirthday(),StatType.BASICSTAT);
+        loadTextView(otherNames,otherNamesLayout,character.getAliases(),StatType.BASICSTAT);
+        loadTextView(height,heightLayout,character.getHeight(),StatType.PHYSICALSTAT);
+        loadTextView(weight,weightLayout,character.getWeight(),StatType.PHYSICALSTAT);
+        loadTextView(bust,bustLayout,character.getBust(),StatType.PHYSICALSTAT);
+        loadTextView(waist,waistLayout,character.getWaist(),StatType.PHYSICALSTAT);
+        loadTextView(hip,hipLayout,character.getHip(),StatType.PHYSICALSTAT);
 
+        if (numOfHiddenStats[0] == NUM_OF_BASIC_STATS)
+            findViewById(R.id.character_profile_basic_stats_label).setVisibility(View.GONE);
+        if (numOfHiddenStats[1] == NUM_OF_PHYSICAL_STATS)
+            findViewById(R.id.character_profile_physical_stats_label).setVisibility(View.GONE);
     }
 
     private void loadTextView (TextView field, String data) {
@@ -92,21 +98,23 @@ public class CharacterProfile extends AppCompatActivity {
         }
     }
 
-    private void loadTextView(TextView field, View layout, Integer data) {
-        if (data == null) {
-            layout.setVisibility(View.GONE);
-            field.setVisibility(View.GONE);
-        } else {
-            field.setText(Integer.toString(data));
-        }
-    }
 
-    private void loadTextView(TextView field, View Layout, String data) {
+    private void loadTextView(TextView field, View Layout, String data, StatType stat) {
         if (data == null) {
+            if (stat == StatType.BASICSTAT)
+                numOfHiddenStats[0] ++;
+            else if (stat == StatType.PHYSICALSTAT)
+                numOfHiddenStats[1] ++;
             Layout.setVisibility(View.GONE);
             field.setVisibility(View.GONE);
         } else {
             field.setText(data);
         }
     }
+
+}
+
+enum StatType {
+    BASICSTAT,
+    PHYSICALSTAT
 }
