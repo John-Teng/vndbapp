@@ -1,7 +1,9 @@
 package ecez.vndbapp.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,11 +28,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.holder
     private ArrayList<ListItem> listData;
     private LayoutInflater inflater;
     private Context context;
+    private Activity activityReference;
 
-    public RecyclerAdapter(ArrayList<ListItem> listData, Context context) {
+    public RecyclerAdapter(ArrayList<ListItem> listData, Context context, Activity activityReference) {
         this.inflater = LayoutInflater.from(context);
         this.listData = listData;
         this.context = context;
+        this.activityReference = activityReference;
     }
     public void setData (ArrayList<ListItem> newData) {
         this.listData = newData; //Adds additional data
@@ -45,12 +49,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.holder
                 int itemPosition = TopNovelsFragment.recyclerView.getChildLayoutPosition(view);
                 String id = listData.get(itemPosition).getId();
 
-                final ImageView image = (ImageView) view.findViewById(R.id.picture);
+                ImageView image = (ImageView) view.findViewById(R.id.picture);
                 NovelDetails.novelIcon = image.getDrawable();
 
                 Intent intent = new Intent(context, NovelDetails.class);
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(activityReference, (View)image, "profile");
                 intent.putExtra("NOVEL_ID", id);
-                context.startActivity(intent);
+                context.startActivity(intent, options.toBundle());
             }
         });
         return new holder(view);

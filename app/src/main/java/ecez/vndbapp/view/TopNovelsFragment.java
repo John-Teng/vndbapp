@@ -56,7 +56,7 @@ public class TopNovelsFragment extends Fragment {
         Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
 
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(loadedCards, this.getContext());
+        adapter = new RecyclerAdapter(loadedCards, this.getContext(), getActivity());
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(loadedCards.size()));
         recyclerView.setAdapter(adapter);
 
