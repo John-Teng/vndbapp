@@ -1,8 +1,5 @@
 package ecez.vndbapp.model;
 
-import android.util.Log;
-import android.widget.ProgressBar;
-
 /**
  * Created by Teng on 10/10/2016.
  */
@@ -36,6 +33,16 @@ public class ListItem {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getTitleWithDate() {
+        if (released.equals("tba"))
+            return "TBA";
+        return title + " (" + released.substring(0,released.indexOf("-")) + ")";
+    }
+
+    public String getTitleWithDateAndRank () {
+        return "#" + Integer.toString(rank) + " - " + this.getTitleWithDate();
     }
 
     public void setTitle(String title) {
@@ -86,6 +93,7 @@ public class ListItem {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
     public int getRank() {
         return rank;
     }

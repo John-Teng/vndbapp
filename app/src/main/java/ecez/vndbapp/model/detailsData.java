@@ -68,16 +68,16 @@ public class DetailsData {
         this.description = description;
     }
 
-    public double getPopularity() {
-        return popularity;
+    public String getPopularity() {
+        return Double.toString(popularity) + "% popularity";
     }
 
     public void setPopularity(double popularity) {
         this.popularity = popularity;
     }
 
-    public int getVoteCount() {
-        return votecount;
+    public String getVoteCount() {
+        return Integer.toString(votecount) + " votes";
     }
 
     public void setVoteCount(int votecount) {
@@ -90,6 +90,12 @@ public class DetailsData {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getTitleWithDate() {
+        if (released.equals("tba"))
+                return "TBA";
+        return title + " (" + released.substring(0,released.indexOf("-")) + ")";
     }
 
     public void setTitle(String title) {
@@ -140,6 +146,7 @@ public class DetailsData {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
     public int getRank() {
         return rank;
     }

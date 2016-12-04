@@ -72,7 +72,6 @@ public class NovelDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         characterIcon1 = (ImageView) findViewById(R.id.character_image1);
         characterIcon2 = (ImageView) findViewById(R.id.character_image2);
         characterIcon3 = (ImageView) findViewById(R.id.character_image3);
@@ -135,15 +134,6 @@ public class NovelDetails extends AppCompatActivity {
             }
         }.start();
     }
-
-    public String setYear (String releasedDate) { //Refactor
-        Log.d("release",releasedDate);
-        if (releasedDate.equals("tba"))
-            return "TBA";
-        else
-            return releasedDate.substring(0,releasedDate.indexOf("-"));
-    }
-
 
     private void loadCharacterData (int id) {
         final PopulateCharacters p = new PopulateCharacters(id);
@@ -261,10 +251,10 @@ public class NovelDetails extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                title.setText(data.getTitle() + " (" + setYear(data.getReleased()) + ")"); //Refactor
-                votes.setText(Integer.toString(data.getVoteCount())+ " votes");
+                title.setText(data.getTitleWithDate());
+                votes.setText(data.getVoteCount());
                 rating.setText(data.getRating());
-                popularity.setText(Double.toString(data.getPopularity()) + "% popularity");
+                popularity.setText(data.getPopularity());
                 length.setText(data.getLength());
             }
         });
@@ -353,7 +343,6 @@ public class NovelDetails extends AppCompatActivity {
             }
         });
     }
-
 
     private void loadImages () {
         runOnUiThread(new Runnable() {

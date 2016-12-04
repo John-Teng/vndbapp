@@ -66,17 +66,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.holder
     @Override
     public void onBindViewHolder(holder holder, int position) {
         ListItem item = listData.get(position);
-        holder.titleText.setText("#"+item.getRank()+" - "+item.getTitle()+ " ("+setYear(item.getReleased())+")"); //Refactor
+        holder.titleText.setText(item.getTitleWithDateAndRank());
         holder.ratingText.setText(item.getRating());
         holder.lengthText.setText(item.getLength());
         Picasso.with(context).load(item.getImage()).fit().into(holder.image);
-    }
-
-    public String setYear (String releasedDate) {
-        if (releasedDate.equals("tba"))
-            return "TBA";
-        else
-            return releasedDate.substring(0,releasedDate.indexOf("-"));
     }
 
     @Override
