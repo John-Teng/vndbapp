@@ -21,6 +21,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
@@ -57,6 +59,9 @@ public class NovelDetails extends AppCompatActivity {
     ArrayList<Country> countries = new ArrayList<>();
     ArrayList<Console> consoles = new ArrayList<>();
     ArrayList<Character> characters = new ArrayList<>();
+    View quickstats, bodyLayout;
+    final int TIMER_TIME = 500;
+    private boolean viewsAreLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +98,9 @@ public class NovelDetails extends AppCompatActivity {
         icon = (ImageView) findViewById(R.id.novel_icon);
         icon.setImageDrawable(NovelDetails.novelIcon);
         NovelDetails.novelIcon = null; //Set the icon back to null
+
+        quickstats = findViewById(R.id.quickstats); //References to the invisible layouts so that they can be set to visible when items are loaded
+        bodyLayout = findViewById(R.id.details_content_layout);
 
         countryRecyclerView = (RecyclerView)findViewById(R.id.countries);
         consoleRecyclerView = (RecyclerView)findViewById(R.id.consoles);
@@ -133,6 +141,24 @@ public class NovelDetails extends AppCompatActivity {
                 loadCharacterData(novelID);
             }
         }.start();
+
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (viewsAreLoaded) {
+                    timer.cancel();
+                    timer.purge();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            bodyLayout.setVisibility(View.VISIBLE);
+                            quickstats.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+        }, TIMER_TIME);
     }
 
     private void loadCharacterData (int id) {
@@ -240,14 +266,22 @@ public class NovelDetails extends AppCompatActivity {
         try {
             a.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
-        loadImages();
-        loadViews();
-        loadCountryIcons();
-        loadConsoleIcons();
-        loadDescription();
+
+        Thread b = new Thread() {
+            public void run() {
+                loadCountryIcons();
+                loadConsoleIcons();
+                loadDescription();
+            }
+        };
+        b.start();
+        try {
+            b.join();
+        } catch (InterruptedException f) { f.printStackTrace(); }
+        loadNovelViews();
     }
 
-    private void loadViews() {
+    private void loadNovelViews() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -256,6 +290,9 @@ public class NovelDetails extends AppCompatActivity {
                 rating.setText(data.getRating());
                 popularity.setText(data.getPopularity());
                 length.setText(data.getLength());
+                imageAdapter.setImage(pictures);
+                imageAdapter.notifyDataSetChanged();
+                viewsAreLoaded = true;
             }
         });
     }
@@ -288,7 +325,7 @@ public class NovelDetails extends AppCompatActivity {
         });
     }
 
-    public static String removeSourceBrackets (String s) {
+    public static String removeSourceBrackets (String s) { //Refactor to the model layer
         int openBraceCount = 0, closeBraceCount = 0, startSearchPosition, braceStartPosition, nextOpenBrace, nextClosedBrace;
         Boolean removed = false;
 
@@ -325,7 +362,7 @@ public class NovelDetails extends AppCompatActivity {
         return s;
     }
 
-    private void loadDescription () {
+    private void loadDescription () { //Once the 'removeSourceBrackets' is in model layer, these threads can be removed
         Thread a = new Thread() {
             public void run() {
                 descriptionText = removeSourceBrackets(data.getDescription());
@@ -339,17 +376,6 @@ public class NovelDetails extends AppCompatActivity {
             @Override
             public void run() {
                 description.setText(descriptionText);
-
-            }
-        });
-    }
-
-    private void loadImages () {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                imageAdapter.setImage(pictures);
-                imageAdapter.notifyDataSetChanged();
             }
         });
     }

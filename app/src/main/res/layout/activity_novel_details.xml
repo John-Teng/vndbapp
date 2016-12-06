@@ -26,6 +26,7 @@
             layout="@layout/novel_details_quickstats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:id="@+id/quickstats"
             android:layout_above="@+id/details_content_layout"
             android:layout_alignParentEnd="true"
@@ -42,6 +43,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/details_content_layout"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/novel_icon"
