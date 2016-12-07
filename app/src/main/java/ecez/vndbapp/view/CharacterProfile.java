@@ -98,7 +98,6 @@ public class CharacterProfile extends AppCompatActivity {
         }
     }
 
-
     private void loadTextView(TextView field, View Layout, String data, StatType stat) {
         if (data == null) {
             if (stat == StatType.BASICSTAT)
@@ -116,5 +115,6 @@ public class CharacterProfile extends AppCompatActivity {
 
 enum StatType {
     BASICSTAT,
-    PHYSICALSTAT
+    PHYSICALSTAT,
+    TRAIT
 }
