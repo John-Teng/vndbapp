@@ -1,12 +1,14 @@
 package ecez.vndbapp.view;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import ecez.vndbapp.controller.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,9 +23,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.RequestTraits;
 import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.model.Trait;
 
@@ -32,21 +37,12 @@ public class vndatabaseapp extends AppCompatActivity
     public static boolean connectedToServer = false;
     public static boolean loggedIn;
     public static HashMap<Integer,Trait> traitsMap = null;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        checkDate();
 
-        try {
-            File file = new File(getApplicationContext().getDir("data", Context.MODE_PRIVATE), "traitsMap");
-            ObjectInputStream o = new ObjectInputStream(new FileInputStream(file));
-            vndatabaseapp.traitsMap = (HashMap<Integer,Trait>)o.readObject();
-            o.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException ee){
-            ee.printStackTrace();
-        }
-        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vndatabaseapp);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -94,6 +90,47 @@ public class vndatabaseapp extends AppCompatActivity
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+    }
+
+    private void checkDate () {
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        Log.d("Date",currentDate);
+        Boolean updateMap = false;
+
+        SharedPreferences prefs = getSharedPreferences("Date", MODE_PRIVATE);
+        String restoredText = prefs.getString("Last Open Date", null);
+        Log.d("RestoredText",restoredText);
+        updateMap = true;
+
+        if (restoredText == null) {
+            date = currentDate;
+        } else {
+            date = restoredText;
+            Log.d("Date1",currentDate.substring(0,3));
+            Log.d("Date2",date.substring(0,3));
+
+            if (!currentDate.substring(0,3).equals(date.substring(0,3)))//year is different
+                updateMap = true;
+
+            int cm = Integer.parseInt(currentDate.substring(5,6));
+            int m = Integer.parseInt(date.substring(5,6));
+            int cd = Integer.parseInt(currentDate.substring(8,9));
+            int d = Integer.parseInt(date.substring(8,9));
+
+            if (Math.abs(cd-d) > 7 && Math.abs(cm-m) <= 1)
+                updateMap = true;
+            if (Math.abs(cm-m) > 1)
+                updateMap = true;
+        }
+        if (updateMap) {
+            RequestTraits t = new RequestTraits();
+            t.execute();
+        }
+
+        //store the current date
+        SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
+        editor.putString("Last Open Date", date);
+        editor.commit();
     }
     @Override
     public void onDestroy () {
