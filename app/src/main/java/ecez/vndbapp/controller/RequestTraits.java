@@ -1,12 +1,16 @@
 package ecez.vndbapp.controller;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
@@ -18,10 +22,10 @@ import ecez.vndbapp.model.Trait;
  * Created by Teng on 12/8/2016.
  */
 public class RequestTraits extends AsyncTask{
+    Context contextReference;
     @Override
     protected Object doInBackground(Object[] params) {
         StringBuilder line = new StringBuilder();
-
         try {
             URLConnection conn;
             URL url = new URL("https://vndb.org/api/traits.json.gz");
@@ -47,9 +51,17 @@ public class RequestTraits extends AsyncTask{
         for (int x = 0; x<l.length;x++) {
             traitHashMap.put(l[x].getId(),l[x]);
         }
+        File file = new File(contextReference.getDir("data", Context.MODE_PRIVATE), "traitsMap");
 
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+            outputStream.writeObject(traitHashMap);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return true;
-
     }
 
 
