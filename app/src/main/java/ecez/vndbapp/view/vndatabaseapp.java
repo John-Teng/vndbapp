@@ -41,6 +41,21 @@ public class vndatabaseapp extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try {
+            File file = new File(getApplicationContext().getDir("data", Context.MODE_PRIVATE), "traitsMap");
+            if (file == null) {
+                Log.d("file","The file is nill");
+            }
+            if (file.length() != 0) {
+                ObjectInputStream o = new ObjectInputStream(new FileInputStream(file));
+                vndatabaseapp.traitsMap = (HashMap<Integer, Trait>) o.readObject();
+                o.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException ee){
+            ee.printStackTrace();
+        }
         checkDate();
 
         super.onCreate(savedInstanceState);
@@ -123,7 +138,7 @@ public class vndatabaseapp extends AppCompatActivity
                 updateMap = true;
         }
         if (updateMap) {
-            RequestTraits t = new RequestTraits();
+            RequestTraits t = new RequestTraits(getApplicationContext());
             t.execute();
         }
 

@@ -27,13 +27,18 @@ public class RequestTraits extends AsyncTask{
     Trait[] l;
     String line = null;
 
+
+    public RequestTraits (Context context) {
+        this.contextReference = context;
+    }
+
     @Override
     protected void onPreExecute() {
         Log.d("AsyncTask","Pre-executing");
     }
 
     @Override
-    protected Object doInBackground(Object[] params) {
+    protected Boolean doInBackground(Object[] params) {
         try {
             URLConnection conn;
             URL url = new URL("https://vndb.org/api/traits.json.gz");
@@ -69,11 +74,26 @@ public class RequestTraits extends AsyncTask{
             traitHashMap.put(l[x].getId(),l[x]);
         }
 
+        File file = new File(contextReference.getDir("data", Context.MODE_PRIVATE), "traitsMap");
+
+        if (file == null) {
+            return false;
+        }
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+            outputStream.writeObject(traitHashMap);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("hashmap","Successfully saved to internal storage!");
         return true;
     }
 
-
-    protected void onPostExecute(Boolean result) {
+    @Override
+    protected void onPostExecute(Object o) {
         Log.d("AsyncTask","Post-executing");
     }
 }

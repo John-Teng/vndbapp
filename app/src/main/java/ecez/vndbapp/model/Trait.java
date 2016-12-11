@@ -1,9 +1,11 @@
 package ecez.vndbapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Teng on 12/6/2016.
  */
-public class Trait {
+public class Trait implements Serializable {
     Integer id, chars;
     String name, description;
     Boolean meta;
