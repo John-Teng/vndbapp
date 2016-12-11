@@ -13,10 +13,12 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.Character;
 import ecez.vndbapp.model.NovelScreenShot;
+import ecez.vndbapp.model.Trait;
 
 public class CharacterProfile extends AppCompatActivity {
     private Character character;
@@ -25,6 +27,7 @@ public class CharacterProfile extends AppCompatActivity {
     private ImageView picture;
     final int NUM_OF_BASIC_STATS = 5, NUM_OF_PHYSICAL_STATS = 5;
     private int [] numOfHiddenStats = {0,0};
+    private HashMap<Integer,ArrayList<String>> traits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,19 @@ public class CharacterProfile extends AppCompatActivity {
             findViewById(R.id.character_profile_basic_stats_label).setVisibility(View.GONE);
         if (numOfHiddenStats[1] == NUM_OF_PHYSICAL_STATS)
             findViewById(R.id.character_profile_physical_stats_label).setVisibility(View.GONE);
+
+        traits.put(1,null);
+        traits.put(35,null);
+        traits.put(36,null);
+        traits.put(37,null);
+        traits.put(38,null);
+        traits.put(39,null);
+        traits.put(40,null);
+        traits.put(41,null);
+        traits.put(42,null);
+        traits.put(43,null);
+        traits.put(1625,null);
+
     }
 
     private void loadTextView (TextView field, String data) {
@@ -95,6 +111,29 @@ public class CharacterProfile extends AppCompatActivity {
             field.setVisibility(View.GONE);
         } else {
             field.setText(data);
+        }
+    }
+
+    private void loadTraits () {
+        String [] [] characterTraits = character.getTraits();
+
+        for (int x = 0; x < characterTraits.length; x++){ //iterate for every character trait returned
+            int traitID = Integer.parseInt(characterTraits[x][0]);
+            Trait t = vndatabaseapp.traitsMap.get(traitID);
+            String name = t.getName();
+            Integer [] traitParents = t.getParents();
+
+            for (int y = 0; y<traitParents.length; y++) { //find the super parent trait and add the name to the list
+                if (traits.containsKey(y)) {
+                    ArrayList<String> a;
+                    if (traits.get(y)== null)
+                        a = new ArrayList<>();
+                    else
+                        a = traits.get(y);
+                    a.add(name);
+                    traits.put(y,a);
+                }
+            }
         }
     }
 
