@@ -1,8 +1,11 @@
 package ecez.vndbapp.controller;
 
+import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 
@@ -18,6 +21,7 @@ import java.util.HashMap;
 import java.util.zip.GZIPInputStream;
 
 import ecez.vndbapp.model.Trait;
+import ecez.vndbapp.view.vndatabaseapp;
 
 /**
  * Created by Teng on 12/8/2016.
@@ -26,15 +30,18 @@ public class RequestTraits extends AsyncTask{
     Context contextReference;
     Trait[] l;
     String line = null;
+    ProgressDialog dialogReference;
 
-
-    public RequestTraits (Context context) {
+    public RequestTraits (Context context, ProgressDialog dialog) {
         this.contextReference = context;
+        this.dialogReference = dialog;
     }
 
     @Override
     protected void onPreExecute() {
         Log.d("AsyncTask","Pre-executing");
+        dialogReference.setMessage("Loading Traits");
+        dialogReference.show();
     }
 
     @Override
@@ -95,5 +102,6 @@ public class RequestTraits extends AsyncTask{
     @Override
     protected void onPostExecute(Object o) {
         Log.d("AsyncTask","Post-executing");
+        dialogReference.dismiss();
     }
 }

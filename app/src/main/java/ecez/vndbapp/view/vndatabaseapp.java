@@ -1,5 +1,6 @@
 package ecez.vndbapp.view;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -138,7 +139,8 @@ public class vndatabaseapp extends AppCompatActivity
                 updateMap = true;
         }
         if (updateMap) {
-            RequestTraits t = new RequestTraits(getApplicationContext());
+            ProgressDialog dialog = new ProgressDialog(vndatabaseapp.this);
+            RequestTraits t = new RequestTraits(getApplicationContext(),dialog);
             t.execute();
         }
 
