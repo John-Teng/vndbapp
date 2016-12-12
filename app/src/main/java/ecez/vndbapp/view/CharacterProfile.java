@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -28,6 +30,7 @@ public class CharacterProfile extends AppCompatActivity {
     final int NUM_OF_BASIC_STATS = 5, NUM_OF_PHYSICAL_STATS = 5;
     private int [] numOfHiddenStats = {0,0};
     private HashMap<Integer,ArrayList<String>> traits;
+    private TableLayout tableLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class CharacterProfile extends AppCompatActivity {
         Intent intent = getIntent();
         character = (Character) intent.getSerializableExtra("CHARACTER");
 
+        tableLayout = (TableLayout) findViewById(R.id.character_traits_table);
         name = (TextView) findViewById(R.id.toolbar_title);
         originalName = (TextView) findViewById(R.id.character_original_name);
         gender = (TextView) findViewById(R.id.character_gender);
@@ -134,8 +138,40 @@ public class CharacterProfile extends AppCompatActivity {
                     traits.put(y,a);
                 }
             }
+
+            for (HashMap.Entry<Integer, ArrayList<String>> entry : traits.entrySet()) {
+                if (entry.getValue() == null)
+                    continue;
+
+                StringBuilder body = new StringBuilder();
+
+                for (String s: entry.getValue()) {
+                    body.append(s);
+                    body.append(", ");
+                }
+                String rowBody = body.toString().substring(0,body.toString().length()-3); //peel off the ", " at the end
+                String rowTitle = vndatabaseapp.traitsMap.get(entry.getKey()).getName();
+
+                createTableRow(rowTitle, rowBody);
+            }
         }
     }
+
+    private void createTableRow (String title, String body ) {
+        TableRow row= new TableRow(this);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        row.setLayoutParams(lp);
+
+        TextView traitParent = new TextView(this);
+        TextView associatedTraits = new TextView(this);
+
+        traitParent.setText(title);
+        associatedTraits.setText(body);
+        row.addView(traitParent);
+        row.addView(associatedTraits);
+        tableLayout.addView(row);
+    }
+
 
     private void loadTextView(TextView field, View Layout, String data, StatType stat) {
         if (data == null) {
