@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,7 +30,7 @@ public class CharacterProfile extends AppCompatActivity {
     private ImageView picture;
     final int NUM_OF_BASIC_STATS = 5, NUM_OF_PHYSICAL_STATS = 5;
     private int [] numOfHiddenStats = {0,0};
-    private HashMap<Integer,ArrayList<String>> traits;
+    private HashMap<Integer,ArrayList<String>> traits = new HashMap<>();
     private TableLayout tableLayout;
 
     @Override
@@ -107,7 +108,7 @@ public class CharacterProfile extends AppCompatActivity {
         traits.put(42,null);
         traits.put(43,null);
         traits.put(1625,null);
-
+        loadTraits();
     }
 
     private void loadTextView (TextView field, String data) {
@@ -119,45 +120,62 @@ public class CharacterProfile extends AppCompatActivity {
     }
 
     private void loadTraits () {
+        Log.d("Traits","Starting to load traits");
         String [] [] characterTraits = character.getTraits();
 
         for (int x = 0; x < characterTraits.length; x++){ //iterate for every character trait returned
+            Log.d("Traits","Character Trait Array Index "+Integer.toString(x));
             int traitID = Integer.parseInt(characterTraits[x][0]);
             Trait t = vndatabaseapp.traitsMap.get(traitID);
             String name = t.getName();
+
+
             Integer [] traitParents = t.getParents();
+            Log.d("Trait name","Trait name is "+name + " and it contains " + traitParents.length + " parent traits, and the first parent trait is " + traitParents[0]);
 
             for (int y = 0; y<traitParents.length; y++) { //find the super parent trait and add the name to the list
-                if (traits.containsKey(y)) {
+                if (traits.containsKey(traitParents[y])) {
+                    Log.d("Trait Parent","Trait Parent has been found");
+
                     ArrayList<String> a;
-                    if (traits.get(y)== null)
+                    if (traits.get(y)== null) {
                         a = new ArrayList<>();
-                    else
+                        Log.d("Parent","The parent " + vndatabaseapp.traitsMap.get(traitParents[y]).getName() + " currently has no associated traits");
+                    } else {
                         a = traits.get(y);
+                        Log.d("Parent","The parent " + vndatabaseapp.traitsMap.get(traitParents[y]).getName() + " has associated traits");
+                    }
                     a.add(name);
                     traits.put(y,a);
+                } else {
+                    Log.d("Trait Parent", "Not the Trait Parent");
                 }
             }
+        }
+        for (HashMap.Entry<Integer, ArrayList<String>> entry : traits.entrySet()) { //after all character traits have been added to the traits map, format the traits map to be displayed
+            Log.d("traits hashmap","Iterating through traits hashmap");
+            if (entry.getValue() == null)
+                continue;
 
-            for (HashMap.Entry<Integer, ArrayList<String>> entry : traits.entrySet()) {
-                if (entry.getValue() == null)
-                    continue;
+            StringBuilder body = new StringBuilder();
 
-                StringBuilder body = new StringBuilder();
-
-                for (String s: entry.getValue()) {
-                    body.append(s);
-                    body.append(", ");
-                }
-                String rowBody = body.toString().substring(0,body.toString().length()-3); //peel off the ", " at the end
-                String rowTitle = vndatabaseapp.traitsMap.get(entry.getKey()).getName();
-
-                createTableRow(rowTitle, rowBody);
+            for (String s: entry.getValue()) {
+                Log.d("hashmap arraylist",s);
+                body.append(s);
+                body.append(", ");
             }
+            String rowBody = body.toString().substring(0,body.toString().length()-3); //peel off the ", " at the end
+            Log.d("traits hashmap","The list of body traits is : " + rowBody);
+            Log.d("looking up","Looking up the trait " + entry.getKey().toString());
+            String rowTitle = vndatabaseapp.traitsMap.get(entry.getKey()).getName();
+            Log.d("Trait Info","Trait category is "+rowTitle+" and the Trait is "+rowBody);
+
+            createTableRow(rowTitle, rowBody);
         }
     }
 
     private void createTableRow (String title, String body ) {
+        Log.d("TableLayout","Adding new row for the "+body+" trait");
         TableRow row= new TableRow(this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
         row.setLayoutParams(lp);
