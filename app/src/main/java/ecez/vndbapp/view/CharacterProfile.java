@@ -32,6 +32,7 @@ public class CharacterProfile extends AppCompatActivity {
     private int [] numOfHiddenStats = {0,0};
     private HashMap<Integer,ArrayList<String>> traits = new HashMap<>();
     private TableLayout tableLayout;
+    private Trait trait, parentTrait;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,38 +120,57 @@ public class CharacterProfile extends AppCompatActivity {
         }
     }
 
+    private Trait findParent (Trait trait) {
+        Integer [] traitParents = trait.getParents();
+
+        if (traitParents.length > 0) { //make another recursive call
+            Trait nextTrait = vndatabaseapp.traitsMap.get(traitParents[0]);
+            return findParent(nextTrait);
+        }
+        Log.d("return trait","Returning the trait " + trait.getName() + " and has id " + trait.getId().toString());
+        return trait;
+    }
+
     private void loadTraits () {
+
         Log.d("Traits","Starting to load traits");
         String [] [] characterTraits = character.getTraits();
 
         for (int x = 0; x < characterTraits.length; x++){ //iterate for every character trait returned
             Log.d("Traits","Character Trait Array Index "+Integer.toString(x));
             int traitID = Integer.parseInt(characterTraits[x][0]);
-            Trait t = vndatabaseapp.traitsMap.get(traitID);
-            String name = t.getName();
+            trait = vndatabaseapp.traitsMap.get(traitID);
+            String name = trait.getName();
 
 
-            Integer [] traitParents = t.getParents();
+            Integer [] traitParents = trait.getParents();
             Log.d("Trait name","Trait name is "+name + " and it contains " + traitParents.length + " parent traits, and the first parent trait is " + traitParents[0]);
-
-            for (int y = 0; y<traitParents.length; y++) { //find the super parent trait and add the name to the list
-                if (traits.containsKey(traitParents[y])) {
-                    Log.d("Trait Parent","Trait Parent has been found");
-
-                    ArrayList<String> a;
-                    if (traits.get(y)== null) {
-                        a = new ArrayList<>();
-                        Log.d("Parent","The parent " + vndatabaseapp.traitsMap.get(traitParents[y]).getName() + " currently has no associated traits");
-                    } else {
-                        a = traits.get(y);
-                        Log.d("Parent","The parent " + vndatabaseapp.traitsMap.get(traitParents[y]).getName() + " has associated traits");
-                    }
-                    a.add(name);
-                    traits.put(y,a);
-                } else {
-                    Log.d("Trait Parent", "Not the Trait Parent");
+            Thread b = new Thread() {
+                public void run() {
+                    parentTrait = findParent(trait);
                 }
+            };
+            b.start();
+            try {
+                b.join();
+            } catch (InterruptedException f) {
+                f.printStackTrace();
             }
+            Log.d("PARENT TRAIT","The Parent Trait is " + parentTrait.getName() + " and its id is " + parentTrait.getId().toString());
+            if (parentTrait == null) {
+                Log.d("parent trait","parent trait is null");
+            }
+            ArrayList<String> a;
+            if (traits.get(parentTrait.getId())== null) {
+                a = new ArrayList<>();
+                Log.d("Parent","The parent " + parentTrait.getName() + " currently has no associated traits");
+            } else {
+                a = traits.get(parentTrait.getId());
+                Log.d("Parent","The parent " + parentTrait.getName() + " has associated traits");
+            }
+            a.add(name);
+            traits.put(parentTrait.getId(),a);
+
         }
         for (HashMap.Entry<Integer, ArrayList<String>> entry : traits.entrySet()) { //after all character traits have been added to the traits map, format the traits map to be displayed
             Log.d("traits hashmap","Iterating through traits hashmap");
@@ -164,7 +184,7 @@ public class CharacterProfile extends AppCompatActivity {
                 body.append(s);
                 body.append(", ");
             }
-            String rowBody = body.toString().substring(0,body.toString().length()-3); //peel off the ", " at the end
+            String rowBody = body.toString().substring(0,body.toString().length()-2); //peel off the ", " at the end
             Log.d("traits hashmap","The list of body traits is : " + rowBody);
             Log.d("looking up","Looking up the trait " + entry.getKey().toString());
             String rowTitle = vndatabaseapp.traitsMap.get(entry.getKey()).getName();
