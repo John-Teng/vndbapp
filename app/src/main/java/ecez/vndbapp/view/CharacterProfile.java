@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -197,17 +199,39 @@ public class CharacterProfile extends AppCompatActivity {
     private void createTableRow (String title, String body ) {
         Log.d("TableLayout","Adding new row for the "+body+" trait");
         TableRow row= new TableRow(this);
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        row.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        row.setPadding(0,convertDpToPx(5),0,convertDpToPx(5));
+
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         row.setLayoutParams(lp);
 
         TextView traitParent = new TextView(this);
         TextView associatedTraits = new TextView(this);
 
+        traitParent.setPadding(convertDpToPx(10),0,0,0);
+
+        TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.5f);
+
+        traitParent.setLayoutParams(params);
+        associatedTraits.setLayoutParams(params);
+
         traitParent.setText(title);
         associatedTraits.setText(body);
+
         row.addView(traitParent);
         row.addView(associatedTraits);
+
+        View v = new View(this);
+        v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, convertDpToPx(1)));
+        v.setBackgroundColor(getResources().getColor(R.color.colorDividerGray));
+
         tableLayout.addView(row);
+        tableLayout.addView(v);
+    }
+
+    private int convertDpToPx(int dp){
+        float scale = getResources().getDisplayMetrics().density;
+        return (int) (dp*scale + 0.5f);
     }
 
 
