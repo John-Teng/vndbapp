@@ -129,24 +129,19 @@ public class CharacterProfile extends AppCompatActivity {
             Trait nextTrait = vndatabaseapp.traitsMap.get(traitParents[0]);
             return findParent(nextTrait);
         }
-        Log.d("return trait","Returning the trait " + trait.getName() + " and has id " + trait.getId().toString());
         return trait;
     }
 
     private void loadTraits () {
 
-        Log.d("Traits","Starting to load traits");
         String [] [] characterTraits = character.getTraits();
 
         for (int x = 0; x < characterTraits.length; x++){ //iterate for every character trait returned
-            Log.d("Traits","Character Trait Array Index "+Integer.toString(x));
             int traitID = Integer.parseInt(characterTraits[x][0]);
             trait = vndatabaseapp.traitsMap.get(traitID);
             String name = trait.getName();
 
-
             Integer [] traitParents = trait.getParents();
-            Log.d("Trait name","Trait name is "+name + " and it contains " + traitParents.length + " parent traits, and the first parent trait is " + traitParents[0]);
             Thread b = new Thread() {
                 public void run() {
                     parentTrait = findParent(trait);
@@ -158,46 +153,35 @@ public class CharacterProfile extends AppCompatActivity {
             } catch (InterruptedException f) {
                 f.printStackTrace();
             }
-            Log.d("PARENT TRAIT","The Parent Trait is " + parentTrait.getName() + " and its id is " + parentTrait.getId().toString());
-            if (parentTrait == null) {
-                Log.d("parent trait","parent trait is null");
-            }
+
             ArrayList<String> a;
             if (traits.get(parentTrait.getId())== null) {
                 a = new ArrayList<>();
-                Log.d("Parent","The parent " + parentTrait.getName() + " currently has no associated traits");
             } else {
                 a = traits.get(parentTrait.getId());
-                Log.d("Parent","The parent " + parentTrait.getName() + " has associated traits");
             }
             a.add(name);
             traits.put(parentTrait.getId(),a);
 
         }
         for (HashMap.Entry<Integer, ArrayList<String>> entry : traits.entrySet()) { //after all character traits have been added to the traits map, format the traits map to be displayed
-            Log.d("traits hashmap","Iterating through traits hashmap");
             if (entry.getValue() == null)
                 continue;
 
             StringBuilder body = new StringBuilder();
 
             for (String s: entry.getValue()) {
-                Log.d("hashmap arraylist",s);
                 body.append(s);
                 body.append(", ");
             }
             String rowBody = body.toString().substring(0,body.toString().length()-2); //peel off the ", " at the end
-            Log.d("traits hashmap","The list of body traits is : " + rowBody);
-            Log.d("looking up","Looking up the trait " + entry.getKey().toString());
             String rowTitle = vndatabaseapp.traitsMap.get(entry.getKey()).getName();
-            Log.d("Trait Info","Trait category is "+rowTitle+" and the Trait is "+rowBody);
 
             createTableRow(rowTitle, rowBody);
         }
     }
 
     private void createTableRow (String title, String body ) {
-        Log.d("TableLayout","Adding new row for the "+body+" trait");
         TableRow row= new TableRow(this);
         row.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
         row.setPadding(0,convertDpToPx(5),0,convertDpToPx(5));
