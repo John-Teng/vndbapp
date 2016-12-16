@@ -28,7 +28,7 @@ import ecez.vndbapp.model.Trait;
 public class CharacterProfile extends AppCompatActivity {
     private Character character;
     private TextView name, originalName, gender, bloodType, birthday, otherNames,
-            description, height, weight, bust, waist, hip;
+            description, height, weight, bust, waist, hip, traitLabel;
     private ImageView picture;
     final int NUM_OF_BASIC_STATS = 5, NUM_OF_PHYSICAL_STATS = 5;
     private int [] numOfHiddenStats = {0,0};
@@ -48,6 +48,8 @@ public class CharacterProfile extends AppCompatActivity {
 
         Intent intent = getIntent();
         character = (Character) intent.getSerializableExtra("CHARACTER");
+
+        traitLabel = (TextView)findViewById(R.id.character_profile_traits_label);
 
         tableLayout = (TableLayout) findViewById(R.id.character_traits_table);
         name = (TextView) findViewById(R.id.toolbar_title);
@@ -141,7 +143,6 @@ public class CharacterProfile extends AppCompatActivity {
             trait = vndatabaseapp.traitsMap.get(traitID);
             String name = trait.getName();
 
-            Integer [] traitParents = trait.getParents();
             Thread b = new Thread() {
                 public void run() {
                     parentTrait = findParent(trait);
@@ -182,6 +183,7 @@ public class CharacterProfile extends AppCompatActivity {
     }
 
     private void createTableRow (String title, String body ) {
+        traitLabel.setVisibility(View.VISIBLE);
         TableRow row= new TableRow(this);
         row.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
         row.setPadding(0,convertDpToPx(5),0,convertDpToPx(5));
