@@ -48,7 +48,6 @@ public class NovelDetails extends AppCompatActivity {
     RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
     TextView title, developer, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3;
-    String descriptionText;
     Button expandButton, seeMoreCharacters;
     ExpandableTextView description;
     ImageView icon, characterIcon1, characterIcon2, characterIcon3;
@@ -89,7 +88,8 @@ public class NovelDetails extends AppCompatActivity {
         seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
 
         title = (TextView)findViewById(R.id.toolbar_title);
-        developer = (TextView) findViewById(R.id.toolbar_subtitle);
+        title.setVisibility(View.INVISIBLE);
+        //developer = (TextView) findViewById(R.id.toolbar_subtitle);
         votes = (TextView) findViewById(R.id.quickstats_votes);
         rating = (TextView)findViewById(R.id.quickstats_rating);
         popularity = (TextView)findViewById(R.id.quickstats_popularity);
@@ -154,6 +154,7 @@ public class NovelDetails extends AppCompatActivity {
                         public void run() {
                             bodyLayout.setVisibility(View.VISIBLE);
                             quickstats.setVisibility(View.VISIBLE);
+                            title.setVisibility(View.VISIBLE);
                         }
                     });
                 }

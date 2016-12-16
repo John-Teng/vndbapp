@@ -8,7 +8,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/default_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         android:background="@color/colorLightGray"
         android:elevation="4dp"
         app:popupTheme="@style/AppTheme.Material">
@@ -19,31 +19,33 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingTop="8dp"
-                android:paddingBottom="0dp"
-                android:text="     "
+                android:paddingBottom="8dp"
+                android:gravity="center_vertical"
+                android:text="Dank shit awefaswefawef awefawefawef rtdhfdth"
                 android:textColor="@color/colorBlack"
-                android:textAlignment="textStart"
                 android:textSize="20dp"
+                android:maxLines="2"
                 android:textStyle="bold"
                 android:layout_alignParentLeft="true"
                 android:id="@+id/toolbar_title"
                 android:layout_alignParentTop="true" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="3dp"
-                android:paddingBottom="8dp"
-                android:text="     "
-                android:textColor="@color/colorDarkerGray"
-                android:textAlignment="textStart"
-                android:textSize="14dp"
-                android:textStyle="italic"
-                android:id="@+id/toolbar_subtitle"
-                android:layout_alignLeft="@id/toolbar_title"
-                android:layout_below="@id/toolbar_title" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingTop="3dp"-->
+                <!--android:paddingBottom="8dp"-->
+                <!--android:text=""-->
+                <!--android:maxLines="1"-->
+                <!--android:textColor="@color/colorDarkerGray"-->
+                <!--android:textAlignment="textStart"-->
+                <!--android:textSize="14dp"-->
+                <!--android:textStyle="italic"-->
+                <!--android:id="@+id/toolbar_subtitle"-->
+                <!--android:layout_alignLeft="@id/toolbar_title"-->
+                <!--android:layout_below="@id/toolbar_title" />-->
 
         </RelativeLayout>/>
     </android.support.v7.widget.Toolbar>
