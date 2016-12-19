@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -35,6 +36,7 @@ public class CharacterProfile extends AppCompatActivity {
     private HashMap<Integer,ArrayList<String>> traits = new HashMap<>();
     private TableLayout tableLayout;
     private Trait trait, parentTrait;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,14 @@ public class CharacterProfile extends AppCompatActivity {
         traits.put(43,null);
         traits.put(1625,null);
         loadTraits();
+
+        backButton = (Button)findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void loadTextView (TextView field, String data) {

@@ -48,7 +48,7 @@ public class NovelDetails extends AppCompatActivity {
     RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
     TextView title, developer, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3;
-    Button expandButton, seeMoreCharacters;
+    Button expandButton, seeMoreCharacters, backButton;
     ExpandableTextView description;
     ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     FixedViewPager imagePager;
@@ -132,6 +132,14 @@ public class NovelDetails extends AppCompatActivity {
         imageAdapter = new ImagePagerAdapter(getApplicationContext(),pictures, imagePager, true);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
+
+        backButton = (Button)findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         this.novelID = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(this.novelID));
