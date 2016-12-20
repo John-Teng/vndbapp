@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,16 +20,13 @@ import java.util.HashMap;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.Character;
-import ecez.vndbapp.model.NovelScreenShot;
 import ecez.vndbapp.model.Trait;
 
 public class CharacterProfile extends AppCompatActivity {
     private Character character;
     private TextView name, originalName, gender, bloodType, birthday, otherNames,
-            description, height, weight, bust, waist, hip, traitLabel;
+            description, height, weight, bust, waist, hip, traitLabel, basicStatsLabel, physicalStatsLabel;
     private ImageView picture;
-    final int NUM_OF_BASIC_STATS = 5, NUM_OF_PHYSICAL_STATS = 5;
-    private int [] numOfHiddenStats = {0,0};
     private HashMap<Integer,ArrayList<String>> traits = new HashMap<>();
     private TableLayout tableLayout;
     private Trait trait, parentTrait;
@@ -67,6 +61,8 @@ public class CharacterProfile extends AppCompatActivity {
         waist = (TextView) findViewById(R.id.character_waist);
         hip = (TextView) findViewById(R.id.character_hip);
         picture = (ImageView) findViewById(R.id.character_profile_image);
+        basicStatsLabel = (TextView) findViewById(R.id.character_profile_basic_stats_label);
+        physicalStatsLabel = (TextView) findViewById(R.id.character_profile_physical_stats_label);
 
         View originalNameLayout = findViewById(R.id.character_original_name_layout);
         View genderLayout = findViewById(R.id.character_gender_layout);
@@ -87,22 +83,20 @@ public class CharacterProfile extends AppCompatActivity {
                 .into(picture);
 
         name.setText(character.getName());
-        loadTextView(description, character.getDescription());
-        loadTextView(originalName,originalNameLayout,character.getOriginal(), StatType.BASICSTAT);
-        loadTextView(gender,genderLayout,character.getGender(),StatType.BASICSTAT);
-        loadTextView(bloodType,bloodTypeLayout,character.getBloodt(),StatType.BASICSTAT);
-        loadTextView(birthday,birthdayLayout,character.getBirthday(),StatType.BASICSTAT);
-        loadTextView(otherNames,otherNamesLayout,character.getAliases(),StatType.BASICSTAT);
-        loadTextView(height,heightLayout,character.getHeight(),StatType.PHYSICALSTAT);
-        loadTextView(weight,weightLayout,character.getWeight(),StatType.PHYSICALSTAT);
-        loadTextView(bust,bustLayout,character.getBust(),StatType.PHYSICALSTAT);
-        loadTextView(waist,waistLayout,character.getWaist(),StatType.PHYSICALSTAT);
-        loadTextView(hip,hipLayout,character.getHip(),StatType.PHYSICALSTAT);
 
-        if (numOfHiddenStats[0] == NUM_OF_BASIC_STATS)
-            findViewById(R.id.character_profile_basic_stats_label).setVisibility(View.GONE);
-        if (numOfHiddenStats[1] == NUM_OF_PHYSICAL_STATS)
-            findViewById(R.id.character_profile_physical_stats_label).setVisibility(View.GONE);
+        loadTextView(description, character.getDescription());
+
+        loadStat(originalName,originalNameLayout,character.getOriginal(), basicStatsLabel);
+        loadStat(gender,genderLayout,character.getGender(),basicStatsLabel);
+        loadStat(bloodType,bloodTypeLayout,character.getBloodt(),basicStatsLabel);
+        loadStat(birthday,birthdayLayout,character.getBirthday(),basicStatsLabel);
+        loadStat(otherNames,otherNamesLayout,character.getAliases(),basicStatsLabel);
+
+        loadStat(height,heightLayout,character.getHeight(),physicalStatsLabel);
+        loadStat(weight,weightLayout,character.getWeight(),physicalStatsLabel);
+        loadStat(bust,bustLayout,character.getBust(),physicalStatsLabel);
+        loadStat(waist,waistLayout,character.getWaist(),physicalStatsLabel);
+        loadStat(hip,hipLayout,character.getHip(),physicalStatsLabel);
 
         traits.put(1,null);
         traits.put(35,null);
@@ -145,7 +139,6 @@ public class CharacterProfile extends AppCompatActivity {
     }
 
     private void loadTraits () {
-
         String [] [] characterTraits = character.getTraits();
 
         for (int x = 0; x < characterTraits.length; x++){ //iterate for every character trait returned
@@ -164,7 +157,6 @@ public class CharacterProfile extends AppCompatActivity {
             } catch (InterruptedException f) {
                 f.printStackTrace();
             }
-
             ArrayList<String> a;
             if (traits.get(parentTrait.getId())== null) {
                 a = new ArrayList<>();
@@ -178,9 +170,7 @@ public class CharacterProfile extends AppCompatActivity {
         for (HashMap.Entry<Integer, ArrayList<String>> entry : traits.entrySet()) { //after all character traits have been added to the traits map, format the traits map to be displayed
             if (entry.getValue() == null)
                 continue;
-
             StringBuilder body = new StringBuilder();
-
             for (String s: entry.getValue()) {
                 body.append(s);
                 body.append(", ");
@@ -231,23 +221,13 @@ public class CharacterProfile extends AppCompatActivity {
     }
 
 
-    private void loadTextView(TextView field, View Layout, String data, StatType stat) {
+    private void loadStat (TextView field, View Layout, String data, View label) {
         if (data == null) {
-            if (stat == StatType.BASICSTAT)
-                numOfHiddenStats[0] ++;
-            else if (stat == StatType.PHYSICALSTAT)
-                numOfHiddenStats[1] ++;
             Layout.setVisibility(View.GONE);
             field.setVisibility(View.GONE);
         } else {
             field.setText(data);
+            label.setVisibility(View.VISIBLE);
         }
     }
-
-}
-
-enum StatType {
-    BASICSTAT,
-    PHYSICALSTAT,
-    TRAIT
 }

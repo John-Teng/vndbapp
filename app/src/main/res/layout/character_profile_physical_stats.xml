@@ -12,6 +12,7 @@
         android:textSize="18dp"
         android:text="Physical Details"
         android:background="@color/colorLightGray"
+        android:visibility="gone"
         android:id="@+id/character_profile_physical_stats_label" />
 
     <LinearLayout
