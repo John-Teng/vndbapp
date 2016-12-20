@@ -1,8 +1,10 @@
 package ecez.vndbapp.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,13 +49,13 @@ public class NovelDetails extends AppCompatActivity {
     ImagePagerAdapter imageAdapter;
     RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
-    TextView title, developer, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3;
+    TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3;
     Button expandButton, seeMoreCharacters, backButton;
     ExpandableTextView description;
     ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     FixedViewPager imagePager;
     DetailsData data;
-    int novelID;
+    int novelID, timerCount;
     ArrayList<NovelScreenShot> pictures = new ArrayList<>();
     ArrayList<Country> countries = new ArrayList<>();
     ArrayList<Console> consoles = new ArrayList<>();
@@ -154,6 +156,7 @@ public class NovelDetails extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                timerCount += 1;
                 if (viewsAreLoaded) {
                     timer.cancel();
                     timer.purge();
@@ -165,6 +168,21 @@ public class NovelDetails extends AppCompatActivity {
                             title.setVisibility(View.VISIBLE);
                         }
                     });
+                }
+                if (timerCount >= 6) {
+                    timer.cancel();
+                    timer.purge();
+                    AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
+                    alertDialog.setTitle("Loading Error");
+                    alertDialog.setMessage("There was an error with loading the data, please try again!");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    onBackPressed();
+                                }
+                            });
+                    alertDialog.show();
                 }
             }
         }, TIMER_TIME);
