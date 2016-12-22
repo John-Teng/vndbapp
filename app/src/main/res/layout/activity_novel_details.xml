@@ -6,7 +6,8 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorLightGray">
 
         <include
             layout="@layout/default_toolbar"
@@ -28,10 +29,10 @@
             android:layout_height="wrap_content"
             android:visibility="invisible"
             android:id="@+id/quickstats"
-            android:layout_above="@+id/details_content_layout"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/novel_icon"
-            android:layout_below="@+id/toolbar" />
+            android:layout_below="@+id/toolbar"
+            android:layout_alignBottom="@+id/novel_icon" />
 
         <View
             android:layout_width="match_parent"

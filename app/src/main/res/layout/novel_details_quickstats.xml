@@ -1,140 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:id="@+id/rating">
-
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:background="@color/colorLightGray"
+    android:weightSum="4"
+    android:id="@+id/rating">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_star"
+            android:id="@+id/quickstats_rating_label"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="dank shit"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:textSize="15dp"
+            android:id="@+id/quickstats_rating"
+            android:layout_toRightOf="@id/quickstats_rating_label"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorGray"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_action_name"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/quickstats_length_label"
+            android:layout_alignParentStart="true" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
+            android:paddingRight="5dp"
             android:paddingLeft="5dp"
-            android:background="@drawable/ic_poll"
-            android:id="@+id/quickstats_votes_label"
+            android:text="blahfweaf"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/quickstats_length_label"
+            android:id="@+id/quickstats_length"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
+            android:background="@color/colorGray"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_fire"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/quickstats_popularity_label"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/quickstats_popularity_label"
+            android:text="blawef"
+            android:textSize="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/quickstats_popularity"
+            android:layout_alignParentEnd="true" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorGray"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_poll"
+            android:id="@+id/quickstats_votes_label"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="blah"
+            android:layout_centerVertical="true"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:paddingRight="5dp"
             android:paddingLeft="5dp"
-            android:textSize="14dp"
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/quickstats_votes_label"
             android:id="@+id/quickstats_votes"
-            android:gravity="center"
-            android:layout_alignTop="@+id/quickstats_votes_label"
-            android:layout_alignBottom="@+id/quickstats_votes_label"
-            android:layout_toRightOf="@id/quickstats_votes_label"/>
+            android:layout_alignParentEnd="true" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_above="@id/quickstats_votes"
-            android:background="@color/colorGray"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_fire"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:id="@+id/quickstats_popularity_label"
-            android:layout_above="@+id/quickstats_votes_label"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:paddingLeft="5dp"
-            android:id="@+id/quickstats_popularity"
-            android:gravity="center"
-            android:layout_alignTop="@+id/quickstats_popularity_label"
-            android:layout_alignBottom="@+id/quickstats_popularity_label"
-            android:layout_toRightOf="@id/quickstats_popularity_label"/>
+            android:layout_height="0dp"
+            android:background="@color/colorGray"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_above="@id/quickstats_popularity_label"
-            android:background="@color/colorGray"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_action_name"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:id="@+id/quickstats_length_label"
-            android:layout_above="@+id/quickstats_popularity_label"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:paddingLeft="5dp"
-            android:textSize="14dp"
-            android:id="@+id/quickstats_length"
-            android:gravity="center"
-            android:layout_alignTop="@+id/quickstats_length_label"
-            android:layout_alignBottom="@+id/quickstats_length_label"
-            android:layout_toRightOf="@id/quickstats_length_label"/>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_above="@id/quickstats_length_label"
-            android:background="@color/colorGray"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:background="@drawable/ic_star"
-            android:id="@+id/quickstats_rating_label"
-            android:layout_above="@+id/quickstats_length_label"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:paddingLeft="5dp"
-            android:textSize="14dp"
-            android:id="@+id/quickstats_rating"
-            android:gravity="center"
-            android:layout_alignTop="@+id/quickstats_rating_label"
-            android:layout_alignBottom="@+id/quickstats_rating_label"
-            android:layout_toRightOf="@id/quickstats_rating_label"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_above="@id/quickstats_rating_label"
-            android:background="@color/colorGray"/>
-
-
-
-</RelativeLayout>
+</LinearLayout>
