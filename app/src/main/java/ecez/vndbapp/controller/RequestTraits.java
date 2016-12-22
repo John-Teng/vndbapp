@@ -1,11 +1,9 @@
 package ecez.vndbapp.controller;
 
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 
@@ -20,27 +18,31 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.zip.GZIPInputStream;
 
+import ecez.vndbapp.model.DumpObject;
+import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
-import ecez.vndbapp.view.vndatabaseapp;
 
 /**
  * Created by Teng on 12/8/2016.
  */
 public class RequestTraits extends AsyncTask{
     Context contextReference;
-    Trait[] l;
+    DumpObject[] l;
     String line = null;
     ProgressDialog dialogReference;
+    String URL, saveDir;
 
-    public RequestTraits (Context context, ProgressDialog dialog) {
+    public RequestTraits (Context context, ProgressDialog dialog, String URL, String saveDir) {
         this.contextReference = context;
         this.dialogReference = dialog;
+        this.URL = URL;
+        this.saveDir = saveDir;
     }
 
     @Override
     protected void onPreExecute() {
         Log.d("AsyncTask","Pre-executing");
-        dialogReference.setMessage("Loading Traits");
+        dialogReference.setMessage("Updating some data");
         dialogReference.show();
     }
 
@@ -48,7 +50,7 @@ public class RequestTraits extends AsyncTask{
     protected Boolean doInBackground(Object[] params) {
         try {
             URLConnection conn;
-            URL url = new URL("https://vndb.org/api/traits.json.gz");
+            URL url = new URL(URL);
             conn = url.openConnection();
             GZIPInputStream ginStream = new GZIPInputStream(conn.getInputStream());
             InputStreamReader urlStream = new InputStreamReader(ginStream);
@@ -64,7 +66,11 @@ public class RequestTraits extends AsyncTask{
 
         final Gson gson = new Gson();
         Thread a = new Thread() {
-            public void run() {l = gson.fromJson(line,Trait[].class);
+            public void run() {
+                if (saveDir.equals("traitsMap"))
+                    l = gson.fromJson(line,Trait[].class);
+                else
+                    l = gson.fromJson(line,Tag[].class);
             }
         };
         a.start();
@@ -76,19 +82,19 @@ public class RequestTraits extends AsyncTask{
             return false;
         }
 
-        HashMap<Integer, Trait> traitHashMap = new HashMap<Integer, Trait>();
+        HashMap<Integer, DumpObject> hashMap = new HashMap<Integer, DumpObject>();
         for (int x = 0; x<l.length;x++) {
-            traitHashMap.put(l[x].getId(),l[x]);
+            hashMap.put(l[x].getId(),l[x]);
         }
 
-        File file = new File(contextReference.getDir("data", Context.MODE_PRIVATE), "traitsMap");
+        File file = new File(contextReference.getDir("data", Context.MODE_PRIVATE), saveDir);
 
         if (file == null) {
             return false;
         }
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
-            outputStream.writeObject(traitHashMap);
+            outputStream.writeObject(hashMap);
             outputStream.flush();
             outputStream.close();
         } catch (IOException e) {

@@ -31,6 +31,7 @@ import java.util.HashMap;
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.RequestTraits;
 import ecez.vndbapp.model.ServerRequest;
+import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
 
 public class vndatabaseapp extends AppCompatActivity
@@ -38,18 +39,21 @@ public class vndatabaseapp extends AppCompatActivity
     public static boolean connectedToServer = false;
     public static boolean loggedIn;
     public static HashMap<Integer,Trait> traitsMap = null;
+    public static HashMap<Integer,Tag> tagsMap = null;
     private String date;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    private void getDemFiles (String saveDir) {
         try {
-            File file = new File(getApplicationContext().getDir("data", Context.MODE_PRIVATE), "traitsMap");
+            File file = new File(getApplicationContext().getDir("data", Context.MODE_PRIVATE), saveDir);
             if (file == null) {
                 Log.d("file","The file is nill");
             }
             if (file.length() != 0) {
                 ObjectInputStream o = new ObjectInputStream(new FileInputStream(file));
-                vndatabaseapp.traitsMap = (HashMap<Integer, Trait>) o.readObject();
+                if (saveDir.equals("traitsMap"))
+                    vndatabaseapp.traitsMap = (HashMap<Integer, Trait>) o.readObject();
+                else
+                    vndatabaseapp.tagsMap = (HashMap<Integer, Tag>) o.readObject();
                 o.close();
             }
         } catch (IOException e) {
@@ -57,6 +61,12 @@ public class vndatabaseapp extends AppCompatActivity
         } catch (ClassNotFoundException ee){
             ee.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        getDemFiles("traitsMap");
+        getDemFiles("tagsMap");
         checkDate();
 
         super.onCreate(savedInstanceState);
@@ -140,10 +150,11 @@ public class vndatabaseapp extends AppCompatActivity
         }
         if (updateMap) {
             ProgressDialog dialog = new ProgressDialog(vndatabaseapp.this);
-            RequestTraits t = new RequestTraits(getApplicationContext(),dialog);
+            RequestTraits t = new RequestTraits(getApplicationContext(),dialog, "https://vndb.org/api/traits.json.gz", "traitsMap");
             t.execute();
+            RequestTraits d = new RequestTraits(getApplicationContext(),dialog, " https://vndb.org/api/tags.json.gz", "tagsMap");
+            d.execute();
         }
-
         //store the current date
         SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
         editor.putString("Last Open Date", date);
