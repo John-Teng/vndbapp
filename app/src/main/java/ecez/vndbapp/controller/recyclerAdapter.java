@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.holder
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(activityReference, (View)image, "profile");
                 intent.putExtra("NOVEL_ID", id);
+                Log.d("New Activity","About to start the NovelDetails activity");
                 context.startActivity(intent, options.toBundle());
             }
         });

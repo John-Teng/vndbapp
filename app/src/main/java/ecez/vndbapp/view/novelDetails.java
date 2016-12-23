@@ -66,6 +66,7 @@ public class NovelDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("New Activity","NovelDetails activity has been started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novel_details);
 
@@ -153,10 +154,12 @@ public class NovelDetails extends AppCompatActivity {
         }.start();
 
         final Timer timer = new Timer();
+        Log.d("Timer","Timer Start!");
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 timerCount += 1;
+                Log.d("Timer","Time is currently at " + Integer.toString(timerCount) + " intervals where each interval is " + Integer.toString(TIMER_TIME) + " miliseconds");
                 if (viewsAreLoaded) {
                     timer.cancel();
                     timer.purge();
