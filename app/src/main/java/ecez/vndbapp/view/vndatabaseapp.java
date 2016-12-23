@@ -162,7 +162,7 @@ public class vndatabaseapp extends AppCompatActivity
     }
     @Override
     public void onDestroy () {
-        ServerRequest.disconnect();
+        //ServerRequest.disconnect();
         super.onDestroy();
     }
     @Override
