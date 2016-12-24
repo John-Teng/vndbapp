@@ -192,6 +192,7 @@ public class NovelDetails extends AppCompatActivity {
     }
 
     private void loadCharacterData (int id) {
+        Log.d("Calling Server","Requesting Character Details from the server");
         final PopulateCharacters p = new PopulateCharacters(id);
         p.start();
         try {
@@ -199,6 +200,7 @@ public class NovelDetails extends AppCompatActivity {
         } catch (InterruptedException f) {
             f.printStackTrace();
         }
+        Log.d("Calling Server","Received Character Details from the server");
 
         Thread a = new Thread() {
             public void run() {
@@ -279,11 +281,13 @@ public class NovelDetails extends AppCompatActivity {
     }
 
     private void loadNovelData (int id) {
+        Log.d("Calling Server","Requesting Novel Details from the server");
         final PopulateNovelDetails d = new PopulateNovelDetails(id);
         d.start();
         try {
             d.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
+        Log.d("Calling Server","Received Novel Details from the server");
 
         Thread a = new Thread() {
             public void run() {
