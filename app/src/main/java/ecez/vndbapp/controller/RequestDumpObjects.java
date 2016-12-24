@@ -25,14 +25,14 @@ import ecez.vndbapp.model.Trait;
 /**
  * Created by Teng on 12/8/2016.
  */
-public class RequestTraits extends AsyncTask{
+public class RequestDumpObjects extends AsyncTask{
     Context contextReference;
     DumpObject[] l;
     String line = null;
     ProgressDialog dialogReference;
     String URL, saveDir;
 
-    public RequestTraits (Context context, ProgressDialog dialog, String URL, String saveDir) {
+    public RequestDumpObjects(Context context, ProgressDialog dialog, String URL, String saveDir) {
         this.contextReference = context;
         this.dialogReference = dialog;
         this.URL = URL;

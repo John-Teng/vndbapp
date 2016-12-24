@@ -29,8 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.RequestTraits;
-import ecez.vndbapp.model.ServerRequest;
+import ecez.vndbapp.controller.RequestDumpObjects;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
 
@@ -150,9 +149,9 @@ public class vndatabaseapp extends AppCompatActivity
         }
         if (updateMap) {
             ProgressDialog dialog = new ProgressDialog(vndatabaseapp.this);
-            RequestTraits t = new RequestTraits(getApplicationContext(),dialog, "https://vndb.org/api/traits.json.gz", "traitsMap");
+            RequestDumpObjects t = new RequestDumpObjects(getApplicationContext(),dialog, "https://vndb.org/api/traits.json.gz", "traitsMap");
             t.execute();
-            RequestTraits d = new RequestTraits(getApplicationContext(),dialog, " https://vndb.org/api/tags.json.gz", "tagsMap");
+            RequestDumpObjects d = new RequestDumpObjects(getApplicationContext(),dialog, " https://vndb.org/api/tags.json.gz", "tagsMap");
             d.execute();
         }
         //store the current date

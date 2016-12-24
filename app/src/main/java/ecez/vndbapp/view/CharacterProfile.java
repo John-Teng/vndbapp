@@ -202,6 +202,7 @@ public class CharacterProfile extends AppCompatActivity {
         associatedTraits.setLayoutParams(params);
 
         traitParent.setText(title);
+        traitParent.setTextColor(Color.BLACK);
         associatedTraits.setText(body);
 
         row.addView(traitParent);
