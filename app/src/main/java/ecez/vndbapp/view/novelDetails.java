@@ -23,6 +23,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,6 +41,7 @@ import ecez.vndbapp.model.Country;
 import ecez.vndbapp.model.DetailsData;
 import ecez.vndbapp.model.FixedViewPager;
 import ecez.vndbapp.model.NovelScreenShot;
+import ecez.vndbapp.model.Tag;
 
 public class NovelDetails extends AppCompatActivity {
 
@@ -49,17 +52,29 @@ public class NovelDetails extends AppCompatActivity {
     ImagePagerAdapter imageAdapter;
     RecyclerView countryRecyclerView, consoleRecyclerView;
     Toolbar toolbar;
-    TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3;
+    TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3, genre;
     Button expandButton, seeMoreCharacters, backButton;
     ExpandableTextView description;
     ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     FixedViewPager imagePager;
     DetailsData data;
     int novelID, timerCount;
+    List<String> possibleGenres = new ArrayList<String>(){{
+        add("Drama");
+        add("Fantasy");
+        add("Horror");
+        add("Action");
+        add("Comedy");
+        add("Romance");
+        add("Science Fiction");
+        add("Thriller");
+    }};
+    ArrayList<String> genres = new ArrayList<>();
     ArrayList<NovelScreenShot> pictures = new ArrayList<>();
     ArrayList<Country> countries = new ArrayList<>();
     ArrayList<Console> consoles = new ArrayList<>();
     ArrayList<Character> characters = new ArrayList<>();
+    private Tag tag;
     View quickstats, bodyLayout;
     final int TIMER_TIME = 500;
     private boolean viewsAreLoaded = false;
@@ -88,6 +103,7 @@ public class NovelDetails extends AppCompatActivity {
         characterRole1 = (TextView) findViewById(R.id.character_role1);
         characterRole2 = (TextView) findViewById(R.id.character_role2);
         characterRole3 = (TextView) findViewById(R.id.character_role3);
+        genre = (TextView) findViewById(R.id.genres);
         seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
 
         title = (TextView)findViewById(R.id.toolbar_title);
@@ -189,6 +205,65 @@ public class NovelDetails extends AppCompatActivity {
                 }
             }
         }, TIMER_TIME);
+    }
+
+
+    private void findGenres (Tag tag) {
+        if (!performGenreCheck(tag.getName())) {
+            findGenreFromParent(tag);
+        }
+    }
+
+    private boolean performGenreCheck(String tagName) {
+
+        for (String genre : possibleGenres) {
+            if (tagName.equals(genre)) {
+                genres.add(tagName);
+                possibleGenres.remove(genre);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void findGenreFromParent (Tag t) {
+        Integer [] parents = t.getParents();
+        if (parents.length > 0) { //make another recursive call
+            Tag nextTag = vndatabaseapp.tagsMap.get(parents[0]);
+            if (!performGenreCheck(nextTag.getName())) {
+                findGenreFromParent(nextTag);
+            }
+        }
+    }
+
+    private void loadTags () {
+        String [] [] tags = data.getTags();
+
+        for (int x = 0; x < tags.length; x++){ //iterate for every tag returned
+            int tagID = Integer.parseInt(tags[x][0]);
+            Log.d("lf Tag","Looking up the tag for " + Integer.toString(tagID));
+            tag = vndatabaseapp.tagsMap.get(tagID);
+            if (tag == null)
+                continue; //Sometimes, the tag ID that is looked up will return a null Tag
+            findGenres(tag);
+        }
+
+        if (genres == null)
+            return;
+
+        StringBuilder s = new StringBuilder();
+
+        for (String d : genres){
+            s.append(d);
+            s.append(" | ");
+        }
+        final String output = s.toString().substring(0,s.toString().length()-3);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                genre.setText(output);
+            }
+        });
     }
 
     private void loadCharacterData (int id) {
@@ -311,6 +386,7 @@ public class NovelDetails extends AppCompatActivity {
         try {
             b.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
+        loadTags();
         loadNovelViews();
     }
 

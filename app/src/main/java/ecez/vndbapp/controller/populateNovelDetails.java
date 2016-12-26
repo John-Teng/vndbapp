@@ -29,7 +29,7 @@ public class PopulateNovelDetails extends Thread{
     @Override
     public void run () {
         if (vndatabaseapp.loggedIn == true)
-            jsonString = ServerRequest.writeToServer("get", "vn", "basic,stats,details,screens", "(id = "+Integer.toString(id)+")",null);
+            jsonString = ServerRequest.writeToServer("get", "vn", "basic,stats,details,screens,tags", "(id = "+Integer.toString(id)+")",null);
         else
             Log.d("Connection failure", "Cannot connect to server");
         Log.d("JSON Response",jsonString);

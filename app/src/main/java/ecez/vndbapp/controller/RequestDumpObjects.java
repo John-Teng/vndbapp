@@ -85,6 +85,7 @@ public class RequestDumpObjects extends AsyncTask{
         HashMap<Integer, DumpObject> hashMap = new HashMap<Integer, DumpObject>();
         for (int x = 0; x<l.length;x++) {
             hashMap.put(l[x].getId(),l[x]);
+            Log.d("hashmap","Putting a value into the key " + l[x].getId().toString());
         }
 
         File file = new File(contextReference.getDir("data", Context.MODE_PRIVATE), saveDir);

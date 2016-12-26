@@ -11,6 +11,8 @@ public class DetailsData {
     private Double rating;
     private int votecount, rank, length;
 
+    String [][] tags;
+
     public DetailsData() {}
 
     public DetailsData(String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount, String released) {
@@ -26,6 +28,14 @@ public class DetailsData {
         this.popularity = popularity;
         this.votecount = votecount;
         this.released = released;
+    }
+
+    public String[][] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[][] tags) {
+        this.tags = tags;
     }
 
     public String getReleased() {
