@@ -23,7 +23,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -177,6 +176,7 @@ public class NovelDetails extends AppCompatActivity {
                 timerCount += 1;
                 Log.d("Timer","Time is currently at " + Integer.toString(timerCount) + " intervals where each interval is " + Integer.toString(TIMER_TIME) + " miliseconds");
                 if (viewsAreLoaded) {
+                    Log.d("Timer","Timer will be cancelled since views are now loaded");
                     timer.cancel();
                     timer.purge();
                     runOnUiThread(new Runnable() {
@@ -251,19 +251,31 @@ public class NovelDetails extends AppCompatActivity {
         if (genres == null)
             return;
 
+        int n = genres.size();
+        if (n > 7) {
+            genre.setTextSize(convertDpToPx(9));
+        } else if (n > 5) {
+            genre.setTextSize(convertDpToPx(11));
+        }
+
         StringBuilder s = new StringBuilder();
 
         for (String d : genres){
             s.append(d);
-            s.append(" | ");
+            s.append("  |  ");
         }
-        final String output = s.toString().substring(0,s.toString().length()-3);
+        final String output = s.toString().substring(0,s.toString().length()-5);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 genre.setText(output);
             }
         });
+    }
+
+    private int convertDpToPx(int dp){
+        float scale = getResources().getDisplayMetrics().density;
+        return (int) (dp*scale + 0.5f);
     }
 
     private void loadCharacterData (int id) {

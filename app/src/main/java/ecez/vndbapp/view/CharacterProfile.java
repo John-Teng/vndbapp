@@ -221,7 +221,6 @@ public class CharacterProfile extends AppCompatActivity {
         return (int) (dp*scale + 0.5f);
     }
 
-
     private void loadStat (TextView field, View Layout, String data, View label) {
         if (data == null) {
             Layout.setVisibility(View.GONE);
