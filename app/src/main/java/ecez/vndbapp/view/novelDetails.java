@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -251,13 +252,6 @@ public class NovelDetails extends AppCompatActivity {
         if (genres == null)
             return;
 
-        int n = genres.size();
-        if (n > 7) {
-            genre.setTextSize(convertDpToPx(9));
-        } else if (n > 5) {
-            genre.setTextSize(convertDpToPx(11));
-        }
-
         StringBuilder s = new StringBuilder();
 
         for (String d : genres){
@@ -268,6 +262,12 @@ public class NovelDetails extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                int n = genres.size();
+                if (n > 7) {
+                    genre.setTextSize(TypedValue.COMPLEX_UNIT_PX,convertDpToPx(9));
+                } else if (n > 5) {
+                    genre.setTextSize(TypedValue.COMPLEX_UNIT_PX,convertDpToPx(11));
+                }
                 genre.setText(output);
             }
         });
