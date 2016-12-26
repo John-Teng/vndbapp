@@ -242,7 +242,6 @@ public class NovelDetails extends AppCompatActivity {
 
         for (int x = 0; x < tags.length; x++){ //iterate for every tag returned
             int tagID = Integer.parseInt(tags[x][0]);
-            Log.d("lf Tag","Looking up the tag for " + Integer.toString(tagID));
             tag = vndatabaseapp.tagsMap.get(tagID);
             if (tag == null)
                 continue; //Sometimes, the tag ID that is looked up will return a null Tag
