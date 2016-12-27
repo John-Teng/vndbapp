@@ -262,7 +262,7 @@ public class NovelDetails extends AppCompatActivity {
             @Override
             public void run() {
                 int n = genres.size();
-                if (n > 7) {
+                if (n > 6) {
                     genre.setTextSize(TypedValue.COMPLEX_UNIT_PX,convertDpToPx(9));
                 } else if (n > 5) {
                     genre.setTextSize(TypedValue.COMPLEX_UNIT_PX,convertDpToPx(11));
