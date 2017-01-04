@@ -125,7 +125,6 @@ public class vndatabaseapp extends AppCompatActivity
         SharedPreferences prefs = getSharedPreferences("Date", MODE_PRIVATE);
         String restoredText = prefs.getString("Last Open Date", null);
         Log.d("RestoredText",restoredText);
-        updateMap = true;
 
         if (restoredText == null) {
             date = currentDate;
