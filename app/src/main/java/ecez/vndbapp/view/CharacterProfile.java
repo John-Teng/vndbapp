@@ -28,6 +28,7 @@ public class CharacterProfile extends AppCompatActivity {
             description, height, weight, bust, waist, hip, traitLabel, basicStatsLabel, physicalStatsLabel;
     private ImageView picture;
     private HashMap<Integer,ArrayList<String>> traits = new HashMap<>();
+    private int [] traitCategoryList = {1,35,36,37,38,39,40,41,42,43,1625};
     private TableLayout tableLayout;
     private Trait trait, parentTrait;
     private Button backButton;
@@ -98,17 +99,10 @@ public class CharacterProfile extends AppCompatActivity {
         loadStat(waist,waistLayout,character.getWaist(),physicalStatsLabel);
         loadStat(hip,hipLayout,character.getHip(),physicalStatsLabel);
 
-        traits.put(1,null);
-        traits.put(35,null);
-        traits.put(36,null);
-        traits.put(37,null);
-        traits.put(38,null);
-        traits.put(39,null);
-        traits.put(40,null);
-        traits.put(41,null);
-        traits.put(42,null);
-        traits.put(43,null);
-        traits.put(1625,null);
+
+        for (int z = 0; z<traitCategoryList.length; z++) {
+            traits.put(traitCategoryList[z],null);
+        }
         loadTraits();
 
         backButton = (Button)findViewById(R.id.back_button);
@@ -167,16 +161,16 @@ public class CharacterProfile extends AppCompatActivity {
             traits.put(parentTrait.getId(),a);
 
         }
-        for (HashMap.Entry<Integer, ArrayList<String>> entry : traits.entrySet()) { //after all character traits have been added to the traits map, format the traits map to be displayed
-            if (entry.getValue() == null)
+        for (int x = 0; x<traitCategoryList.length; x++) {
+            if (traits.get(traitCategoryList[x]) == null)
                 continue;
             StringBuilder body = new StringBuilder();
-            for (String s: entry.getValue()) {
+            for (String s: traits.get(traitCategoryList[x])) {
                 body.append(s);
                 body.append(", ");
             }
             String rowBody = body.toString().substring(0,body.toString().length()-2); //peel off the ", " at the end
-            String rowTitle = vndatabaseapp.traitsMap.get(entry.getKey()).getName();
+            String rowTitle = vndatabaseapp.traitsMap.get(traitCategoryList[x]).getName();
 
             createTableRow(rowTitle, rowBody);
         }
