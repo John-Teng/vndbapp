@@ -119,16 +119,18 @@ public class vndatabaseapp extends AppCompatActivity
 
     private void checkDate () {
         String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        Log.d("Date",currentDate);
+        Log.d("Current Date",currentDate);
         Boolean updateMap = false;
 
         SharedPreferences prefs = getSharedPreferences("Date", MODE_PRIVATE);
         String restoredText = prefs.getString("Last Open Date", null);
-        Log.d("RestoredText",restoredText);
 
         if (restoredText == null) {
+            Log.d("Last Open Date","null value");
             date = currentDate;
+            updateMap = true;
         } else {
+            Log.d("Last Open Date",restoredText);
             date = restoredText;
             Log.d("Date1",currentDate.substring(0,3));
             Log.d("Date2",date.substring(0,3));

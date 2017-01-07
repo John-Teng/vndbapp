@@ -21,6 +21,7 @@ import java.util.zip.GZIPInputStream;
 import ecez.vndbapp.model.DumpObject;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
+import ecez.vndbapp.view.vndatabaseapp;
 
 /**
  * Created by Teng on 12/8/2016.
@@ -31,6 +32,7 @@ public class RequestDumpObjects extends AsyncTask{
     String line = null;
     ProgressDialog dialogReference;
     String URL, saveDir;
+    HashMap hashMap;
 
     public RequestDumpObjects(Context context, ProgressDialog dialog, String URL, String saveDir) {
         this.contextReference = context;
@@ -66,10 +68,13 @@ public class RequestDumpObjects extends AsyncTask{
         final Gson gson = new Gson();
         Thread a = new Thread() {
             public void run() {
-                if (saveDir.equals("traitsMap"))
-                    l = gson.fromJson(line,Trait[].class);
-                else
-                    l = gson.fromJson(line,Tag[].class);
+                if (saveDir.equals("traitsMap")) {
+                    l = gson.fromJson(line, Trait[].class);
+                    hashMap = new HashMap<Integer, Trait>();
+                } else {
+                    l = gson.fromJson(line, Tag[].class);
+                    hashMap = new HashMap<Integer, Tag>();
+                }
             }
         };
         a.start();
@@ -81,10 +86,14 @@ public class RequestDumpObjects extends AsyncTask{
             return false;
         }
 
-        HashMap<Integer, DumpObject> hashMap = new HashMap<Integer, DumpObject>();
         for (int x = 0; x<l.length;x++) {
             hashMap.put(l[x].getId(),l[x]);
         }
+
+        if (saveDir.equals("traitsMap"))
+            vndatabaseapp.traitsMap = hashMap;
+        else
+            vndatabaseapp.tagsMap = hashMap;
 
         File file = new File(contextReference.getDir("data", Context.MODE_PRIVATE), saveDir);
 
