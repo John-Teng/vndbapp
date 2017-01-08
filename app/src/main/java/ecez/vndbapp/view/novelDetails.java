@@ -46,20 +46,20 @@ import ecez.vndbapp.model.Tag;
 public class NovelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
-    ConsoleIconAdapter consoleAdapter;
-    CountryIconAdapter countryAdapter;
-    LinearLayoutManager countryLayoutManager, consoleLayoutManager;
-    ImagePagerAdapter imageAdapter;
-    RecyclerView countryRecyclerView, consoleRecyclerView;
-    Toolbar toolbar;
-    TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3, genre;
-    Button expandButton, seeMoreCharacters, backButton;
-    ExpandableTextView description;
-    ImageView icon, characterIcon1, characterIcon2, characterIcon3;
-    FixedViewPager imagePager;
-    DetailsData data;
-    int novelID, timerCount;
-    List<String> possibleGenres = new ArrayList<String>(){{
+    private ConsoleIconAdapter consoleAdapter;
+    private CountryIconAdapter countryAdapter;
+    private LinearLayoutManager countryLayoutManager, consoleLayoutManager;
+    private ImagePagerAdapter imageAdapter;
+    private RecyclerView countryRecyclerView, consoleRecyclerView;
+    private Toolbar toolbar;
+    private TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3, genre;
+    private Button expandButton, seeMoreCharacters, backButton;
+    private ExpandableTextView description;
+    private ImageView icon, characterIcon1, characterIcon2, characterIcon3;
+    private FixedViewPager imagePager;
+    private DetailsData data;
+    private int novelID, timerCount;
+    private List<String> possibleGenres = new ArrayList<String>(){{
         add("Drama");
         add("Fantasy");
         add("Horror");
@@ -69,14 +69,14 @@ public class NovelDetails extends AppCompatActivity {
         add("Science Fiction");
         add("Thriller");
     }};
-    ArrayList<String> genres = new ArrayList<>();
-    ArrayList<NovelScreenShot> pictures = new ArrayList<>();
-    ArrayList<Country> countries = new ArrayList<>();
-    ArrayList<Console> consoles = new ArrayList<>();
-    ArrayList<Character> characters = new ArrayList<>();
+    private ArrayList<String> genres = new ArrayList<>();
+    private ArrayList<NovelScreenShot> pictures = new ArrayList<>();
+    private ArrayList<Country> countries = new ArrayList<>();
+    private ArrayList<Console> consoles = new ArrayList<>();
+    private ArrayList<Character> characters = new ArrayList<>();
     private Tag tag;
-    View quickstats, bodyLayout;
-    final int TIMER_TIME = 500;
+    private View quickstats, bodyLayout;
+    private final int TIMER_TIME = 500;
     private boolean viewsAreLoaded = false;
 
     @Override

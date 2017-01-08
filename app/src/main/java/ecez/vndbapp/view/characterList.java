@@ -20,7 +20,7 @@ import ecez.vndbapp.model.Character;
 public class CharacterList extends AppCompatActivity {
     public static RecyclerView recyclerView;
     private CharacterAdapter adapter;
-    ArrayList<Character> characters;
+    private ArrayList<Character> characters;
     private Intent intent;
     private int novelID;
 

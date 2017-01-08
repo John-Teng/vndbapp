@@ -9,10 +9,10 @@ import java.io.Serializable;
  */
 public class Character implements Serializable {
 
-    Integer id, bust, waist, hip, height, weight;
-    String name, original, gender, bloodt, aliases, description, image;
-    Integer [] birthday;
-    String [][] traits, vns;
+    private Integer id, bust, waist, hip, height, weight;
+    private String name, original, gender, bloodt, aliases, description, image;
+    private Integer [] birthday;
+    private String [][] traits, vns;
 
     public Integer getId() {
         return id;

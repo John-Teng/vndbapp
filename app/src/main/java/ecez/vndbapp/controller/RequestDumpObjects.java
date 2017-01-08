@@ -27,12 +27,12 @@ import ecez.vndbapp.view.vndatabaseapp;
  * Created by Teng on 12/8/2016.
  */
 public class RequestDumpObjects extends AsyncTask{
-    Context contextReference;
-    DumpObject[] l;
-    String line = null;
-    ProgressDialog dialogReference;
-    String URL, saveDir;
-    HashMap hashMap;
+    private Context contextReference;
+    private DumpObject[] l;
+    private String line = null;
+    private ProgressDialog dialogReference;
+    private String URL, saveDir;
+    private HashMap hashMap;
 
     public RequestDumpObjects(Context context, ProgressDialog dialog, String URL, String saveDir) {
         this.contextReference = context;

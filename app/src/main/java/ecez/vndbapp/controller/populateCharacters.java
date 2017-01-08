@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import ecez.vndbapp.model.Character;
-import ecez.vndbapp.model.NovelScreenShot;
 import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.view.vndatabaseapp;
 

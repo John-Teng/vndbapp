@@ -14,11 +14,11 @@ import ecez.vndbapp.model.FixedViewPager;
 import ecez.vndbapp.model.NovelScreenShot;
 
 public class ImageActivity extends AppCompatActivity {
-    Button closeButton;
-    int position;
-    ArrayList<NovelScreenShot> imageURLS;
-    ImagePagerAdapter imageAdapter;
-    FixedViewPager imagePager;
+    private Button closeButton;
+    private int position;
+    private ArrayList<NovelScreenShot> imageURLS;
+    private ImagePagerAdapter imageAdapter;
+    private FixedViewPager imagePager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

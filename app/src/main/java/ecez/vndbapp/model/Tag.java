@@ -7,8 +7,8 @@ import java.io.Serializable;
  */
 public class Tag extends DumpObject implements Serializable {
 
-    Integer vns;
-    String cat;
+    private Integer vns;
+    private String cat;
 
     public Integer getVns() {
         return vns;

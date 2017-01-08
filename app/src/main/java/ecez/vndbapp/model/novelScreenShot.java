@@ -6,9 +6,9 @@ import java.io.Serializable;
  * Created by Teng on 11/1/2016.
  */
 public class NovelScreenShot implements Serializable {
-    int rid,height,width;
-    Boolean nsfw;
-    String image;
+    private int rid,height,width;
+    private Boolean nsfw;
+    private String image;
 
     public NovelScreenShot() {}
 

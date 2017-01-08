@@ -23,11 +23,11 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  */
 public class ImagePagerAdapter extends PagerAdapter {
 
-    Context mContext;
-    LayoutInflater mLayoutInflater;
-    ArrayList<NovelScreenShot> pictures;
-    Boolean shouldStartActivity = false;
-    ViewPager viewPagerReference;
+    private Context mContext;
+    private LayoutInflater mLayoutInflater;
+    private ArrayList<NovelScreenShot> pictures;
+    private Boolean shouldStartActivity = false;
+    private ViewPager viewPagerReference;
 
     public ImagePagerAdapter(Context context, ArrayList<NovelScreenShot> pictures,ViewPager viewPagerReference, Boolean shouldStartActivity) {
         this(context, pictures, viewPagerReference);

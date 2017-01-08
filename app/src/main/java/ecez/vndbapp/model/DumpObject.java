@@ -6,11 +6,11 @@ import java.io.Serializable;
  * Created by Teng on 12/6/2016.
  */
 public class DumpObject implements Serializable {
-    Integer id;
-    String name, description;
-    Boolean meta;
-    String [] aliases;
-    Integer [] parents;
+    private Integer id;
+    private String name, description;
+    private Boolean meta;
+    private String [] aliases;
+    private Integer [] parents;
 
     public Integer getId() {
         return id;

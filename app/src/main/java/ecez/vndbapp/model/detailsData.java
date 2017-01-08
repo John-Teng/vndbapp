@@ -11,7 +11,7 @@ public class DetailsData {
     private Double rating;
     private int votecount, rank, length;
 
-    String [][] tags;
+    private String [][] tags;
 
     public DetailsData() {}
 
