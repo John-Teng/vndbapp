@@ -124,8 +124,9 @@ public class ServerRequest {
     }
     public static boolean login() {
         Log.d("Login Attempt", "Attempting to Login to the server");
-        if (!ServerRequest.connect())
+        if (!ServerRequest.connect()) {
             return false;
+        }
         vndatabaseapp.connectedToServer = true;
         String response;
         StringBuilder s = new StringBuilder();
@@ -133,10 +134,11 @@ public class ServerRequest {
         s.append(EOM);
         response = sendData(s.toString());
         Log.d("Login Attempt",response);
-        if (response.equals("ok"))
+        if (response.equals("ok")) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 }
 

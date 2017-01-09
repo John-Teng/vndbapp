@@ -30,12 +30,14 @@ import java.util.HashMap;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.RequestDumpObjects;
+import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
 
 public class vndatabaseapp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static boolean connectedToServer = false;
+    public static boolean pendingLogIn;
     public static boolean loggedIn;
     public static HashMap<Integer,Trait> traitsMap = null;
     public static HashMap<Integer,Tag> tagsMap = null;
@@ -67,6 +69,7 @@ public class vndatabaseapp extends AppCompatActivity
         getDemFiles("traitsMap");
         getDemFiles("tagsMap");
         checkDate();
+        vndatabaseapp.initialLoad();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vndatabaseapp);
@@ -88,7 +91,7 @@ public class vndatabaseapp extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =  (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
@@ -115,6 +118,18 @@ public class vndatabaseapp extends AppCompatActivity
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+    }
+
+    public static void initialLoad () {
+        vndatabaseapp.pendingLogIn = true;
+        Thread a = new Thread() {
+            public void run() {vndatabaseapp.loggedIn = ServerRequest.login();}
+        };
+        a.start();
+        try {
+            a.join();
+        } catch (InterruptedException f) { f.printStackTrace(); }
+        vndatabaseapp.pendingLogIn = false;
     }
 
     private void checkDate () {

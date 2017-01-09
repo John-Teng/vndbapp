@@ -24,10 +24,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 TopNovelsFragment tab1 = new TopNovelsFragment();
                 return tab1;
             case 1:
-                PopularNovelsFragment tab2 = new PopularNovelsFragment();
+                TopNovelsFragment tab2 = new TopNovelsFragment();
                 return tab2;
             case 2:
-                NewNovelsFragment tab3 = new NewNovelsFragment();
+                TopNovelsFragment tab3 = new TopNovelsFragment();
                 return tab3;
             default:
                 return null;

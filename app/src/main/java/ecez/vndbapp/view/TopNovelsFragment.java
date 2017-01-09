@@ -16,7 +16,6 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.EndlessRecyclerViewScrollListener;
 import ecez.vndbapp.controller.PopulateListItems;
 import ecez.vndbapp.controller.RecyclerAdapter;
-import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.model.ListItem;
 
 public class TopNovelsFragment extends Fragment {
@@ -40,39 +39,46 @@ public class TopNovelsFragment extends Fragment {
             public void onLoadMore(int page, int totalItemsCount) {
                 new Thread() {
                     public void run() {
-                        updateList();
+                        if (vndatabaseapp.loggedIn)
+                            updateList();
                     }
                 }.start();
             }
         };
         recyclerView.addOnScrollListener(endlessScrollListener);
-        if (!vndatabaseapp.connectedToServer) {
-            new Thread() {
-                public void run() {
-                    initialLoad();
-                }
-            }.start();
-        }
-        Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
 
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RecyclerAdapter(loadedCards, this.getContext(), getActivity());
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(loadedCards.size()));
         recyclerView.setAdapter(adapter);
 
+//        if (!vndatabaseapp.connectedToServer && !vndatabaseapp.loggedIn) {
+//            new Thread() {
+//                public void run() {
+//                    initialLoad();
+//                }
+//            }.start();
+//        } else {
+        if (vndatabaseapp.loggedIn) {
+            updateList();
+        }
+//        }
+        Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
+
+
         return view;
     }
 
-   public void initialLoad () {
-       Thread a = new Thread() {
-           public void run() {vndatabaseapp.loggedIn = ServerRequest.login();}
-       };
-       a.start();
-       try {
-           a.join();
-       } catch (InterruptedException f) { f.printStackTrace(); }
-       updateList();
-    }
+//   public void initialLoad () {
+//       Thread a = new Thread() {
+//           public void run() {vndatabaseapp.loggedIn = ServerRequest.login();}
+//       };
+//       a.start();
+//       try {
+//           a.join();
+//       } catch (InterruptedException f) { f.printStackTrace(); }
+//       updateList();
+//    }
 
     public void updateList () {
         final PopulateListItems l = new PopulateListItems(new ArrayList<ListItem>(),pageCount);
