@@ -52,33 +52,15 @@ public class TopNovelsFragment extends Fragment {
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(loadedCards.size()));
         recyclerView.setAdapter(adapter);
 
-//        if (!vndatabaseapp.connectedToServer && !vndatabaseapp.loggedIn) {
-//            new Thread() {
-//                public void run() {
-//                    initialLoad();
-//                }
-//            }.start();
-//        } else {
+
         if (vndatabaseapp.loggedIn) {
             updateList();
         }
-//        }
         Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
 
 
         return view;
     }
-
-//   public void initialLoad () {
-//       Thread a = new Thread() {
-//           public void run() {vndatabaseapp.loggedIn = ServerRequest.login();}
-//       };
-//       a.start();
-//       try {
-//           a.join();
-//       } catch (InterruptedException f) { f.printStackTrace(); }
-//       updateList();
-//    }
 
     public void updateList () {
         final PopulateListItems l = new PopulateListItems(new ArrayList<ListItem>(),pageCount);

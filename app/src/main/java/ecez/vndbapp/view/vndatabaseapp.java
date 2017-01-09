@@ -42,6 +42,7 @@ public class vndatabaseapp extends AppCompatActivity
     public static HashMap<Integer,Trait> traitsMap = null;
     public static HashMap<Integer,Tag> tagsMap = null;
     private String date;
+    private TabLayout tabLayout;
 
     private void getDemFiles (String saveDir) {
         try {
@@ -69,7 +70,6 @@ public class vndatabaseapp extends AppCompatActivity
         getDemFiles("traitsMap");
         getDemFiles("tagsMap");
         checkDate();
-        vndatabaseapp.initialLoad();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vndatabaseapp);
@@ -94,34 +94,16 @@ public class vndatabaseapp extends AppCompatActivity
         NavigationView navigationView =  (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
+        tabLayout = (TabLayout)findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Top"));
         tabLayout.addTab(tabLayout.newTab().setText("Popular"));
         tabLayout.addTab(tabLayout.newTab().setText("New"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        initialLoad();
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setOffscreenPageLimit(2);
-        final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
     }
 
-    public static void initialLoad () {
-        vndatabaseapp.pendingLogIn = true;
+    private void initialLoad () {
         Thread a = new Thread() {
             public void run() {vndatabaseapp.loggedIn = ServerRequest.login();}
         };
@@ -129,7 +111,33 @@ public class vndatabaseapp extends AppCompatActivity
         try {
             a.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
-        vndatabaseapp.pendingLogIn = false;
+        if (vndatabaseapp.loggedIn) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+                    final PagerAdapter adapter = new PagerAdapter
+                            (getSupportFragmentManager(), tabLayout.getTabCount());
+                    viewPager.setOffscreenPageLimit(2);
+                    viewPager.setAdapter(adapter);
+                    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                        @Override
+                        public void onTabSelected(TabLayout.Tab tab) {
+                            viewPager.setCurrentItem(tab.getPosition());
+                        }
+
+                        @Override
+                        public void onTabUnselected(TabLayout.Tab tab) {
+                        }
+
+                        @Override
+                        public void onTabReselected(TabLayout.Tab tab) {
+                        }
+                    });
+                }
+            });
+        }
     }
 
     private void checkDate () {

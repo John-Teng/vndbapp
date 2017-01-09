@@ -5,8 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import ecez.vndbapp.view.TopNovelsFragment;
-import ecez.vndbapp.view.PopularNovelsFragment;
-import ecez.vndbapp.view.NewNovelsFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
