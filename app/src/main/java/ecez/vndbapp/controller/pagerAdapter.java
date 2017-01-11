@@ -1,5 +1,6 @@
 package ecez.vndbapp.controller;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -19,17 +20,22 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                TopNovelsFragment tab1 = new TopNovelsFragment();
-                return tab1;
+                return newFragmentWithQuery("rating");
             case 1:
-                TopNovelsFragment tab2 = new TopNovelsFragment();
-                return tab2;
+                return newFragmentWithQuery("popularity");
             case 2:
-                TopNovelsFragment tab3 = new TopNovelsFragment();
-                return tab3;
+                return newFragmentWithQuery("released");
             default:
                 return null;
         }
+    }
+
+    public static final TopNovelsFragment newFragmentWithQuery (String sortParam) {
+        TopNovelsFragment tab = new TopNovelsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("SORTPARAM",sortParam);
+        tab.setArguments(bundle);
+        return tab;
     }
 
     @Override

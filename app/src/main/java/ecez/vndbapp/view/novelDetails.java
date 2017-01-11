@@ -239,6 +239,8 @@ public class NovelDetails extends AppCompatActivity {
 
     private void loadTags () {
         String [] [] tags = data.getTags();
+        if (tags == null)
+            return;
 
         for (int x = 0; x < tags.length; x++){ //iterate for every tag returned
             int tagID = Integer.parseInt(tags[x][0]);

@@ -23,15 +23,17 @@ public class PopulateListItems extends Thread {
     private String jsonString;
     private int page;
     private final int resultPerPage = 25;
+    private String sortParam;
 
-    public PopulateListItems(ArrayList<ListItem> list, int page) {
+    public PopulateListItems(ArrayList<ListItem> list, int page, String sortParam) {
         this.list = list;
         this.page = page;
+        this.sortParam = sortParam;
     }
     @Override
     public void run () {
         if (vndatabaseapp.loggedIn == true)
-            jsonString = ServerRequest.writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\"rating\",\"reverse\":true}");
+            jsonString = ServerRequest.writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\""+sortParam+"\",\"reverse\":true}");
         else
             Log.d("Connection failure", "Cannot connect to server");
         Log.d("JSON Response",jsonString);

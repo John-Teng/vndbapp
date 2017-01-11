@@ -37,7 +37,6 @@ import ecez.vndbapp.model.Trait;
 public class vndatabaseapp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static boolean connectedToServer = false;
-    public static boolean pendingLogIn;
     public static boolean loggedIn;
     public static HashMap<Integer,Trait> traitsMap = null;
     public static HashMap<Integer,Tag> tagsMap = null;
@@ -171,6 +170,10 @@ public class vndatabaseapp extends AppCompatActivity
             if (Math.abs(cm-m) > 1)
                 updateMap = true;
         }
+
+        if (vndatabaseapp.tagsMap == null || vndatabaseapp.traitsMap == null)
+            updateMap = true;
+
         if (updateMap) {
             ProgressDialog dialog = new ProgressDialog(vndatabaseapp.this);
             RequestDumpObjects t = new RequestDumpObjects(getApplicationContext(),dialog, "https://vndb.org/api/traits.json.gz", "traitsMap");

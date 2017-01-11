@@ -24,11 +24,12 @@ public class TopNovelsFragment extends Fragment {
     private ProgressBar progressBar;
     private ArrayList<ListItem> loadedCards = new ArrayList<ListItem>();
     private View view;
+    private String sortParam;
     private int pageCount = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        sortParam = getArguments().getString("SORTPARAM");
         view = inflater.inflate(R.layout.top_novels_fragment, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
@@ -63,7 +64,7 @@ public class TopNovelsFragment extends Fragment {
     }
 
     public void updateList () {
-        final PopulateListItems l = new PopulateListItems(new ArrayList<ListItem>(),pageCount);
+        final PopulateListItems l = new PopulateListItems(new ArrayList<ListItem>(),pageCount,sortParam);
         l.start();
         try {
             l.join();
