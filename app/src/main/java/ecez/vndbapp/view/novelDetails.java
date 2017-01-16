@@ -301,6 +301,10 @@ public class NovelDetails extends AppCompatActivity {
         } catch (InterruptedException f) {
             f.printStackTrace();
         }
+        if (characters == null || characters.size() < 3) {
+            findViewById(R.id.character_panel_layout).setVisibility(View.GONE);
+            return;
+        }
 
         runOnUiThread(new Runnable() {
             @Override

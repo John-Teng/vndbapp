@@ -211,26 +211,31 @@
                 android:layout_height="1dp"
                 android:layout_below="@id/consoles"
                 android:background="#DCDCDC"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Characters"
-                android:paddingTop="10dp"
-                android:paddingLeft="15dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/colorBlack"
-                android:textAlignment="textStart"
-                android:background="@color/colorLightGray"
-                android:textSize="20dp"
-                android:layout_below="@+id/consoles"
-                android:id="@+id/character_panel_label" />
+                android:id="@+id/character_panel_layout"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Characters"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/colorBlack"
+                    android:textAlignment="textStart"
+                    android:background="@color/colorLightGray"
+                    android:textSize="20dp"
+                    android:layout_below="@+id/consoles"
+                    android:id="@+id/character_panel_label" />
 
-            <include
-                layout="@layout/novel_details_character_panel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/character_panel" />
+                <include
+                    layout="@layout/novel_details_character_panel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/character_panel" />
+            </LinearLayout>
 
         </LinearLayout>
 
