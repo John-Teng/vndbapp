@@ -279,6 +279,12 @@ public class NovelDetails extends AppCompatActivity {
         return (int) (dp*scale + 0.5f);
     }
 
+    @Override
+    public void onBackPressed (){
+        super.onBackPressed();
+        finish();
+    }
+
     private void loadCharacterData (int id) {
         Log.d("Calling Server","Requesting Character Details from the server");
         final PopulateCharacters p = new PopulateCharacters(id);
