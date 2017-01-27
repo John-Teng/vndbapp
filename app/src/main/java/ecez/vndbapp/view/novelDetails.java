@@ -259,7 +259,11 @@ public class NovelDetails extends AppCompatActivity {
             s.append(d);
             s.append("  |  ");
         }
-        final String output = s.toString().substring(0,s.toString().length()-5);
+       if (s.length() < 6) {
+           s.append("no genre information available12345");
+       }
+        final String output = s.toString().substring(0, s.toString().length() - 5);
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -307,14 +311,14 @@ public class NovelDetails extends AppCompatActivity {
         } catch (InterruptedException f) {
             f.printStackTrace();
         }
-        if (characters == null || characters.size() < 3) {
-            findViewById(R.id.character_panel_layout).setVisibility(View.GONE);
-            return;
-        }
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (characters == null || characters.size() < 3) {
+                    findViewById(R.id.character_panel_layout).setVisibility(View.GONE);
+                    return;
+                }
                 Picasso
                         .with(getApplicationContext())
                         .load(characters.get(0).getImage())

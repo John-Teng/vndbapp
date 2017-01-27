@@ -79,6 +79,8 @@ public class DetailsData {
     public static String removeSourceBrackets (String s) { //Refactor to the model layer
         int openBraceCount = 0, closeBraceCount = 0, startSearchPosition, braceStartPosition, nextOpenBrace, nextClosedBrace;
         Boolean removed = false;
+        if (s == null || s.equals(""))
+            return "";
 
         while (s.contains("[")&&s.contains("]")) { //repeat while the string contains braces
             braceStartPosition = startSearchPosition = s.indexOf("[");

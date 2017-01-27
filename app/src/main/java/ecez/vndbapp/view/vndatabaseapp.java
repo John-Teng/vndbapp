@@ -66,6 +66,7 @@ public class vndatabaseapp extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initialLoad();
         getDemFiles("traitsMap");
         getDemFiles("tagsMap");
         checkDate();
@@ -98,8 +99,27 @@ public class vndatabaseapp extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText("Popular"));
         tabLayout.addTab(tabLayout.newTab().setText("New"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        initialLoad();
 
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
     }
 
     private void initialLoad () {
@@ -110,33 +130,6 @@ public class vndatabaseapp extends AppCompatActivity
         try {
             a.join();
         } catch (InterruptedException f) { f.printStackTrace(); }
-        if (vndatabaseapp.loggedIn) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-                    final PagerAdapter adapter = new PagerAdapter
-                            (getSupportFragmentManager(), tabLayout.getTabCount());
-                    viewPager.setOffscreenPageLimit(2);
-                    viewPager.setAdapter(adapter);
-                    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-                    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                        @Override
-                        public void onTabSelected(TabLayout.Tab tab) {
-                            viewPager.setCurrentItem(tab.getPosition());
-                        }
-
-                        @Override
-                        public void onTabUnselected(TabLayout.Tab tab) {
-                        }
-
-                        @Override
-                        public void onTabReselected(TabLayout.Tab tab) {
-                        }
-                    });
-                }
-            });
-        }
     }
 
     private void checkDate () {
