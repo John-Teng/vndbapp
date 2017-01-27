@@ -20,8 +20,8 @@
             android:layout_height="220dp"
             android:paddingRight="5dp"
             android:layout_below="@id/toolbar"
-            android:transitionName="profile"
             android:id="@+id/novel_icon" />
+        <!--android:transitionName="profile"-->
 
         <include
             layout="@layout/novel_details_quickstats"

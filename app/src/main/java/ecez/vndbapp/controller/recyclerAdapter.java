@@ -55,11 +55,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.holder
 
                 Intent intent = new Intent(context, NovelDetails.class);
 
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(activityReference, (View)image, "profile");
+//                ActivityOptionsCompat options = ActivityOptionsCompat.
+//                        makeSceneTransitionAnimation(activityReference, (View)image, "profile");
                 intent.putExtra("NOVEL_ID", id);
                 Log.d("New Activity","About to start the NovelDetails activity");
-                context.startActivity(intent, options.toBundle());
+                context.startActivity(intent);
+//                context.startActivity(intent, options.toBundle());
             }
         });
         return new holder(view);

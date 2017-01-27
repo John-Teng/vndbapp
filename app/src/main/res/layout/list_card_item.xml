@@ -23,8 +23,8 @@
             <ImageView
                 android:id="@+id/picture"
                 android:layout_width="125dp"
-                android:layout_height="180dp"
-                android:transitionName="profile"/>
+                android:layout_height="180dp"/>
+                <!--android:transitionName="profile"-->
 
             <TextView
                 android:id="@+id/card_item_title"
