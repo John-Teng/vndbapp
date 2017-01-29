@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Teng on 12/6/2016.
  */
-public class DumpObject implements Serializable {
+abstract public class DumpObject implements Serializable {
     private Integer id;
     private String name, description;
     private Boolean meta;
