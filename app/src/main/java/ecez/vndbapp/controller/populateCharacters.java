@@ -18,7 +18,7 @@ import ecez.vndbapp.view.vndatabaseapp;
 /**
  * Created by Teng on 11/20/2016.
  */
-public class PopulateCharacters extends Thread{
+public class PopulateCharacters extends Thread{ ///MOVE THIS CLASS TO AN ASYNC TASK
 
     private String jsonString;
     private ArrayList<Character> characters;
@@ -30,7 +30,7 @@ public class PopulateCharacters extends Thread{
     @Override
     public void run () {
         if (vndatabaseapp.loggedIn == true)
-            jsonString = ServerRequest.writeToServer("get", "character", "basic,meas,details,traits,vns", "(vn = "+Integer.toString(vnID)+")",null);
+            jsonString = ServerRequest.getInstance().writeToServer("get", "character", "basic,meas,details,traits,vns", "(vn = "+Integer.toString(vnID)+")",null);
         else
             Log.d("Connection failure", "Cannot connect to server");
         Log.d("JSON Response",jsonString);

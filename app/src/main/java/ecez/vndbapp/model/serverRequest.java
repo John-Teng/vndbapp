@@ -30,7 +30,15 @@ public class ServerRequest {
     private static SocketFactory sf;
     private static String userName = "tropicalman", password = "ebola";
 
-    public static boolean connect() { //Connect to server, instantiate IO writers and sockets
+    public ServerRequest () {}
+
+    private static ServerRequest ourInstance = new ServerRequest();
+
+    public static ServerRequest getInstance() {
+        return ourInstance;
+    }
+
+    public synchronized boolean connect() { //Connect to server, instantiate IO writers and sockets
         try {
             Log.d("Connection Attempt","Attempting to connect to the server");
             sf = SSLSocketFactory.getDefault();
@@ -61,7 +69,7 @@ public class ServerRequest {
             return false;
     }
 
-    public static void disconnect() {
+    public void disconnect() {
         //Close IOwriters and the Sockets
         try {
             socket.getInputStream().close();
@@ -73,7 +81,7 @@ public class ServerRequest {
 
     }
 
-    public static String writeToServer(final String queryType, final String type, final String flags, final String filters, final String options) {
+    public synchronized String writeToServer(final String queryType, final String type, final String flags, final String filters, final String options) {
         final StringBuilder command = new StringBuilder();
         command.append(queryType);
         command.append(" ");
@@ -91,7 +99,7 @@ public class ServerRequest {
         return sendData(command.toString());
     }
 
-    private static String sendData (String serverCommand) {
+    private synchronized String sendData (String serverCommand) {
         try {
             Log.d("Writing to Server",serverCommand);
             if (in.ready()) while (in.read() > -1) ;
@@ -105,7 +113,7 @@ public class ServerRequest {
         return jsonString;
     }
 
-    private static String response () {
+    private synchronized String response () {
         StringBuilder response = new StringBuilder();
         try {
             Log.d("Read Attempt","Attempting to read from Server");
@@ -122,9 +130,9 @@ public class ServerRequest {
         }
         return response.toString();
     }
-    public static boolean login() {
+    public synchronized boolean login() {
         Log.d("Login Attempt", "Attempting to Login to the server");
-        if (!ServerRequest.connect()) {
+        if (!connect()) {
             return false;
         }
         vndatabaseapp.connectedToServer = true;

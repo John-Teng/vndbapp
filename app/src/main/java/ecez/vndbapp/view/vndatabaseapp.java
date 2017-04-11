@@ -34,7 +34,7 @@ import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
 
-public class vndatabaseapp extends AppCompatActivity
+public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' SINGLETON TO STORE ALL METADATA
         implements NavigationView.OnNavigationItemSelectedListener {
     public static boolean connectedToServer = false;
     public static boolean loggedIn;
@@ -124,7 +124,7 @@ public class vndatabaseapp extends AppCompatActivity
 
     private void initialLoad () {
         Thread a = new Thread() {
-            public void run() {vndatabaseapp.loggedIn = ServerRequest.login();}
+            public void run() {vndatabaseapp.loggedIn = ServerRequest.getInstance().login();}
         };
         a.start();
         try {

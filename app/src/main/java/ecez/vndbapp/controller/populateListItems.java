@@ -18,7 +18,7 @@ import ecez.vndbapp.view.vndatabaseapp;
 /**
  * Created by Teng on 10/22/2016.
  */
-public class PopulateListItems extends Thread {
+public class PopulateListItems extends Thread {/// MOVE THIS CLASS TO AN ASYNC TASK
     private ArrayList<ListItem> list;
     private String jsonString;
     private int page;
@@ -33,7 +33,7 @@ public class PopulateListItems extends Thread {
     @Override
     public void run () {
         if (vndatabaseapp.loggedIn == true)
-            jsonString = ServerRequest.writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\""+sortParam+"\",\"reverse\":true}");
+            jsonString = ServerRequest.getInstance().writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\""+sortParam+"\",\"reverse\":true}");
         else
             Log.d("Connection failure", "Cannot connect to server");
         Log.d("JSON Response",jsonString);

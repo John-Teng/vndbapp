@@ -160,6 +160,10 @@ public class NovelDetails extends AppCompatActivity {
             }
         });
 
+        bodyLayout.setVisibility(View.VISIBLE);
+        quickstats.setVisibility(View.VISIBLE);
+        title.setVisibility(View.VISIBLE);
+
         this.novelID = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(this.novelID));
         new Thread() {
@@ -169,43 +173,43 @@ public class NovelDetails extends AppCompatActivity {
             }
         }.start();
 
-        final Timer timer = new Timer();
-        Log.d("Timer","Timer Start!");
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timerCount += 1;
-                Log.d("Timer","Time is currently at " + Integer.toString(timerCount) + " intervals where each interval is " + Integer.toString(TIMER_TIME) + " miliseconds");
-                if (viewsAreLoaded) {
-                    Log.d("Timer","Timer will be cancelled since views are now loaded");
-                    timer.cancel();
-                    timer.purge();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            bodyLayout.setVisibility(View.VISIBLE);
-                            quickstats.setVisibility(View.VISIBLE);
-                            title.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-                if (timerCount >= 6) {
-                    timer.cancel();
-                    timer.purge();
-                    AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
-                    alertDialog.setTitle("Loading Error");
-                    alertDialog.setMessage("There was an error with loading the data, please try again!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    onBackPressed();
-                                }
-                            });
-                    alertDialog.show();
-                }
-            }
-        }, TIMER_TIME);
+//        final Timer timer = new Timer();
+//        Log.d("Timer","Timer Start!");
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                timerCount += 1;
+//                Log.d("Timer","Time is currently at " + Integer.toString(timerCount) + " intervals where each interval is " + Integer.toString(TIMER_TIME) + " miliseconds");
+//                if (viewsAreLoaded) {
+//                    Log.d("Timer","Timer will be cancelled since views are now loaded");
+//                    timer.cancel();
+//                    timer.purge();
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            bodyLayout.setVisibility(View.VISIBLE);
+//                            quickstats.setVisibility(View.VISIBLE);
+//                            title.setVisibility(View.VISIBLE);
+//                        }
+//                    });
+//                }
+//                if (timerCount >= 6) {
+//                    timer.cancel();
+//                    timer.purge();
+//                    AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
+//                    alertDialog.setTitle("Loading Error");
+//                    alertDialog.setMessage("There was an error with loading the data, please try again!");
+//                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                    onBackPressed();
+//                                }
+//                            });
+//                    alertDialog.show();
+//                }
+//            }
+//        }, TIMER_TIME);
     }
 
 
