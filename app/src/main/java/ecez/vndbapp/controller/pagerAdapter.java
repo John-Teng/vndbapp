@@ -5,10 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import ecez.vndbapp.view.TopNovelsFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
+    private List<TopNovelsFragment> mActiveFragments = new LinkedList<>();
 
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
@@ -30,12 +34,17 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    public static final TopNovelsFragment newFragmentWithQuery (String sortParam) {
+    private final TopNovelsFragment newFragmentWithQuery (String sortParam) {
         TopNovelsFragment tab = new TopNovelsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("SORTPARAM",sortParam);
         tab.setArguments(bundle);
+        mActiveFragments.add(tab);
         return tab;
+    }
+
+    public List<TopNovelsFragment> getFragmentList () {
+        return mActiveFragments;
     }
 
     @Override

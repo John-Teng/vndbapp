@@ -3,6 +3,7 @@ package ecez.vndbapp.view;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,6 +28,7 @@ import java.io.ObjectInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.RequestDumpObjects;
@@ -42,7 +44,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
     public static HashMap<Integer,Tag> tagsMap = null;
     private String date;
     private TabLayout tabLayout;
-
+    private PagerAdapter mPagerAdapter;
     private void getDemFiles (String saveDir) {
         try {
             File file = new File(getApplicationContext().getDir("data", Context.MODE_PRIVATE), saveDir);
@@ -66,7 +68,6 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initialLoad();
         getDemFiles("traitsMap");
         getDemFiles("tagsMap");
         checkDate();
@@ -75,6 +76,33 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         setContentView(R.layout.activity_vndatabaseapp);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        tabLayout = (TabLayout)findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Top"));
+        tabLayout.addTab(tabLayout.newTab().setText("Popular"));
+        tabLayout.addTab(tabLayout.newTab().setText("New"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        mPagerAdapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(mPagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -94,42 +122,20 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         NavigationView navigationView =  (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        tabLayout = (TabLayout)findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Top"));
-        tabLayout.addTab(tabLayout.newTab().setText("Popular"));
-        tabLayout.addTab(tabLayout.newTab().setText("New"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        AsyncTask b = new AsyncTask() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+            protected Object doInBackground(Object[] objects) {
+                vndatabaseapp.loggedIn = ServerRequest.getInstance().login();
+                List<TopNovelsFragment> fragments = mPagerAdapter.getFragmentList();
+                Log.d("Fragment2", "THere are " + fragments.size() + " fragments");
+                for (TopNovelsFragment f : fragments) {
+                    Log.d("Fragment", "Updating a fragment");
+                    f.updateList();
+                }
+                return true;
             }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-    }
-
-    private void initialLoad () {
-        Thread a = new Thread() {
-            public void run() {vndatabaseapp.loggedIn = ServerRequest.getInstance().login();}
         };
-        a.start();
-        try {
-            a.join();
-        } catch (InterruptedException f) { f.printStackTrace(); }
+        b.execute();
     }
 
     private void checkDate () {
@@ -179,6 +185,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         editor.putString("Last Open Date", date);
         editor.commit();
     }
+
     @Override
     public void onDestroy () {
         //ServerRequest.disconnect();
