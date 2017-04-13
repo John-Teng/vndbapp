@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.ListItem;
@@ -26,18 +27,18 @@ import ecez.vndbapp.view.TopNovelsFragment;
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.holder>{
 
-    private ArrayList<ListItem> listData;
+    private List<ListItem> listData;
     private LayoutInflater inflater;
     private Context context;
     private Activity activityReference;
 
-    public RecyclerAdapter(ArrayList<ListItem> listData, Context context, Activity activityReference) {
+    public RecyclerAdapter(List<ListItem> listData, Context context, Activity activityReference) {
         this.inflater = LayoutInflater.from(context);
         this.listData = listData;
         this.context = context;
         this.activityReference = activityReference;
     }
-    public void setData (ArrayList<ListItem> newData) {
+    public void setData (List<ListItem> newData) {
         this.listData = newData; //Adds additional data
     }
 

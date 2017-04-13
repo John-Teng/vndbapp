@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.EndlessRecyclerViewScrollListener;
@@ -23,7 +24,7 @@ public class TopNovelsFragment extends Fragment {
     public static RecyclerView recyclerView;
     private RecyclerAdapter adapter;
     private ProgressBar pb;
-    private ArrayList<ListItem> loadedCards = new ArrayList<>();
+    private List<ListItem> mLoadedListItems = new ArrayList<>();
     private View view;
     private String sortParam;
     private int pageCount = 1;
@@ -37,7 +38,7 @@ public class TopNovelsFragment extends Fragment {
         mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadList(true);
+                loadList(1);
             }
         });
         mSwipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -55,15 +56,15 @@ public class TopNovelsFragment extends Fragment {
                 new Thread() {
                     public void run() {
                         if (vndatabaseapp.loggedIn)
-                            loadList(false);
+                            loadList(0);
                     }
                 }.start();
             }
         };
         recyclerView.addOnScrollListener(endlessScrollListener);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(loadedCards, this.getContext(), getActivity());
-        Log.d("Loaded Cards","The arraylist has " + Integer.toString(loadedCards.size()));
+        adapter = new RecyclerAdapter(mLoadedListItems, this.getContext(), getActivity());
+        Log.d("Loaded Cards","The arraylist has " + Integer.toString(mLoadedListItems.size()));
         recyclerView.setAdapter(adapter);
 
         Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
@@ -71,10 +72,11 @@ public class TopNovelsFragment extends Fragment {
         return view;
     }
 
-    public void loadList (boolean firstPage) {
-        if (firstPage)
-            pageCount = 1;
-        PopulateListItems l = new PopulateListItems(new ArrayList<ListItem>(),pageCount,sortParam,pb,adapter,mSwipeContainer);
+    public void loadList (int pageNum) {
+        if (pageNum!=0) {
+            pageCount = pageNum;
+        }
+        PopulateListItems l = new PopulateListItems(pageCount,sortParam,pb,adapter,mSwipeContainer, mLoadedListItems);
         l.execute();
         Log.d("Async Task","Finished request, getting data");
         pageCount ++;

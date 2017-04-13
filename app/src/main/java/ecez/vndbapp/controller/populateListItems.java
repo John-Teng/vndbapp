@@ -1,6 +1,5 @@
 package ecez.vndbapp.controller;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -15,18 +14,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import ecez.vndbapp.model.ListItem;
 import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.view.vndatabaseapp;
 
-import static ecez.vndbapp.R.id.view;
-
 /**
  * Created by Teng on 10/22/2016.
  */
-public class PopulateListItems extends AsyncTask {/// MOVE THIS CLASS TO AN ASYNC TASK
-    private ArrayList<ListItem> list;
+public class PopulateListItems extends AsyncTask {
+    private List<ListItem> list;
+    private List<ListItem> prevList;
     private String jsonString;
     private int page;
     private final int resultPerPage = 25;
@@ -35,13 +34,14 @@ public class PopulateListItems extends AsyncTask {/// MOVE THIS CLASS TO AN ASYN
     private RecyclerAdapter adapter;
     private SwipeRefreshLayout mSwipeContainer;
 
-    public PopulateListItems(ArrayList<ListItem> list, int page, String sortParam, ProgressBar pb, RecyclerAdapter adapter, SwipeRefreshLayout mSwipeContainer) {
-        this.list = list;
+    public PopulateListItems(int page, String sortParam, ProgressBar pb, RecyclerAdapter adapter, SwipeRefreshLayout mSwipeContainer, List<ListItem> prevList) {
+        this.list = new ArrayList<>();
         this.page = page;
         this.sortParam = sortParam;
         this.pb = pb;
         this.adapter = adapter;
         this.mSwipeContainer = mSwipeContainer;
+        this.prevList = prevList;
     }
 
     @Override
@@ -66,21 +66,24 @@ public class PopulateListItems extends AsyncTask {/// MOVE THIS CLASS TO AN ASYN
         } catch (JSONException e) {e.printStackTrace();}
         Log.d("json",jsonResponse.toString());
         ListItem[] l = gson.fromJson(jsonResponse.toString(),ListItem[].class);
-        this.list = new ArrayList<ListItem>(Arrays.asList(l));
+        list = new ArrayList<ListItem>(Arrays.asList(l));
         int y = (resultPerPage*page-(resultPerPage-1));
-        for (ListItem x:this.list) {
+        for (ListItem x:list) {
             x.setRank(y);
             y ++;
         }
-        Log.d("Async Task","About to finish getting data");
-
+        if (page == 1) {
+            prevList.clear();
+        }
+        prevList.addAll(list);
         return true;
     }
 
     @Override
     protected void onPostExecute(Object o) {
+
         pb.setVisibility(View.GONE);
-        adapter.setData(this.list);
+        adapter.setData(prevList);
         adapter.notifyDataSetChanged();
         mSwipeContainer.setRefreshing(false);
     }
