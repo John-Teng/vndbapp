@@ -59,7 +59,7 @@ public class ImagePagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         final String picture = pictures.get(position).getImage();
         View pagerLayout = mLayoutInflater.inflate(R.layout.image_pager_layout, container, false);
-        ImageView imageView = (ImageView) pagerLayout.findViewById(R.id.screenshot);
+        final ImageView imageView = (ImageView) pagerLayout.findViewById(R.id.screenshot);
 
         if (shouldStartActivity) {    //if the touch gesture should open the ImageActivity, set the onclick Listener
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -72,11 +72,21 @@ public class ImagePagerAdapter extends PagerAdapter {
                     mContext.startActivity(intent);
                 }
             });
+            Picasso.with(mContext).load(picture).into(imageView);
         } else { //Otherwise, allow zooming of the image
-            PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
+            Picasso.with(mContext).load(picture).into(imageView, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    new PhotoViewAttacher(imageView); //Must wait for image to load before attaching it to photoviewer
+                }
+                @Override
+                public void onError() {
+
+                }
+            });
         }
 
-        Picasso.with(mContext).load(picture).into(imageView);
+
         container.addView(pagerLayout);
         return pagerLayout;
     }

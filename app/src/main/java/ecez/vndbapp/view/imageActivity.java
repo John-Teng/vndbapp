@@ -44,4 +44,10 @@ public class ImageActivity extends AppCompatActivity {
         imagePager.setCurrentItem(position);
 
     }
+
+    @Override
+    public void onBackPressed (){
+        super.onBackPressed();
+        finish();
+    }
 }
