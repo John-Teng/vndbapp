@@ -27,18 +27,16 @@ public class ImagePagerAdapter extends PagerAdapter {
     private LayoutInflater mLayoutInflater;
     private ArrayList<NovelScreenShot> pictures;
     private Boolean shouldStartActivity = false;
-    private ViewPager viewPagerReference;
 
-    public ImagePagerAdapter(Context context, ArrayList<NovelScreenShot> pictures,ViewPager viewPagerReference, Boolean shouldStartActivity) {
-        this(context, pictures, viewPagerReference);
+    public ImagePagerAdapter(Context context, ArrayList<NovelScreenShot> pictures, Boolean shouldStartActivity) {
+        this(context, pictures);
         this.shouldStartActivity = shouldStartActivity;
     }
 
-    public ImagePagerAdapter(Context context, ArrayList<NovelScreenShot> pictures, ViewPager viewPagerReference) {
+    public ImagePagerAdapter(Context context, ArrayList<NovelScreenShot> pictures) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.pictures = pictures;
-        this.viewPagerReference = viewPagerReference;
     }
 
     public void setImage (ArrayList<NovelScreenShot> pictures) {

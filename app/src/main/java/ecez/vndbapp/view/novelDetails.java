@@ -148,7 +148,7 @@ public class NovelDetails extends AppCompatActivity {
         consoleRecyclerView.setAdapter(consoleAdapter);
         consoleRecyclerView.setItemViewCacheSize(20);
 
-        imageAdapter = new ImagePagerAdapter(getApplicationContext(),pictures, imagePager, true);
+        imageAdapter = new ImagePagerAdapter(getApplicationContext(),pictures, true);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 

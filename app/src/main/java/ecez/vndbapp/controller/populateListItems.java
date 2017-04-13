@@ -1,6 +1,11 @@
 package ecez.vndbapp.controller;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 
@@ -15,23 +20,32 @@ import ecez.vndbapp.model.ListItem;
 import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.view.vndatabaseapp;
 
+import static ecez.vndbapp.R.id.view;
+
 /**
  * Created by Teng on 10/22/2016.
  */
-public class PopulateListItems extends Thread {/// MOVE THIS CLASS TO AN ASYNC TASK
+public class PopulateListItems extends AsyncTask {/// MOVE THIS CLASS TO AN ASYNC TASK
     private ArrayList<ListItem> list;
     private String jsonString;
     private int page;
     private final int resultPerPage = 25;
     private String sortParam;
+    private ProgressBar pb;
+    private RecyclerAdapter adapter;
+    private SwipeRefreshLayout mSwipeContainer;
 
-    public PopulateListItems(ArrayList<ListItem> list, int page, String sortParam) {
+    public PopulateListItems(ArrayList<ListItem> list, int page, String sortParam, ProgressBar pb, RecyclerAdapter adapter, SwipeRefreshLayout mSwipeContainer) {
         this.list = list;
         this.page = page;
         this.sortParam = sortParam;
+        this.pb = pb;
+        this.adapter = adapter;
+        this.mSwipeContainer = mSwipeContainer;
     }
+
     @Override
-    public void run () {
+    protected Object doInBackground(Object[] objects) {
         if (vndatabaseapp.loggedIn == true)
             jsonString = ServerRequest.getInstance().writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\""+sortParam+"\",\"reverse\":true}");
         else
@@ -58,8 +72,18 @@ public class PopulateListItems extends Thread {/// MOVE THIS CLASS TO AN ASYNC T
             x.setRank(y);
             y ++;
         }
+        Log.d("Async Task","About to finish getting data");
+
+        return true;
     }
-    public ArrayList<ListItem> getList () {
-        return this.list;
+
+    @Override
+    protected void onPostExecute(Object o) {
+        pb.setVisibility(View.GONE);
+        adapter.setData(this.list);
+        adapter.notifyDataSetChanged();
+        mSwipeContainer.setRefreshing(false);
     }
+
+
 }

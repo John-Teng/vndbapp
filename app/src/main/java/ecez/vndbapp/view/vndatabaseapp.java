@@ -130,7 +130,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
                 Log.d("Fragment2", "THere are " + fragments.size() + " fragments");
                 for (TopNovelsFragment f : fragments) {
                     Log.d("Fragment", "Updating a fragment");
-                    f.updateList();
+                    f.loadList(true);
                 }
                 return true;
             }

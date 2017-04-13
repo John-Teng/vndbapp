@@ -38,7 +38,7 @@ public class ImageActivity extends AppCompatActivity {
         });
 
         imagePager = (FixedViewPager) findViewById(R.id.fullscreen_imagePager);
-        imageAdapter = new ImagePagerAdapter(getApplicationContext(),imageURLS, imagePager);
+        imageAdapter = new ImagePagerAdapter(getApplicationContext(),imageURLS);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
         imagePager.setCurrentItem(position);
