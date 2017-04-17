@@ -264,7 +264,7 @@ public class NovelDetails extends AppCompatActivity {
             s.append("  |  ");
         }
        if (s.length() < 6) {
-           s.append("no genre information available12345");
+           s.append("No Genre Information Available12345");
        }
         final String output = s.toString().substring(0, s.toString().length() - 5);
 

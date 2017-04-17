@@ -76,11 +76,31 @@ public class TopNovelsFragment extends Fragment {
         if (pageNum!=0) {
             pageCount = pageNum;
         }
-        PopulateListItems l = new PopulateListItems(pageCount,sortParam,pb,adapter,mSwipeContainer, mLoadedListItems);
+        PopulateListItems l = new PopulateListItems(pageCount,sortParam);
+        l.callback = new ListCallback() {
+            @Override
+            public void onSuccess(List<ListItem> list) { //This is run on a background thread
+                if (pageCount == 1)
+                    mLoadedListItems.clear();
+                mLoadedListItems.addAll(list);
+            }
+            @Override
+            public void onSuccessUI() { //This is run on UI thread
+                //mLoadedListItems is being modified by reference in the AsyncTask
+                pb.setVisibility(View.GONE);
+                adapter.setData(mLoadedListItems);
+                adapter.notifyDataSetChanged();
+                mSwipeContainer.setRefreshing(false);
+            }
+            @Override
+            public void onFailureUI() {
+                Log.d("LIST FAILURE","Could not get the list of visual novels!");
+            }
+        };
+
         l.execute();
         Log.d("Async Task","Finished request, getting data");
         pageCount ++;
     }
 
-
-    }
+}
