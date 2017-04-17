@@ -1,4 +1,4 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.Adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -18,13 +18,13 @@ import ecez.vndbapp.model.Console;
 /**
  * Created by Teng on 10/10/2016.
  */
-public class ConsoleIconAdapter extends RecyclerView.Adapter<ConsoleIconAdapter.holder>{
+public class ConsoleIconRecyclerAdapter extends RecyclerView.Adapter<ConsoleIconRecyclerAdapter.holder>{
 
     private ArrayList<Console> consoles = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
 
-    public ConsoleIconAdapter(ArrayList<Console> consoles, Context context) {
+    public ConsoleIconRecyclerAdapter(ArrayList<Console> consoles, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.consoles = consoles;
         this.context = context;

@@ -14,7 +14,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import ecez.vndbapp.view.vndatabaseapp;
+import ecez.vndbapp.controller.vndatabaseapp;
 
 /**
  * Created by Teng on 10/13/2016.

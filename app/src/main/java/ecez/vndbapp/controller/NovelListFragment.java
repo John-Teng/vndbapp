@@ -1,4 +1,4 @@
-package ecez.vndbapp.view;
+package ecez.vndbapp.controller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,14 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.EndlessRecyclerViewScrollListener;
-import ecez.vndbapp.controller.PopulateListItems;
-import ecez.vndbapp.controller.RecyclerAdapter;
+import ecez.vndbapp.controller.Adapters.ListRecyclerAdapter;
+import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.model.ListItem;
 
-public class TopNovelsFragment extends Fragment {
+public class NovelListFragment extends Fragment {
     public static RecyclerView recyclerView;
-    private RecyclerAdapter adapter;
+    private ListRecyclerAdapter adapter;
     private ProgressBar pb;
     private List<ListItem> mLoadedListItems = new ArrayList<>();
     private View view;
@@ -33,7 +32,7 @@ public class TopNovelsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         sortParam = getArguments().getString("SORTPARAM");
-        view = inflater.inflate(R.layout.top_novels_fragment, container, false);
+        view = inflater.inflate(R.layout.novel_list_fragment, container, false);
         mSwipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -63,7 +62,7 @@ public class TopNovelsFragment extends Fragment {
         };
         recyclerView.addOnScrollListener(endlessScrollListener);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(mLoadedListItems, this.getContext(), getActivity());
+        adapter = new ListRecyclerAdapter(mLoadedListItems, this.getContext(), getActivity());
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(mLoadedListItems.size()));
         recyclerView.setAdapter(adapter);
 
@@ -80,9 +79,14 @@ public class TopNovelsFragment extends Fragment {
         l.callback = new ListCallback() {
             @Override
             public void onSuccess(List<ListItem> list) { //This is run on a background thread
-                if (pageCount == 1)
+                Log.d("callback","onSuccess callback being called ");
+                Log.d("callback","The current page is " + Integer.toString(pageCount) );
+                if (pageCount == 1) {
                     mLoadedListItems.clear();
+                    Log.d("callback","There are now " + mLoadedListItems.size() + " items in the list");
+                }
                 mLoadedListItems.addAll(list);
+                pageCount ++;
             }
             @Override
             public void onSuccessUI() { //This is run on UI thread
@@ -100,7 +104,6 @@ public class TopNovelsFragment extends Fragment {
 
         l.execute();
         Log.d("Async Task","Finished request, getting data");
-        pageCount ++;
     }
 
 }

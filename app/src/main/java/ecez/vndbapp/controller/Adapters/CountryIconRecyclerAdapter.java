@@ -1,4 +1,4 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -16,12 +16,12 @@ import ecez.vndbapp.model.Country;
 /**
  * Created by Teng on 10/10/2016.
  */
-public class CountryIconAdapter extends RecyclerView.Adapter<CountryIconAdapter.holder>{
+public class CountryIconRecyclerAdapter extends RecyclerView.Adapter<CountryIconRecyclerAdapter.holder>{
 
     private ArrayList<Country> countries = new ArrayList<>();
     private LayoutInflater inflater;
 
-    public CountryIconAdapter(ArrayList<Country> countries, Context context) {
+    public CountryIconRecyclerAdapter(ArrayList<Country> countries, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.countries = countries;
     }

@@ -1,4 +1,4 @@
-package ecez.vndbapp.view;
+package ecez.vndbapp.controller;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,20 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.CharacterAdapter;
+import ecez.vndbapp.controller.Adapters.CharacterRecyclerAdapter;
 import ecez.vndbapp.model.Character;
 
 public class CharacterList extends AppCompatActivity {
     public static RecyclerView recyclerView;
-    private CharacterAdapter adapter;
+    private CharacterRecyclerAdapter adapter;
     private ArrayList<Character> characters;
     private Intent intent;
     private int novelID;
@@ -42,7 +40,7 @@ public class CharacterList extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new CharacterAdapter(characters, getApplicationContext(), recyclerView, novelID);
+        adapter = new CharacterRecyclerAdapter(characters, getApplicationContext(), recyclerView, novelID);
         recyclerView.setAdapter(adapter);
     }
 

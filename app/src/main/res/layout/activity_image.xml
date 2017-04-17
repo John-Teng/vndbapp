@@ -8,7 +8,7 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context=".view.ImageActivity">
+    tools:context=".controller.ImageActivity">
     <!--style="@style/Theme.CustomTranslucent"-->
 
     <ecez.vndbapp.model.FixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,4 +1,4 @@
-package ecez.vndbapp.view;
+package ecez.vndbapp.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.ImagePagerAdapter;
+import ecez.vndbapp.controller.Adapters.ImagePagerAdapter;
 import ecez.vndbapp.model.FixedViewPager;
 import ecez.vndbapp.model.NovelScreenShot;
 

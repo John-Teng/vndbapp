@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import ecez.vndbapp.model.DetailsData;
 import ecez.vndbapp.model.NovelScreenShot;
 import ecez.vndbapp.model.ServerRequest;
-import ecez.vndbapp.view.vndatabaseapp;
 
 /**
  * Created by Teng on 10/27/2016.

@@ -1,10 +1,8 @@
-package ecez.vndbapp.view;
+package ecez.vndbapp.controller;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,16 +23,12 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.ConsoleIconAdapter;
-import ecez.vndbapp.controller.CountryIconAdapter;
-import ecez.vndbapp.controller.ImagePagerAdapter;
-import ecez.vndbapp.controller.PopulateCharacters;
-import ecez.vndbapp.controller.PopulateNovelDetails;
+import ecez.vndbapp.controller.Adapters.ConsoleIconRecyclerAdapter;
+import ecez.vndbapp.controller.Adapters.CountryIconRecyclerAdapter;
+import ecez.vndbapp.controller.Adapters.ImagePagerAdapter;
 import ecez.vndbapp.model.Character;
 import ecez.vndbapp.model.Console;
 import ecez.vndbapp.model.Country;
@@ -46,8 +40,8 @@ import ecez.vndbapp.model.Tag;
 public class NovelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
-    private ConsoleIconAdapter consoleAdapter;
-    private CountryIconAdapter countryAdapter;
+    private ConsoleIconRecyclerAdapter consoleAdapter;
+    private CountryIconRecyclerAdapter countryAdapter;
     private LinearLayoutManager countryLayoutManager, consoleLayoutManager;
     private ImagePagerAdapter imageAdapter;
     private RecyclerView countryRecyclerView, consoleRecyclerView;
@@ -139,11 +133,11 @@ public class NovelDetails extends AppCompatActivity {
         countryLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         consoleLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        countryAdapter = new CountryIconAdapter(countries, getApplicationContext());
+        countryAdapter = new CountryIconRecyclerAdapter(countries, getApplicationContext());
         countryRecyclerView.setLayoutManager(countryLayoutManager);
         countryRecyclerView.setAdapter(countryAdapter);
 
-        consoleAdapter = new ConsoleIconAdapter(consoles, getApplicationContext());
+        consoleAdapter = new ConsoleIconRecyclerAdapter(consoles, getApplicationContext());
         consoleRecyclerView.setLayoutManager(consoleLayoutManager);
         consoleRecyclerView.setAdapter(consoleAdapter);
         consoleRecyclerView.setItemViewCacheSize(20);

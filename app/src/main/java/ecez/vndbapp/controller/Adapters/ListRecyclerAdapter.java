@@ -1,9 +1,8 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,25 +13,24 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.NovelDetails;
+import ecez.vndbapp.controller.NovelListFragment;
 import ecez.vndbapp.model.ListItem;
-import ecez.vndbapp.view.NovelDetails;
-import ecez.vndbapp.view.TopNovelsFragment;
 
 /**
  * Created by Teng on 10/10/2016.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.holder>{
+public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapter.holder>{
 
     private List<ListItem> listData;
     private LayoutInflater inflater;
     private Context context;
     private Activity activityReference;
 
-    public RecyclerAdapter(List<ListItem> listData, Context context, Activity activityReference) {
+    public ListRecyclerAdapter(List<ListItem> listData, Context context, Activity activityReference) {
         this.inflater = LayoutInflater.from(context);
         this.listData = listData;
         this.context = context;
@@ -48,7 +46,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.holder
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int itemPosition = TopNovelsFragment.recyclerView.getChildLayoutPosition(view);
+                int itemPosition = NovelListFragment.recyclerView.getChildLayoutPosition(view);
                 String id = listData.get(itemPosition).getId();
 
                 ImageView image = (ImageView) view.findViewById(R.id.picture);

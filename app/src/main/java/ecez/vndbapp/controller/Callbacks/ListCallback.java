@@ -1,4 +1,4 @@
-package ecez.vndbapp.view;
+package ecez.vndbapp.controller.Callbacks;
 
 import java.util.List;
 

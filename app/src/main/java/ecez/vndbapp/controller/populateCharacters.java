@@ -13,7 +13,6 @@ import java.util.Arrays;
 
 import ecez.vndbapp.model.Character;
 import ecez.vndbapp.model.ServerRequest;
-import ecez.vndbapp.view.vndatabaseapp;
 
 /**
  * Created by Teng on 11/20/2016.

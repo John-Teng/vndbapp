@@ -21,7 +21,6 @@ import java.util.zip.GZIPInputStream;
 import ecez.vndbapp.model.DumpObject;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
-import ecez.vndbapp.view.vndatabaseapp;
 
 /**
  * Created by Teng on 12/8/2016.

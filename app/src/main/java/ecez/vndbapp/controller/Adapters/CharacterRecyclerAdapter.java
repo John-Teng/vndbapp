@@ -1,4 +1,4 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,14 +15,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.CharacterProfile;
 import ecez.vndbapp.model.Character;
-import ecez.vndbapp.view.CharacterProfile;
-import ecez.vndbapp.view.ImageActivity;
 
 /**
  * Created by Teng on 10/10/2016.
  */
-public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.holder>{
+public class CharacterRecyclerAdapter extends RecyclerView.Adapter<CharacterRecyclerAdapter.holder>{
 
     private ArrayList<Character> characters;
     private LayoutInflater inflater;
@@ -30,7 +29,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.hold
     private RecyclerView recyclerViewReference;
     private int novelID;
 
-    public CharacterAdapter(ArrayList<Character> characters, Context context, RecyclerView view, int novelID) {
+    public CharacterRecyclerAdapter(ArrayList<Character> characters, Context context, RecyclerView view, int novelID) {
         this.inflater = LayoutInflater.from(context);
         this.characters = characters;
         this.context = context;

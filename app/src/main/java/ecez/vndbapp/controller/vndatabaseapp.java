@@ -1,4 +1,4 @@
-package ecez.vndbapp.view;
+package ecez.vndbapp.controller;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import ecez.vndbapp.controller.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.RequestDumpObjects;
+import ecez.vndbapp.controller.Adapters.TabPagerAdapter;
 import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
@@ -44,7 +43,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
     public static HashMap<Integer,Tag> tagsMap = null;
     private String date;
     private TabLayout tabLayout;
-    private PagerAdapter mPagerAdapter;
+    private TabPagerAdapter mTabPagerAdapter;
     private void getDemFiles (String saveDir) {
         try {
             File file = new File(getApplicationContext().getDir("data", Context.MODE_PRIVATE), saveDir);
@@ -84,10 +83,10 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new PagerAdapter
+        mTabPagerAdapter = new TabPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(mPagerAdapter);
+        viewPager.setAdapter(mTabPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -126,9 +125,9 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
             @Override
             protected Object doInBackground(Object[] objects) {
                 vndatabaseapp.loggedIn = ServerRequest.getInstance().login();
-                List<TopNovelsFragment> fragments = mPagerAdapter.getFragmentList();
+                List<NovelListFragment> fragments = mTabPagerAdapter.getFragmentList();
                 Log.d("Fragment2", "THere are " + fragments.size() + " fragments");
-                for (TopNovelsFragment f : fragments) {
+                for (NovelListFragment f : fragments) {
                     Log.d("Fragment", "Updating a fragment");
                     f.loadList(1);
                 }

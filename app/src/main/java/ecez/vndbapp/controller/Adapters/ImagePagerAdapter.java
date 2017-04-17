@@ -1,9 +1,8 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.ImageActivity;
 import ecez.vndbapp.model.NovelScreenShot;
-import ecez.vndbapp.view.ImageActivity;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**

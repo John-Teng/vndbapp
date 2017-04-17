@@ -13,10 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.model.ListItem;
 import ecez.vndbapp.model.ServerRequest;
-import ecez.vndbapp.view.ListCallback;
-import ecez.vndbapp.view.vndatabaseapp;
 
 /**
  * Created by Teng on 10/22/2016.

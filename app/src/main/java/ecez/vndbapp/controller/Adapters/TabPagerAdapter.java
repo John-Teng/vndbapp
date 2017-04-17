@@ -1,4 +1,4 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.Adapters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,13 +8,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.LinkedList;
 import java.util.List;
 
-import ecez.vndbapp.view.TopNovelsFragment;
+import ecez.vndbapp.controller.NovelListFragment;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class TabPagerAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
-    private List<TopNovelsFragment> mActiveFragments = new LinkedList<>();
+    private List<NovelListFragment> mActiveFragments = new LinkedList<>();
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public TabPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -34,8 +34,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-    private final TopNovelsFragment newFragmentWithQuery (String sortParam) {
-        TopNovelsFragment tab = new TopNovelsFragment();
+    private final NovelListFragment newFragmentWithQuery (String sortParam) {
+        NovelListFragment tab = new NovelListFragment();
         Bundle bundle = new Bundle();
         bundle.putString("SORTPARAM",sortParam);
         tab.setArguments(bundle);
@@ -43,7 +43,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         return tab;
     }
 
-    public List<TopNovelsFragment> getFragmentList () {
+    public List<NovelListFragment> getFragmentList () {
         return mActiveFragments;
     }
 

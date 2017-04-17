@@ -1,4 +1,4 @@
-package ecez.vndbapp.view;
+package ecez.vndbapp.controller;
 
 import android.content.Intent;
 import android.graphics.Color;
