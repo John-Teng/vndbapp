@@ -31,6 +31,7 @@ import java.util.List;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.TabPagerAdapter;
+import ecez.vndbapp.controller.NetworkRequests.RequestDumpObjects;
 import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;

@@ -29,6 +29,8 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ConsoleIconRecyclerAdapter;
 import ecez.vndbapp.controller.Adapters.CountryIconRecyclerAdapter;
 import ecez.vndbapp.controller.Adapters.ImagePagerAdapter;
+import ecez.vndbapp.controller.NetworkRequests.PopulateCharacters;
+import ecez.vndbapp.controller.NetworkRequests.PopulateNovelDetails;
 import ecez.vndbapp.model.Character;
 import ecez.vndbapp.model.Console;
 import ecez.vndbapp.model.Country;

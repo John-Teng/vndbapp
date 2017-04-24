@@ -1,4 +1,4 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.NetworkRequests;
 
 import android.util.Log;
 
@@ -8,28 +8,28 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import ecez.vndbapp.model.Character;
+import ecez.vndbapp.controller.vndatabaseapp;
+import ecez.vndbapp.model.DetailsData;
+import ecez.vndbapp.model.NovelScreenShot;
 import ecez.vndbapp.model.ServerRequest;
 
 /**
- * Created by Teng on 11/20/2016.
+ * Created by Teng on 10/27/2016.
  */
-public class PopulateCharacters extends Thread{ ///MOVE THIS CLASS TO AN ASYNC TASK
+public class PopulateNovelDetails extends Thread{
 
     private String jsonString;
-    private ArrayList<Character> characters;
-    private int vnID;
+    private DetailsData data;
+    private NovelScreenShot[] screens;
+    private int id;
 
-    public PopulateCharacters(int vnID) {
-        this.vnID = vnID;
+    public PopulateNovelDetails(int id) {
+        this.id = id;
     }
     @Override
     public void run () {
         if (vndatabaseapp.loggedIn == true)
-            jsonString = ServerRequest.getInstance().writeToServer("get", "character", "basic,meas,details,traits,vns", "(vn = "+Integer.toString(vnID)+")",null);
+            jsonString = ServerRequest.getInstance().writeToServer("get", "vn", "basic,stats,details,screens,tags", "(id = "+Integer.toString(id)+")",null);
         else
             Log.d("Connection failure", "Cannot connect to server");
         Log.d("JSON Response",jsonString);
@@ -38,7 +38,7 @@ public class PopulateCharacters extends Thread{ ///MOVE THIS CLASS TO AN ASYNC T
         String dataString = jsonString.substring(8,jsonString.length()); //Removes the prepending "result" keyword in the json response
         Log.d("Modified Response 1",dataString);
 
-        int numberOfResponses;
+        int numberOfResponses = 0;
         JSONArray jsonResponse = null;
         try {
             JSONObject returnObject = new JSONObject(dataString);
@@ -51,14 +51,27 @@ public class PopulateCharacters extends Thread{ ///MOVE THIS CLASS TO AN ASYNC T
         String s = jsonResponse.toString();
         String f = s.substring(1,s.length()-1);//Removes the square braces from the response
 
+        JSONObject j = null;
+        JSONArray jsonScreens = null;
+        try {
+            j = new JSONObject(f);
+            jsonScreens = j.getJSONArray("screens");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        screens = gson.fromJson(jsonScreens.toString(),NovelScreenShot[].class);
+        Log.d("Screens",jsonScreens.toString());
+
         Log.d("json2",f);
-        Character[] l = gson.fromJson(jsonResponse.toString(),Character[].class);
-        this.characters = new ArrayList<Character>(Arrays.asList(l));
+        this.data = gson.fromJson(f,DetailsData.class);
+
     }
-    public ArrayList<Character> getCharacters() {
-        return this.characters;
+    public DetailsData getData () {
+        return this.data;
     }
 
+    public NovelScreenShot[] getScreens () {
+        return this.screens;
+    }
 
 }
-

@@ -17,6 +17,8 @@ import java.util.List;
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ListRecyclerAdapter;
 import ecez.vndbapp.controller.Callbacks.ListCallback;
+import ecez.vndbapp.controller.NetworkRequests.PopulateListItems;
+import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.ListItem;
 
 public class NovelListFragment extends Fragment {
@@ -78,7 +80,7 @@ public class NovelListFragment extends Fragment {
         PopulateListItems l = new PopulateListItems(pageCount,sortParam);
         l.callback = new ListCallback() {
             @Override
-            public void onSuccess(List<ListItem> list) { //This is run on a background thread
+            public void returnList(List<ListItem> list) { //This is run on a background thread
                 Log.d("callback","onSuccess callback being called ");
                 Log.d("callback","The current page is " + Integer.toString(pageCount) );
                 if (pageCount == 1) {
@@ -97,8 +99,12 @@ public class NovelListFragment extends Fragment {
                 mSwipeContainer.setRefreshing(false);
             }
             @Override
-            public void onFailureUI() {
-                Log.d("LIST FAILURE","Could not get the list of visual novels!");
+            public void onFailure(Error error, String errorMessage) {
+                Log.d("AsyncTask FAILURE",errorMessage);
+                if (error!=null){
+                    Log.d("Error ID:",error.getId());
+                    Log.d("Error Message:",error.getMsg());
+                }
             }
         };
 

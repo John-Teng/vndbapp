@@ -1,4 +1,4 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.NetworkRequests;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,6 +18,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.zip.GZIPInputStream;
 
+import ecez.vndbapp.controller.vndatabaseapp;
 import ecez.vndbapp.model.DumpObject;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;

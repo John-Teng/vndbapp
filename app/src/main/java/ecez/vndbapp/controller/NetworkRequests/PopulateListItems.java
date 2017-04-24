@@ -1,4 +1,4 @@
-package ecez.vndbapp.controller;
+package ecez.vndbapp.controller.NetworkRequests;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -13,7 +13,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Callbacks.ListCallback;
+import ecez.vndbapp.controller.vndatabaseapp;
+import ecez.vndbapp.model.Constants;
+import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.ListItem;
 import ecez.vndbapp.model.ServerRequest;
 
@@ -39,12 +43,19 @@ public class PopulateListItems extends AsyncTask {
         if (vndatabaseapp.loggedIn == true)
             jsonString = ServerRequest.getInstance().writeToServer("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\""+sortParam+"\",\"reverse\":true}");
         else {
-            Log.d("Connection failure", "Cannot connect to server");
+            callback.onFailure(null, Constants.serverNotLoggedInError);
             return false;
         }
-        Log.d("JSON Response",jsonString);
 
         Gson gson = new Gson();
+
+        Log.d("JSON Response",jsonString);
+        if (jsonString.substring(0,4).equals("error")) {
+            Error error = gson.fromJson(jsonString.toString(), Error.class);
+            callback.onFailure(error,Constants.serverErrorResponse);
+            return false;
+        }
+
         String dataString = jsonString.substring(8,jsonString.length()); //Removes the prepending "result" keyword in the json response
         int numberOfResponses;
         JSONArray jsonResponse;
@@ -55,6 +66,7 @@ public class PopulateListItems extends AsyncTask {
             Log.d("number of itmes",Integer.toString(numberOfResponses));
         } catch (JSONException e) {
             e.printStackTrace();
+            callback.onFailure(null, Constants.gsonSerializationError);
             return false;
         }
         Log.d("json",jsonResponse.toString());
@@ -65,7 +77,7 @@ public class PopulateListItems extends AsyncTask {
             x.setRank(y);
             y ++;
         }
-        callback.onSuccess(list);
+        callback.returnList(list);
 
         return true;
     }
@@ -74,8 +86,6 @@ public class PopulateListItems extends AsyncTask {
     protected void onPostExecute(Object o) {
         if (o.equals(true))
             callback.onSuccessUI();
-        else
-            callback.onFailureUI();
 
     }
 

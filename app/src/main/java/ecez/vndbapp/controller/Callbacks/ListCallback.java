@@ -5,11 +5,9 @@ import java.util.List;
 import ecez.vndbapp.model.ListItem;
 
 /**
- * Created by johnteng on 2017-04-13.
+ * Created by johnteng on 2017-04-23.
  */
 
-public interface ListCallback {
-    void onSuccess(List<ListItem> list);
-    void onSuccessUI();
-    void onFailureUI();
+public interface ListCallback extends AsyncTaskCallback{
+    void returnList(List<ListItem> list);
 }
