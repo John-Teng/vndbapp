@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.Console;
@@ -20,16 +21,16 @@ import ecez.vndbapp.model.Console;
  */
 public class ConsoleIconRecyclerAdapter extends RecyclerView.Adapter<ConsoleIconRecyclerAdapter.holder>{
 
-    private ArrayList<Console> consoles = new ArrayList<>();
+    private List<Console> consoles = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
 
-    public ConsoleIconRecyclerAdapter(ArrayList<Console> consoles, Context context) {
+    public ConsoleIconRecyclerAdapter(List<Console> consoles, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.consoles = consoles;
         this.context = context;
     }
-    public void setData (ArrayList<Console> newData) {
+    public void setData (List<Console> newData) {
         this.consoles = newData; //Adds additional data
     }
     public float convertDpToPixel(float dp){

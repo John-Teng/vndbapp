@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.controller.vndatabaseapp;
 import ecez.vndbapp.model.Constants;
@@ -56,17 +55,17 @@ public class PopulateListItems extends AsyncTask {
             return false;
         }
 
-        String dataString = jsonString.substring(8,jsonString.length()); //Removes the prepending "result" keyword in the json response
+        jsonString = jsonString.substring(8,jsonString.length()); //Removes the prepending "result" keyword in the json response
         int numberOfResponses;
         JSONArray jsonResponse;
         try {
-            JSONObject returnObject = new JSONObject(dataString);
+            JSONObject returnObject = new JSONObject(jsonString);
             numberOfResponses = returnObject.getInt("num");
             jsonResponse = returnObject.getJSONArray("items");
             Log.d("number of itmes",Integer.toString(numberOfResponses));
         } catch (JSONException e) {
             e.printStackTrace();
-            callback.onFailure(null, Constants.gsonSerializationError);
+            callback.onFailure(null, Constants.jsonSerializationError);
             return false;
         }
         Log.d("json",jsonResponse.toString());

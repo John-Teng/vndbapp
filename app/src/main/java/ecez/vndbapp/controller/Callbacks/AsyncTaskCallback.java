@@ -8,5 +8,6 @@ import ecez.vndbapp.model.Error;
 
 public interface AsyncTaskCallback {
     void onFailure(Error error, String errorMessage);
-    void onSuccessUI();
 }
+
+

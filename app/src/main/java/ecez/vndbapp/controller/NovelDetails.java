@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import at.blogc.android.views.ExpandableTextView;
@@ -29,15 +27,16 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ConsoleIconRecyclerAdapter;
 import ecez.vndbapp.controller.Adapters.CountryIconRecyclerAdapter;
 import ecez.vndbapp.controller.Adapters.ImagePagerAdapter;
+import ecez.vndbapp.controller.Callbacks.NovelDetailsDataCallback;
 import ecez.vndbapp.controller.NetworkRequests.PopulateCharacters;
 import ecez.vndbapp.controller.NetworkRequests.PopulateNovelDetails;
 import ecez.vndbapp.model.Character;
 import ecez.vndbapp.model.Console;
 import ecez.vndbapp.model.Country;
 import ecez.vndbapp.model.DetailsData;
+import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.FixedViewPager;
 import ecez.vndbapp.model.NovelScreenShot;
-import ecez.vndbapp.model.Tag;
 
 public class NovelDetails extends AppCompatActivity {
 
@@ -53,27 +52,11 @@ public class NovelDetails extends AppCompatActivity {
     private ExpandableTextView description;
     private ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     private FixedViewPager imagePager;
-    private DetailsData data;
-    private int novelID, timerCount;
-    private List<String> possibleGenres = new ArrayList<String>(){{
-        add("Drama");
-        add("Fantasy");
-        add("Horror");
-        add("Action");
-        add("Comedy");
-        add("Romance");
-        add("Science Fiction");
-        add("Thriller");
-    }};
-    private ArrayList<String> genres = new ArrayList<>();
-    private ArrayList<NovelScreenShot> pictures = new ArrayList<>();
-    private ArrayList<Country> countries = new ArrayList<>();
-    private ArrayList<Console> consoles = new ArrayList<>();
+    private int novelID;
+
     private ArrayList<Character> characters = new ArrayList<>();
-    private Tag tag;
     private View quickstats, bodyLayout;
-    private final int TIMER_TIME = 500;
-    private boolean viewsAreLoaded = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +87,6 @@ public class NovelDetails extends AppCompatActivity {
 
         title = (TextView)findViewById(R.id.toolbar_title);
         title.setVisibility(View.INVISIBLE);
-        //developer = (TextView) findViewById(R.id.toolbar_subtitle);
         votes = (TextView) findViewById(R.id.quickstats_votes);
         rating = (TextView)findViewById(R.id.quickstats_rating);
         popularity = (TextView)findViewById(R.id.quickstats_popularity);
@@ -135,16 +117,16 @@ public class NovelDetails extends AppCompatActivity {
         countryLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         consoleLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        countryAdapter = new CountryIconRecyclerAdapter(countries, getApplicationContext());
+        countryAdapter = new CountryIconRecyclerAdapter(new ArrayList<Country>(), getApplicationContext());
         countryRecyclerView.setLayoutManager(countryLayoutManager);
         countryRecyclerView.setAdapter(countryAdapter);
 
-        consoleAdapter = new ConsoleIconRecyclerAdapter(consoles, getApplicationContext());
+        consoleAdapter = new ConsoleIconRecyclerAdapter(new ArrayList<Console>(), getApplicationContext());
         consoleRecyclerView.setLayoutManager(consoleLayoutManager);
         consoleRecyclerView.setAdapter(consoleAdapter);
         consoleRecyclerView.setItemViewCacheSize(20);
 
-        imageAdapter = new ImagePagerAdapter(getApplicationContext(),pictures, true);
+        imageAdapter = new ImagePagerAdapter(getApplicationContext(),new ArrayList<NovelScreenShot>(), true);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 
@@ -168,120 +150,12 @@ public class NovelDetails extends AppCompatActivity {
                 loadCharacterData(novelID);
             }
         }.start();
-
-//        final Timer timer = new Timer();
-//        Log.d("Timer","Timer Start!");
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                timerCount += 1;
-//                Log.d("Timer","Time is currently at " + Integer.toString(timerCount) + " intervals where each interval is " + Integer.toString(TIMER_TIME) + " miliseconds");
-//                if (viewsAreLoaded) {
-//                    Log.d("Timer","Timer will be cancelled since views are now loaded");
-//                    timer.cancel();
-//                    timer.purge();
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            bodyLayout.setVisibility(View.VISIBLE);
-//                            quickstats.setVisibility(View.VISIBLE);
-//                            title.setVisibility(View.VISIBLE);
-//                        }
-//                    });
-//                }
-//                if (timerCount >= 6) {
-//                    timer.cancel();
-//                    timer.purge();
-//                    AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
-//                    alertDialog.setTitle("Loading Error");
-//                    alertDialog.setMessage("There was an error with loading the data, please try again!");
-//                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-//                            new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    dialog.dismiss();
-//                                    onBackPressed();
-//                                }
-//                            });
-//                    alertDialog.show();
-//                }
-//            }
-//        }, TIMER_TIME);
     }
 
-
-    private void findGenres (Tag tag) {
-        if (!performGenreCheck(tag.getName())) {
-            findGenreFromParent(tag);
-        }
-    }
-
-    private boolean performGenreCheck(String tagName) {
-
-        for (String genre : possibleGenres) {
-            if (tagName.equals(genre)) {
-                genres.add(tagName);
-                possibleGenres.remove(genre);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void findGenreFromParent (Tag t) {
-        Integer [] parents = t.getParents();
-        if (parents.length > 0) { //make another recursive call
-            Tag nextTag = vndatabaseapp.tagsMap.get(parents[0]);
-            if (!performGenreCheck(nextTag.getName())) {
-                findGenreFromParent(nextTag);
-            }
-        }
-    }
-
-    private void loadTags () {
-        String [] [] tags = data.getTags();
-        if (tags == null)
-            return;
-
-        for (int x = 0; x < tags.length; x++){ //iterate for every tag returned
-            int tagID = Integer.parseInt(tags[x][0]);
-            tag = vndatabaseapp.tagsMap.get(tagID);
-            if (tag == null)
-                continue; //Sometimes, the tag ID that is looked up will return a null Tag
-            findGenres(tag);
-        }
-
-        if (genres == null)
-            return;
-
-        StringBuilder s = new StringBuilder();
-
-        for (String d : genres){
-            s.append(d);
-            s.append("  |  ");
-        }
-       if (s.length() < 6) {
-           s.append("No Genre Information Available12345");
-       }
-        final String output = s.toString().substring(0, s.toString().length() - 5);
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                int n = genres.size();
-                if (n > 6) {
-                    genre.setTextSize(TypedValue.COMPLEX_UNIT_PX,convertDpToPx(9));
-                } else if (n > 5) {
-                    genre.setTextSize(TypedValue.COMPLEX_UNIT_PX,convertDpToPx(11));
-                }
-                genre.setText(output);
-            }
-        });
-    }
-
-    private int convertDpToPx(int dp){
-        float scale = getResources().getDisplayMetrics().density;
-        return (int) (dp*scale + 0.5f);
-    }
+//    private int convertDpToPx(int dp){
+//        float scale = getResources().getDisplayMetrics().density;
+//        return (int) (dp*scale + 0.5f);
+//    }
 
     @Override
     public void onBackPressed (){
@@ -385,80 +259,34 @@ public class NovelDetails extends AppCompatActivity {
     private void loadNovelData (int id) {
         Log.d("Calling Server","Requesting Novel Details from the server");
         final PopulateNovelDetails d = new PopulateNovelDetails(id);
-        d.start();
-        try {
-            d.join();
-        } catch (InterruptedException f) { f.printStackTrace(); }
-        Log.d("Calling Server","Received Novel Details from the server");
-
-        Thread a = new Thread() {
-            public void run() {
-                data = d.getData();
-                pictures = new ArrayList<>(Arrays.asList(d.getScreens()));
-                pictures.add(new NovelScreenShot(data.getImage())); //Add the novel icon as the last image
-            }
-        };
-        a.start();
-        try {
-            a.join();
-        } catch (InterruptedException f) { f.printStackTrace(); }
-
-        Thread b = new Thread() {
-            public void run() {
-                loadCountryIcons();
-                loadConsoleIcons();
-            }
-        };
-        b.start();
-        try {
-            b.join();
-        } catch (InterruptedException f) { f.printStackTrace(); }
-        loadTags();
-        loadNovelViews();
-    }
-
-    private void loadNovelViews() {
-        runOnUiThread(new Runnable() {
+        d.callback = new NovelDetailsDataCallback() {
             @Override
-            public void run() {
-                title.setText(data.getTitleWithDate());
-                votes.setText(data.getVoteCount());
-                rating.setText(data.getRating());
-                popularity.setText(data.getPopularity());
-                description.setText(data.getDescriptionWithoutBrackets());
-                length.setText(data.getLength());
-                imageAdapter.setImage(pictures);
+            public void onSuccessUI(List<Country> countryList, List<Console> consoleList, DetailsData detailsData,
+                                    List<NovelScreenShot> novelScreenShots, String genres) {
+                title.setText(detailsData.getTitleWithDate());
+                votes.setText(detailsData.getVoteCount());
+                rating.setText(detailsData.getRating());
+                popularity.setText(detailsData.getPopularity());
+                description.setText(detailsData.getDescriptionWithoutBrackets());
+                length.setText(detailsData.getLength());
+                genre.setText(genres);
+                imageAdapter.setImage(novelScreenShots);
                 imageAdapter.notifyDataSetChanged();
-                viewsAreLoaded = true;
-            }
-        });
-    }
-
-    private void loadCountryIcons () {
-        String [] s = data.getLanguages();
-        for (int x = 0; x<s.length; x++) {
-            countries.add(new Country(s[x]));
-        }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                countryAdapter.setData(countries);
+                countryAdapter.setData(countryList);
                 countryAdapter.notifyDataSetChanged();
-            }
-        });
-    }
-
-    private void loadConsoleIcons () {
-        String [] s = data.getPlatforms();
-        for (int x = 0; x<s.length; x++) {
-            consoles.add(new Console(s[x]));
-        }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                consoleAdapter.setData(consoles);
+                consoleAdapter.setData(consoleList);
                 consoleAdapter.notifyDataSetChanged();
             }
-        });
+
+            @Override
+            public void onFailure(Error error, String errorMessage) {
+                Log.d("AsyncTask FAILURE",errorMessage);
+                if (error!=null){
+                    Log.d("Error ID:",error.getId());
+                    Log.d("Error Message:",error.getMsg());
+                }
+            }
+        };
+        d.execute();
     }
 }

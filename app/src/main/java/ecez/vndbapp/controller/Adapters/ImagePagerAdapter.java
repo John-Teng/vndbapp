@@ -10,7 +10,9 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.ImageActivity;
@@ -24,21 +26,21 @@ public class ImagePagerAdapter extends PagerAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<NovelScreenShot> pictures;
+    private List<NovelScreenShot> pictures;
     private Boolean shouldStartActivity = false;
 
-    public ImagePagerAdapter(Context context, ArrayList<NovelScreenShot> pictures, Boolean shouldStartActivity) {
+    public ImagePagerAdapter(Context context, List<NovelScreenShot> pictures, Boolean shouldStartActivity) {
         this(context, pictures);
         this.shouldStartActivity = shouldStartActivity;
     }
 
-    public ImagePagerAdapter(Context context, ArrayList<NovelScreenShot> pictures) {
+    public ImagePagerAdapter(Context context, List<NovelScreenShot> pictures) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.pictures = pictures;
     }
 
-    public void setImage (ArrayList<NovelScreenShot> pictures) {
+    public void setImage (List<NovelScreenShot> pictures) {
         this.pictures = pictures;
     }
 
@@ -64,7 +66,7 @@ public class ImagePagerAdapter extends PagerAdapter {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, ImageActivity.class);
                     intent.putExtra("POSITION", position);
-                    intent.putExtra("IMAGE_URLS", pictures);
+                    intent.putExtra("IMAGE_URLS", (Serializable) pictures);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }

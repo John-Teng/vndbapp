@@ -10,4 +10,5 @@ import ecez.vndbapp.model.ListItem;
 
 public interface ListCallback extends AsyncTaskCallback{
     void returnList(List<ListItem> list);
+    void onSuccessUI();
 }

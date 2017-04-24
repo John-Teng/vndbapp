@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.Country;
@@ -18,14 +19,14 @@ import ecez.vndbapp.model.Country;
  */
 public class CountryIconRecyclerAdapter extends RecyclerView.Adapter<CountryIconRecyclerAdapter.holder>{
 
-    private ArrayList<Country> countries = new ArrayList<>();
+    private List<Country> countries = new ArrayList<>();
     private LayoutInflater inflater;
 
-    public CountryIconRecyclerAdapter(ArrayList<Country> countries, Context context) {
+    public CountryIconRecyclerAdapter(List<Country> countries, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.countries = countries;
     }
-    public void setData (ArrayList<Country> newData) {
+    public void setData (List<Country> newData) {
         this.countries = newData; //Adds additional data
     }
 
