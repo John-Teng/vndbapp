@@ -16,10 +16,13 @@
             android:id="@+id/toolbar"/>
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="220dp"
-            android:paddingRight="5dp"
+            android:layout_width="140dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/toolbar"
+            android:background="@color/colorDarkerGray"
             android:id="@+id/novel_icon" />
         <!--android:transitionName="profile"-->
 
@@ -27,7 +30,6 @@
             layout="@layout/novel_details_quickstats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:id="@+id/quickstats"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/novel_icon"
@@ -44,7 +46,6 @@
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/details_content_layout"
-            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/novel_icon"
@@ -56,13 +57,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:background="@color/colorLightGray"
-                android:paddingTop="3dp"
-                android:paddingBottom="8dp"
-                android:textAlignment="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
                 android:maxLines="1"
-                android:textSize="13dp"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="12dp"
+                android:layout_below="@id/toolbar"
                 android:id="@+id/genres" />
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Description"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingTop="15dp"-->
+                <!--android:background="@color/colorLightGray"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="14dp"-->
+                <!--android:id="@+id/description_label" />-->
+
+            <at.blogc.android.views.ExpandableTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="13dp"
+                android:textColor="@color/colorDarkerGray"
+                android:id="@+id/description"
+                android:maxLines="8"
+                android:ellipsize="end"
+                android:layout_marginBottom="10dp"
+                app:animation_duration="500"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Read More"
+                android:textColor="@color/colorBlack"
+                android:textSize="11dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:minWidth="70dp"
+                android:minHeight="20dp"
+                android:id="@+id/expand_button"
+                android:layout_gravity="center"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_alignParentEnd="true" />
 
             <View
                 android:layout_width="match_parent"
@@ -79,7 +124,8 @@
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorBlack"
                 android:textAlignment="textStart"
-                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textSize="14dp"
                 android:id="@+id/countries_label" />
 
             <android.support.v7.widget.RecyclerView
@@ -111,8 +157,9 @@
                 android:paddingBottom="10dp"
                 android:background="@color/colorLightGray"
                 android:textColor="@color/colorBlack"
+                android:textStyle="bold"
                 android:textAlignment="textStart"
-                android:textSize="20dp"
+                android:textSize="14dp"
                 android:id="@+id/imagePager_label"/>
 
             <ecez.vndbapp.model.FixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
@@ -120,7 +167,6 @@
                 android:background="@color/colorLightGray"
                 android:layout_height="175dp"
                 android:layout_width="match_parent"
-                android:layout_below="@+id/expand_button"
                 android:layout_alignParentStart="true" />
 
             <View
@@ -129,54 +175,13 @@
                 android:layout_below="@id/imagePager"
                 android:background="#DCDCDC"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:paddingLeft="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:background="@color/colorLightGray"
-                android:textColor="@color/colorBlack"
-                android:textAlignment="textStart"
-                android:textSize="20dp"
-                android:id="@+id/description_label" />
 
-            <at.blogc.android.views.ExpandableTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textColor="@color/colorDarkerGray"
-                android:id="@+id/description"
-                android:maxLines="8"
-                android:ellipsize="end"
-                android:layout_marginBottom="10dp"
-                app:animation_duration="500"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Read More"
-                android:textSize="11dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:minWidth="70dp"
-                android:minHeight="20dp"
-                android:id="@+id/expand_button"
-                android:layout_below="@+id/details_content"
-                android:layout_gravity="center"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_alignParentEnd="true" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/expand_button"
-                android:background="#DCDCDC"/>
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_above="@id/consoles_label"-->
+                <!--android:background="#DCDCDC"/>-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -188,7 +193,8 @@
                 android:textColor="@color/colorBlack"
                 android:textAlignment="textStart"
                 android:background="@color/colorLightGray"
-                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textSize="14dp"
                 android:layout_below="@+id/countries"
                 android:id="@+id/consoles_label" />
 
@@ -226,7 +232,8 @@
                     android:textColor="@color/colorBlack"
                     android:textAlignment="textStart"
                     android:background="@color/colorLightGray"
-                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textSize="14dp"
                     android:layout_below="@+id/consoles"
                     android:id="@+id/character_panel_label" />
 

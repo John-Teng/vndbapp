@@ -173,7 +173,7 @@ public class PopulateNovelDetails extends AsyncTask {
     private boolean performGenreCheck(String tagName) {
 
         for (String genre : possibleGenres) {
-            while (genreList.size() < 5 && tagName.equals(genre)) {
+            while (genreList.size() < 4 && tagName.equals(genre)) {
                 genreList.add(tagName);
                 possibleGenres.remove(genre);
                 return true;

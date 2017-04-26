@@ -86,14 +86,14 @@ public class NovelDetails extends AppCompatActivity {
         seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
 
         title = (TextView)findViewById(R.id.toolbar_title);
-        title.setVisibility(View.INVISIBLE);
+//        title.setVisibility(View.INVISIBLE);
         votes = (TextView) findViewById(R.id.quickstats_votes);
         rating = (TextView)findViewById(R.id.quickstats_rating);
         popularity = (TextView)findViewById(R.id.quickstats_popularity);
         length = (TextView)findViewById(R.id.quickstats_length);
         description = (ExpandableTextView)findViewById(R.id.description);
         icon = (ImageView) findViewById(R.id.novel_icon);
-        icon.setImageDrawable(NovelDetails.novelIcon);
+//        icon.setImageDrawable(NovelDetails.novelIcon);
         NovelDetails.novelIcon = null; //Set the icon back to null
 
         quickstats = findViewById(R.id.quickstats); //References to the invisible layouts so that they can be set to visible when items are loaded
@@ -138,10 +138,6 @@ public class NovelDetails extends AppCompatActivity {
             }
         });
 
-        bodyLayout.setVisibility(View.VISIBLE);
-        quickstats.setVisibility(View.VISIBLE);
-        title.setVisibility(View.VISIBLE);
-
         this.novelID = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(this.novelID));
         new Thread() {
@@ -151,11 +147,6 @@ public class NovelDetails extends AppCompatActivity {
             }
         }.start();
     }
-
-//    private int convertDpToPx(int dp){
-//        float scale = getResources().getDisplayMetrics().density;
-//        return (int) (dp*scale + 0.5f);
-//    }
 
     @Override
     public void onBackPressed (){
@@ -263,6 +254,7 @@ public class NovelDetails extends AppCompatActivity {
             @Override
             public void onSuccessUI(List<Country> countryList, List<Console> consoleList, DetailsData detailsData,
                                     List<NovelScreenShot> novelScreenShots, String genres) {
+                Picasso.with(getApplicationContext()).load(detailsData.getImage()).fit().into(icon);
                 title.setText(detailsData.getTitleWithDate());
                 votes.setText(detailsData.getVoteCount());
                 rating.setText(detailsData.getRating());
