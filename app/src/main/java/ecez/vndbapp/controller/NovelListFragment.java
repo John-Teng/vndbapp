@@ -19,13 +19,13 @@ import ecez.vndbapp.controller.Adapters.ListRecyclerAdapter;
 import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.controller.NetworkRequests.PopulateListItems;
 import ecez.vndbapp.model.Error;
-import ecez.vndbapp.model.ListItem;
+import ecez.vndbapp.model.NovelData;
 
 public class NovelListFragment extends Fragment {
     public static RecyclerView recyclerView;
     private ListRecyclerAdapter adapter;
     private ProgressBar pb;
-    private List<ListItem> mLoadedListItems = new ArrayList<>();
+    private List<NovelData> mLoadedNovelDatas = new ArrayList<>();
     private View view;
     private String sortParam;
     private int pageCount = 1;
@@ -64,8 +64,8 @@ public class NovelListFragment extends Fragment {
         };
         recyclerView.addOnScrollListener(endlessScrollListener);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ListRecyclerAdapter(mLoadedListItems, this.getContext(), getActivity());
-        Log.d("Loaded Cards","The arraylist has " + Integer.toString(mLoadedListItems.size()));
+        adapter = new ListRecyclerAdapter(mLoadedNovelDatas, this.getContext(), getActivity());
+        Log.d("Loaded Cards","The arraylist has " + Integer.toString(mLoadedNovelDatas.size()));
         recyclerView.setAdapter(adapter);
 
         Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
@@ -80,21 +80,21 @@ public class NovelListFragment extends Fragment {
         PopulateListItems l = new PopulateListItems(pageCount,sortParam);
         l.callback = new ListCallback() {
             @Override
-            public void returnList(List<ListItem> list) { //This is run on a background thread
+            public void returnList(List<NovelData> list) { //This is run on a background thread
                 Log.d("callback","onSuccess callback being called ");
                 Log.d("callback","The current page is " + Integer.toString(pageCount) );
                 if (pageCount == 1) {
-                    mLoadedListItems.clear();
-                    Log.d("callback","There are now " + mLoadedListItems.size() + " items in the list");
+                    mLoadedNovelDatas.clear();
+                    Log.d("callback","There are now " + mLoadedNovelDatas.size() + " items in the list");
                 }
-                mLoadedListItems.addAll(list);
+                mLoadedNovelDatas.addAll(list);
                 pageCount ++;
             }
             @Override
             public void onSuccessUI() { //This is run on UI thread
-                //mLoadedListItems is being modified by reference in the AsyncTask
+                //mLoadedNovelDatas is being modified by reference in the AsyncTask
                 pb.setVisibility(View.GONE);
-                adapter.setData(mLoadedListItems);
+                adapter.setData(mLoadedNovelDatas);
                 adapter.notifyDataSetChanged();
                 mSwipeContainer.setRefreshing(false);
             }

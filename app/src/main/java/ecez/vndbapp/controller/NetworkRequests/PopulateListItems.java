@@ -17,14 +17,14 @@ import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.controller.vndatabaseapp;
 import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.Error;
-import ecez.vndbapp.model.ListItem;
+import ecez.vndbapp.model.NovelData;
 import ecez.vndbapp.model.ServerRequest;
 
 /**
  * Created by Teng on 10/22/2016.
  */
 public class PopulateListItems extends AsyncTask {
-    private List<ListItem> list;
+    private List<NovelData> list;
     private String jsonString;
     private int page;
     private final int resultPerPage = 25;
@@ -69,10 +69,10 @@ public class PopulateListItems extends AsyncTask {
             return false;
         }
         Log.d("json",jsonResponse.toString());
-        ListItem[] l = gson.fromJson(jsonResponse.toString(),ListItem[].class);
+        NovelData[] l = gson.fromJson(jsonResponse.toString(),NovelData[].class);
         list = new ArrayList<>(Arrays.asList(l));
         int y = (resultPerPage*page-(resultPerPage-1));
-        for (ListItem x:list) {
+        for (NovelData x:list) {
             x.setRank(y);
             y ++;
         }

@@ -18,25 +18,25 @@ import java.util.List;
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.NovelDetails;
 import ecez.vndbapp.controller.NovelListFragment;
-import ecez.vndbapp.model.ListItem;
+import ecez.vndbapp.model.NovelData;
 
 /**
  * Created by Teng on 10/10/2016.
  */
 public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapter.holder>{
 
-    private List<ListItem> listData;
+    private List<NovelData> listData;
     private LayoutInflater inflater;
     private Context context;
     private Activity activityReference;
 
-    public ListRecyclerAdapter(List<ListItem> listData, Context context, Activity activityReference) {
+    public ListRecyclerAdapter(List<NovelData> listData, Context context, Activity activityReference) {
         this.inflater = LayoutInflater.from(context);
         this.listData = listData;
         this.context = context;
         this.activityReference = activityReference;
     }
-    public void setData (List<ListItem> newData) {
+    public void setData (List<NovelData> newData) {
         this.listData = newData; //Adds additional data
     }
 
@@ -67,7 +67,7 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
     @Override
     public void onBindViewHolder(holder holder, int position) {
-        ListItem item = listData.get(position);
+        NovelData item = listData.get(position);
         holder.titleText.setText(item.getTitleWithDateAndRank());
         holder.ratingText.setText(item.getRating());
         holder.lengthText.setText(item.getLength());

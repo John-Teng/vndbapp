@@ -3,24 +3,21 @@ package ecez.vndbapp.model;
 /**
  * Created by Teng on 10/27/2016.
  */
-public class DetailsData {
+public class DetailsData extends NovelData {
 
-    private String image, title, id ,description, released;
+    private String description;
     private String [] languages, platforms;
-    private double popularity;
-    private Double rating;
-    private int votecount, rank, length;
-
     private String [][] tags;
 
     public DetailsData() {}
 
-    public DetailsData(String title, Double rating, int length, String image, int rank, String id, String [] languages, String [] platforms, String description, Double popularity, int votecount, String released) {
+    public DetailsData(String title, Double rating, int length, String image,
+                       String id, String [] languages, String [] platforms, String description,
+                       Double popularity, int votecount, String released) {
         this.title = title;
         this.rating = rating;
         this.length = length;
         this.image = image;
-        this.rank = rank;
         this.id = id;
         this.languages = languages;
         this.platforms = platforms;
@@ -118,88 +115,27 @@ public class DetailsData {
         this.description = description;
     }
 
-    public String getPopularity() {
-        return Double.toString(popularity) + "% popularity";
-    }
-
     public void setPopularity(double popularity) {
         this.popularity = popularity;
-    }
-
-    public String getVoteCount() {
-        return Integer.toString(votecount) + " votes";
     }
 
     public void setVoteCount(int votecount) {
         this.votecount = votecount;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getTitleWithDate() {
-        if (released.equals("tba"))
-                return "TBA";
-        return title + " (" + released.substring(0,released.indexOf("-")) + ")";
-    }
-
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getRating() {
-        if (rating > 9){
-            return rating.toString() + " (excellent)";
-        } else if (rating > 8) {
-            return rating.toString() + " (very good)";
-        } else if (rating > 7) {
-            return rating.toString() + " (good)";
-        } else if (rating > 6) {
-            return rating.toString() + " (decent)";
-        } else {
-            return rating.toString() + " (poor)";
-        }
     }
 
     public void setRating(Double rating) {
         this.rating = rating;
     }
 
-    public String getLength() {
-        switch (length) {
-            case 1:
-                return "Very short (< 2 hours)";
-            case 2:
-                return "Short (2 - 10 hours)";
-            case 3:
-                return "Medium (10 - 30 hours)";
-            case 4:
-                return "Long (30 - 50 hours)";
-            default:
-                return "Very Long (> 50 hours)";
-        }
-    }
-
     public void setLength(int length) {
         this.length = length;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    public int getRank() {
-        return rank;
-    }
 
 }
 
