@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -47,17 +48,16 @@ public class NovelDetails extends AppCompatActivity {
     private ImagePagerAdapter imageAdapter;
     private RecyclerView countryRecyclerView, consoleRecyclerView;
     private Toolbar toolbar;
-    private TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3, characterRole1, characterRole2, characterRole3, genre;
+    private TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3
+            , characterRole1, characterRole2, characterRole3, genre, measuringTextview, countriesHeader,
+            consolesHeader, screenshotsHeader;
     private Button expandButton, seeMoreCharacters, backButton;
     private ExpandableTextView description;
     private ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     private FixedViewPager imagePager;
     private int novelID;
-
     private ArrayList<Character> characters = new ArrayList<>();
-    private View quickstats, bodyLayout;
-
-
+    private View detailsLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("New Activity","NovelDetails activity has been started");
@@ -82,22 +82,22 @@ public class NovelDetails extends AppCompatActivity {
         characterRole1 = (TextView) findViewById(R.id.character_role1);
         characterRole2 = (TextView) findViewById(R.id.character_role2);
         characterRole3 = (TextView) findViewById(R.id.character_role3);
+        measuringTextview = (TextView) findViewById(R.id.measuring_textview);
         genre = (TextView) findViewById(R.id.genres);
+        countriesHeader = (TextView) findViewById(R.id.countries_label);
+        consolesHeader = (TextView) findViewById(R.id.consoles_label);
+        screenshotsHeader = (TextView) findViewById(R.id.imagePager_label) ;
         seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
+        detailsLayout = findViewById(R.id.details_content_layout);
 
         title = (TextView)findViewById(R.id.toolbar_title);
-//        title.setVisibility(View.INVISIBLE);
         votes = (TextView) findViewById(R.id.quickstats_votes);
         rating = (TextView)findViewById(R.id.quickstats_rating);
         popularity = (TextView)findViewById(R.id.quickstats_popularity);
         length = (TextView)findViewById(R.id.quickstats_length);
         description = (ExpandableTextView)findViewById(R.id.description);
         icon = (ImageView) findViewById(R.id.novel_icon);
-//        icon.setImageDrawable(NovelDetails.novelIcon);
         NovelDetails.novelIcon = null; //Set the icon back to null
-
-        quickstats = findViewById(R.id.quickstats); //References to the invisible layouts so that they can be set to visible when items are loaded
-        bodyLayout = findViewById(R.id.details_content_layout);
 
         countryRecyclerView = (RecyclerView)findViewById(R.id.countries);
         consoleRecyclerView = (RecyclerView)findViewById(R.id.consoles);
@@ -105,6 +105,7 @@ public class NovelDetails extends AppCompatActivity {
         imagePager = (FixedViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
         description.setInterpolator(new OvershootInterpolator());
+        expandButton.setVisibility(View.GONE);
         expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,7 +224,6 @@ public class NovelDetails extends AppCompatActivity {
                 getApplicationContext().startActivity(intent);
             }
         });
-
         final View characterLabel1 = findViewById(R.id.character_layout1);
         final View characterLabel2 = findViewById(R.id.character_layout2);
         final View characterLabel3 = findViewById(R.id.character_layout3);
@@ -255,6 +255,13 @@ public class NovelDetails extends AppCompatActivity {
             public void onSuccessUI(List<Country> countryList, List<Console> consoleList, DetailsData detailsData,
                                     List<NovelScreenShot> novelScreenShots, String genres) {
                 Picasso.with(getApplicationContext()).load(detailsData.getImage()).fit().into(icon);
+                measuringTextview.setText(detailsData.getDescriptionWithoutBrackets());
+
+                if (measuringTextview.getLineCount() > 8) {
+                    Log.d("Line Count", "NUM OF LINES IS GREATER THAN 8");
+                    expandButton.setVisibility(View.VISIBLE);
+                }
+                measuringTextview.setVisibility(View.GONE);
                 title.setText(detailsData.getTitleWithDate());
                 votes.setText(detailsData.getVoteCount());
                 rating.setText(detailsData.getRating());
@@ -262,12 +269,29 @@ public class NovelDetails extends AppCompatActivity {
                 description.setText(detailsData.getDescriptionWithoutBrackets());
                 length.setText(detailsData.getLength());
                 genre.setText(genres);
-                imageAdapter.setImage(novelScreenShots);
-                imageAdapter.notifyDataSetChanged();
-                countryAdapter.setData(countryList);
-                countryAdapter.notifyDataSetChanged();
-                consoleAdapter.setData(consoleList);
-                consoleAdapter.notifyDataSetChanged();
+
+                if (novelScreenShots.size() == 0) {
+                    imagePager.setVisibility(View.GONE);
+                    screenshotsHeader.setText("No screenshots available");
+                } else {
+                    imageAdapter.setImage(novelScreenShots);
+                    imageAdapter.notifyDataSetChanged();
+                }
+                if (countryList.size() == 0) {
+                    countryRecyclerView.setVisibility(View.GONE);
+                    countriesHeader.setText("No language information available");
+                } else {
+                    countryAdapter.setData(countryList);
+                    countryAdapter.notifyDataSetChanged();
+                }
+                if (consoleList.size() == 0) {
+                    consoleRecyclerView.setVisibility(View.GONE);
+                    consolesHeader.setText("No platform information available");
+                } else {
+                    consoleAdapter.setData(consoleList);
+                    consoleAdapter.notifyDataSetChanged();
+                }
+                detailsLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
