@@ -14,14 +14,12 @@ import ecez.vndbapp.model.NovelData;
  * Created by Teng on 10/22/2016.
  */
 public class PopulateListItems extends VNDBrequest {
-    private List<NovelData> list;
     private int page;
     private final int resultPerPage = 25;
     private String sortParam;
     public ListCallback callback;
 
     public PopulateListItems(int page, String sortParam) {
-        this.list = new ArrayList<>();
         this.page = page;
         this.sortParam = sortParam;
     }
@@ -37,7 +35,7 @@ public class PopulateListItems extends VNDBrequest {
 
         Log.d("json",jsonResponse.toString());
         NovelData[] l = gson.fromJson(jsonResponse.toString(),NovelData[].class);
-        list = new ArrayList<>(Arrays.asList(l));
+        List <NovelData> list = new ArrayList<>(Arrays.asList(l));
         int y = (resultPerPage*page-(resultPerPage-1));
         for (NovelData x:list) {
             x.setRank(y);

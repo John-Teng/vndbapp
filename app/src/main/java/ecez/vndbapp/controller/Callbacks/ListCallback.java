@@ -8,7 +8,7 @@ import ecez.vndbapp.model.NovelData;
  * Created by johnteng on 2017-04-23.
  */
 
-public interface ListCallback extends AsyncTaskCallback{
-    void returnList(List<NovelData> list);
+public interface ListCallback <T> extends AsyncTaskCallback{
+    void returnList(List<T> list);
     void onSuccessUI();
 }

@@ -15,11 +15,11 @@ import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +28,7 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ConsoleIconRecyclerAdapter;
 import ecez.vndbapp.controller.Adapters.CountryIconRecyclerAdapter;
 import ecez.vndbapp.controller.Adapters.ImagePagerAdapter;
+import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.controller.Callbacks.NovelDetailsDataCallback;
 import ecez.vndbapp.controller.NetworkRequests.PopulateCharacters;
 import ecez.vndbapp.controller.NetworkRequests.PopulateNovelDetails;
@@ -56,7 +57,7 @@ public class NovelDetails extends AppCompatActivity {
     private ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     private FixedViewPager imagePager;
     private int novelID;
-    private ArrayList<Character> characters = new ArrayList<>();
+    private List<Character> characters = new ArrayList<>();
     private View detailsLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,30 +159,55 @@ public class NovelDetails extends AppCompatActivity {
     private void loadCharacterData (int id) {
         Log.d("Calling Server","Requesting Character Details from the server");
         final PopulateCharacters p = new PopulateCharacters(id);
-        p.start();
-        try {
-            p.join();
-        } catch (InterruptedException f) {
-            f.printStackTrace();
-        }
-        Log.d("Calling Server","Received Character Details from the server");
-
-        Thread a = new Thread() {
-            public void run() {
-                characters = p.getCharacters();
-            }
-        };
-        a.start();
-        try {
-            a.join();
-        } catch (InterruptedException f) {
-            f.printStackTrace();
-        }
-
-        runOnUiThread(new Runnable() {
+        p.callback = new ListCallback<Character>() {
             @Override
-            public void run() {
+            public void returnList(List<Character> list) {
+                characters = list;
+
+                seeMoreCharacters.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), CharacterList.class);
+                        intent.putExtra("NOVEL_ID", novelID);
+                        intent.putExtra("CHARACTERS", (Serializable)characters);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getApplicationContext().startActivity(intent);
+                    }
+                });
+
+
+                View.OnClickListener clickHandler = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), CharacterProfile.class);
+                        switch (v.getId()) {
+                            case R.id.character_layout1:
+                                intent.putExtra("CHARACTER", characters.get(0));
+                                break;
+                            case R.id.character_layout2:
+                                intent.putExtra("CHARACTER", characters.get(1));
+                                break;
+                            case R.id.character_layout3:
+                                intent.putExtra("CHARACTER", characters.get(2));
+                                break;
+                            default:
+                                intent.putExtra("CHARACTER", characters.get(0));
+                                break;
+                        }
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getApplicationContext().startActivity(intent);
+                    }
+                };
+
+                findViewById(R.id.character_layout1).setOnClickListener(clickHandler);
+                findViewById(R.id.character_layout2).setOnClickListener(clickHandler);
+                findViewById(R.id.character_layout3).setOnClickListener(clickHandler);
+            }
+
+            @Override
+            public void onSuccessUI() {
                 if (characters == null || characters.size() < 3) {
+                    Log.d("Characters","Character arraylist is null");
                     findViewById(R.id.character_panel_layout).setVisibility(View.GONE);
                     return;
                 }
@@ -212,39 +238,17 @@ public class NovelDetails extends AppCompatActivity {
                 characterRole2.setText(characters.get(1).getRole(novelID));
                 characterRole3.setText(characters.get(2).getRole(novelID));
             }
-        });
 
-        seeMoreCharacters.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CharacterList.class);
-                intent.putExtra("NOVEL_ID", novelID);
-                intent.putExtra("CHARACTERS", characters);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(intent);
-            }
-        });
-        final View characterLabel1 = findViewById(R.id.character_layout1);
-        final View characterLabel2 = findViewById(R.id.character_layout2);
-        final View characterLabel3 = findViewById(R.id.character_layout3);
-
-        View.OnClickListener clickHandler = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CharacterProfile.class);
-                if (v==characterLabel1)
-                    intent.putExtra("CHARACTER", characters.get(0));
-                else if (v == characterLabel2)
-                    intent.putExtra("CHARACTER", characters.get(1));
-                else
-                    intent.putExtra("CHARACTER", characters.get(2));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(intent);
+            public void onFailure(Error error, String errorMessage) {
+                Log.d("AsyncTask FAILURE", errorMessage);
+                if (error != null) {
+                    Log.d("Error ID:", error.getId());
+                    Log.d("Error Message:", error.getMsg());
+                }
             }
         };
-        characterLabel1.setOnClickListener(clickHandler);
-        characterLabel2.setOnClickListener(clickHandler);
-        characterLabel3.setOnClickListener(clickHandler);
+        p.execute();
     }
 
     private void loadNovelData (int id) {

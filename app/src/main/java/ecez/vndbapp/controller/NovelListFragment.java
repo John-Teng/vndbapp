@@ -78,7 +78,7 @@ public class NovelListFragment extends Fragment {
             pageCount = pageNum;
         }
         PopulateListItems l = new PopulateListItems(pageCount,sortParam);
-        l.callback = new ListCallback() {
+        l.callback = new ListCallback<NovelData>() {
             @Override
             public void returnList(List<NovelData> list) { //This is run on a background thread
                 Log.d("callback","onSuccess callback being called ");
