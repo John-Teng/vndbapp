@@ -1,9 +1,6 @@
 package ecez.vndbapp.controller.NetworkRequests;
 
-import android.os.AsyncTask;
 import android.util.Log;
-
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,17 +16,15 @@ import ecez.vndbapp.model.Console;
 import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.Country;
 import ecez.vndbapp.model.DetailsData;
-import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.NovelScreenShot;
-import ecez.vndbapp.model.ServerRequest;
 import ecez.vndbapp.model.Tag;
 
 /**
  * Created by Teng on 10/27/2016.
  */
-public class PopulateNovelDetails extends AsyncTask {
+public class PopulateNovelDetails extends VNDBrequest {
 
-    private String jsonString, genres;
+    private String genres;
     private DetailsData data;
     private List<NovelScreenShot> screens;
     private int id;
@@ -55,38 +50,12 @@ public class PopulateNovelDetails extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
-        if (vndatabaseapp.loggedIn == true)
-            jsonString = ServerRequest.getInstance().writeToServer("get", "vn", "basic,stats,details,screens,tags", "(id = "+Integer.toString(id)+")",null);
-        else {
-            callback.onFailure(null, Constants.serverNotLoggedInError);
-            return false;
-        }
-        Log.d("JSON Response",jsonString);
-
-        Gson gson = new Gson();
-
-        if (jsonString.substring(0,4).equals("error")) {
-            Error error = gson.fromJson(jsonString.toString(), Error.class);
-            callback.onFailure(error,Constants.serverErrorResponse);
-            return false;
-        }
-
-        jsonString = jsonString.substring(8,jsonString.length()); //Removes the prepending "result" keyword in the json response
-
-        int numberOfResponses;
-        JSONArray jsonResponse;
-        try {
-            JSONObject returnObject = new JSONObject(jsonString);
-            numberOfResponses = returnObject.getInt("num");
-            jsonResponse = returnObject.getJSONArray("items");
-            Log.d("items json",jsonResponse.toString());
-            Log.d("number of itmes",Integer.toString(numberOfResponses));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            callback.onFailure(null,Constants.jsonSerializationError);
-            return false;
-        }
+        JSONArray jsonResponse = getJSONfromRequest("get", "vn", "basic,stats,details,screens,tags",
+                "(id = "+Integer.toString(id)+")",null,callback);
         Log.d("json",jsonResponse.toString());
+        if (jsonResponse == null)
+            return false;
+
         String s = jsonResponse.toString();
         s = s.substring(1,s.length()-1);//Removes the square braces from the response
 
