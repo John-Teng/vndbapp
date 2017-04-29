@@ -2,8 +2,6 @@ package ecez.vndbapp.controller.Callbacks;
 
 import java.util.List;
 
-import ecez.vndbapp.model.NovelData;
-
 /**
  * Created by johnteng on 2017-04-23.
  */

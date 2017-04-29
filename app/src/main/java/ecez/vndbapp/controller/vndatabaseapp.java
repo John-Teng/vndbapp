@@ -145,7 +145,6 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
 
         SharedPreferences prefs = getSharedPreferences("Date", MODE_PRIVATE);
         String restoredText = prefs.getString("Last Open Date", null);
-
         if (restoredText == null) {
             Log.d("Last Open Date","null value");
             date = currentDate;
@@ -179,11 +178,13 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
             t.execute();
             RequestDumpObjects d = new RequestDumpObjects(getApplicationContext(),dialog, " https://vndb.org/api/tags.json.gz", "tagsMap");
             d.execute();
+
+            //store the current date
+            SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
+            editor.putString("Last Open Date", date);
+            editor.commit();
         }
-        //store the current date
-        SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
-        editor.putString("Last Open Date", date);
-        editor.commit();
+
     }
 
     @Override

@@ -66,21 +66,13 @@ public class RequestDumpObjects extends AsyncTask{
             return false;
 
         final Gson gson = new Gson();
-        Thread a = new Thread() {
-            public void run() {
-                if (saveDir.equals("traitsMap")) {
-                    l = gson.fromJson(line, Trait[].class);
-                    hashMap = new HashMap<Integer, Trait>();
-                } else {
-                    l = gson.fromJson(line, Tag[].class);
-                    hashMap = new HashMap<Integer, Tag>();
-                }
-            }
-        };
-        a.start();
-        try {
-            a.join();
-        } catch (InterruptedException f) { f.printStackTrace(); }
+        if (saveDir.equals("traitsMap")) {
+            l = gson.fromJson(line, Trait[].class);
+            hashMap = new HashMap<>();
+        } else {
+            l = gson.fromJson(line, Tag[].class);
+            hashMap = new HashMap<>();
+        }
         if (l == null) {
             Log.d("null","array is null");
             return false;
