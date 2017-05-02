@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import java.util.List;
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ConsoleIconRecyclerAdapter;
-import ecez.vndbapp.controller.Adapters.CountryIconRecyclerAdapter;
+import ecez.vndbapp.controller.Adapters.CountryIconAdapter;
 import ecez.vndbapp.controller.Adapters.ImagePagerAdapter;
 import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.controller.Callbacks.NovelDetailsDataCallback;
@@ -44,10 +45,11 @@ public class NovelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
     private ConsoleIconRecyclerAdapter consoleAdapter;
-    private CountryIconRecyclerAdapter countryAdapter;
+    private CountryIconAdapter countryAdapter;
     private LinearLayoutManager countryLayoutManager, consoleLayoutManager;
     private ImagePagerAdapter imageAdapter;
-    private RecyclerView countryRecyclerView, consoleRecyclerView;
+    private RecyclerView consoleRecyclerView;
+    private GridView countryGridView;
     private Toolbar toolbar;
     private TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3
             , characterRole1, characterRole2, characterRole3, genre, measuringTextview, countriesHeader,
@@ -100,7 +102,7 @@ public class NovelDetails extends AppCompatActivity {
         icon = (ImageView) findViewById(R.id.novel_icon);
         NovelDetails.novelIcon = null; //Set the icon back to null
 
-        countryRecyclerView = (RecyclerView)findViewById(R.id.countries);
+        countryGridView = (GridView) findViewById(R.id.countries);
         consoleRecyclerView = (RecyclerView)findViewById(R.id.consoles);
 
         imagePager = (FixedViewPager) findViewById(R.id.imagePager);
@@ -119,9 +121,8 @@ public class NovelDetails extends AppCompatActivity {
         countryLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         consoleLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        countryAdapter = new CountryIconRecyclerAdapter(new ArrayList<Country>(), getApplicationContext());
-        countryRecyclerView.setLayoutManager(countryLayoutManager);
-        countryRecyclerView.setAdapter(countryAdapter);
+        countryAdapter = new CountryIconAdapter(new ArrayList<Country>(), getApplicationContext());
+        countryGridView.setAdapter(countryAdapter);
 
         consoleAdapter = new ConsoleIconRecyclerAdapter(new ArrayList<Console>(), getApplicationContext());
         consoleRecyclerView.setLayoutManager(consoleLayoutManager);
@@ -282,7 +283,7 @@ public class NovelDetails extends AppCompatActivity {
                     imageAdapter.notifyDataSetChanged();
                 }
                 if (countryList.size() == 0) {
-                    countryRecyclerView.setVisibility(View.GONE);
+                    countryGridView.setVisibility(View.GONE);
                     countriesHeader.setText("No language information available");
                 } else {
                     countryAdapter.setData(countryList);
