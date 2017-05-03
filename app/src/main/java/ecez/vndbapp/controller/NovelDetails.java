@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +24,7 @@ import java.util.List;
 
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
-import ecez.vndbapp.controller.Adapters.ConsoleIconRecyclerAdapter;
+import ecez.vndbapp.controller.Adapters.ConsoleIconAdapter;
 import ecez.vndbapp.controller.Adapters.CountryIconAdapter;
 import ecez.vndbapp.controller.Adapters.ImagePagerAdapter;
 import ecez.vndbapp.controller.Callbacks.ListCallback;
@@ -36,6 +34,7 @@ import ecez.vndbapp.controller.NetworkRequests.PopulateNovelDetails;
 import ecez.vndbapp.model.Character;
 import ecez.vndbapp.model.Console;
 import ecez.vndbapp.model.Country;
+import ecez.vndbapp.model.CustomGridView;
 import ecez.vndbapp.model.DetailsData;
 import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.FixedViewPager;
@@ -44,12 +43,11 @@ import ecez.vndbapp.model.NovelScreenShot;
 public class NovelDetails extends AppCompatActivity {
 
     public static Drawable novelIcon;
-    private ConsoleIconRecyclerAdapter consoleAdapter;
+    private ConsoleIconAdapter consoleAdapter;
     private CountryIconAdapter countryAdapter;
-    private LinearLayoutManager countryLayoutManager, consoleLayoutManager;
+    private LinearLayoutManager consoleLayoutManager;
     private ImagePagerAdapter imageAdapter;
-    private RecyclerView consoleRecyclerView;
-    private GridView countryGridView;
+    private CustomGridView countryGridView, consoleGridView;
     private Toolbar toolbar;
     private TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3
             , characterRole1, characterRole2, characterRole3, genre, measuringTextview, countriesHeader,
@@ -102,8 +100,8 @@ public class NovelDetails extends AppCompatActivity {
         icon = (ImageView) findViewById(R.id.novel_icon);
         NovelDetails.novelIcon = null; //Set the icon back to null
 
-        countryGridView = (GridView) findViewById(R.id.countries);
-        consoleRecyclerView = (RecyclerView)findViewById(R.id.consoles);
+        countryGridView = (CustomGridView) findViewById(R.id.countries);
+        consoleGridView = (CustomGridView)findViewById(R.id.consoles);
 
         imagePager = (FixedViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
@@ -118,16 +116,12 @@ public class NovelDetails extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        countryLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        consoleLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         countryAdapter = new CountryIconAdapter(new ArrayList<Country>(), getApplicationContext());
         countryGridView.setAdapter(countryAdapter);
 
-        consoleAdapter = new ConsoleIconRecyclerAdapter(new ArrayList<Console>(), getApplicationContext());
-        consoleRecyclerView.setLayoutManager(consoleLayoutManager);
-        consoleRecyclerView.setAdapter(consoleAdapter);
-        consoleRecyclerView.setItemViewCacheSize(20);
+        consoleAdapter = new ConsoleIconAdapter(new ArrayList<Console>(), getApplicationContext());
+        consoleGridView.setAdapter(consoleAdapter);
 
         imageAdapter = new ImagePagerAdapter(getApplicationContext(),new ArrayList<NovelScreenShot>(), true);
         imagePager.setAdapter(imageAdapter);
@@ -290,7 +284,7 @@ public class NovelDetails extends AppCompatActivity {
                     countryAdapter.notifyDataSetChanged();
                 }
                 if (consoleList.size() == 0) {
-                    consoleRecyclerView.setVisibility(View.GONE);
+                    consoleGridView.setVisibility(View.GONE);
                     consolesHeader.setText("No platform information available");
                 } else {
                     consoleAdapter.setData(consoleList);
