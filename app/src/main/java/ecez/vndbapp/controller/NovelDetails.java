@@ -32,8 +32,6 @@ import ecez.vndbapp.controller.Callbacks.NovelDetailsDataCallback;
 import ecez.vndbapp.controller.NetworkRequests.PopulateCharacters;
 import ecez.vndbapp.controller.NetworkRequests.PopulateNovelDetails;
 import ecez.vndbapp.model.Character;
-import ecez.vndbapp.model.Console;
-import ecez.vndbapp.model.Country;
 import ecez.vndbapp.model.CustomGridView;
 import ecez.vndbapp.model.DetailsData;
 import ecez.vndbapp.model.Error;
@@ -117,13 +115,13 @@ public class NovelDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        countryAdapter = new CountryIconAdapter(new ArrayList<Country>(), getApplicationContext());
+        countryAdapter = new CountryIconAdapter(new String[0], getApplicationContext());
         countryGridView.setAdapter(countryAdapter);
 
-        consoleAdapter = new ConsoleIconAdapter(new ArrayList<Console>(), getApplicationContext());
+        consoleAdapter = new ConsoleIconAdapter(new String[0], getApplicationContext());
         consoleGridView.setAdapter(consoleAdapter);
 
-        imageAdapter = new ImagePagerAdapter(getApplicationContext(),new ArrayList<NovelScreenShot>(), true);
+        imageAdapter = new ImagePagerAdapter(new NovelScreenShot[0], getApplicationContext(), true);
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 
@@ -251,8 +249,7 @@ public class NovelDetails extends AppCompatActivity {
         final PopulateNovelDetails d = new PopulateNovelDetails(id);
         d.callback = new NovelDetailsDataCallback() {
             @Override
-            public void onSuccessUI(List<Country> countryList, List<Console> consoleList, DetailsData detailsData,
-                                    List<NovelScreenShot> novelScreenShots, String genres) {
+            public void onSuccessUI(DetailsData detailsData, String genres) {
                 Picasso.with(getApplicationContext()).load(detailsData.getImage()).fit().into(icon);
                 measuringTextview.setText(detailsData.getDescriptionWithoutBrackets());
 
@@ -269,25 +266,25 @@ public class NovelDetails extends AppCompatActivity {
                 length.setText(detailsData.getLength());
                 genre.setText(genres);
 
-                if (novelScreenShots.size() == 0) {
+                if (detailsData.getScreens().length == 0) {
                     imagePager.setVisibility(View.GONE);
                     screenshotsHeader.setText("No screenshots available");
                 } else {
-                    imageAdapter.setImage(novelScreenShots);
+                    imageAdapter.setImage(detailsData.getScreens());
                     imageAdapter.notifyDataSetChanged();
                 }
-                if (countryList.size() == 0) {
+                if (detailsData.getLanguages().length == 0) {
                     countryGridView.setVisibility(View.GONE);
                     countriesHeader.setText("No language information available");
                 } else {
-                    countryAdapter.setData(countryList);
+                    countryAdapter.setData(detailsData.getLanguages());
                     countryAdapter.notifyDataSetChanged();
                 }
-                if (consoleList.size() == 0) {
+                if (detailsData.getPlatforms().length == 0) {
                     consoleGridView.setVisibility(View.GONE);
                     consolesHeader.setText("No platform information available");
                 } else {
-                    consoleAdapter.setData(consoleList);
+                    consoleAdapter.setData(detailsData.getPlatforms());
                     consoleAdapter.notifyDataSetChanged();
                 }
                 detailsLayout.setVisibility(View.VISIBLE);

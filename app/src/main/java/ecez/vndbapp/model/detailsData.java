@@ -8,6 +8,9 @@ public class DetailsData extends NovelData {
     private String description;
     private String [] languages, platforms;
     private String [][] tags;
+    private NovelAnime [] anime;
+
+    private NovelScreenShot [] screens;
 
     public DetailsData() {}
 
@@ -134,6 +137,23 @@ public class DetailsData extends NovelData {
     public void setLength(int length) {
         this.length = length;
     }
+
+    public NovelScreenShot[] getScreens() {
+        return screens;
+    }
+
+    public void setScreens(NovelScreenShot[] screens) {
+        this.screens = screens;
+    }
+
+    public NovelAnime[] getAnime() {
+        return anime;
+    }
+
+    public void setAnime(NovelAnime[] anime) {
+        this.anime = anime;
+    }
+
 
 
 
