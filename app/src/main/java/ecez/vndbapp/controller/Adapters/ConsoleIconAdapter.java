@@ -10,29 +10,27 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import ecez.vndbapp.R;
-import ecez.vndbapp.model.Console;
 
 /**
  * Created by Teng on 10/10/2016.
  */
 public class ConsoleIconAdapter extends BaseAdapter {
 
-    private List<Console> consoles = new ArrayList<>();
+    private String [] consoles;
     private LayoutInflater inflater;
     private Context context;
 
-    public ConsoleIconAdapter(List<Console> consoles, Context context) {
+    public ConsoleIconAdapter(String [] consoles, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.consoles = consoles;
         this.context = context;
     }
-    public void setData (List<Console> newData) {
+    public void setData (String [] newData) {
         this.consoles = newData; //Adds additional data
     }
+
     public float convertDpToPixel(float dp){
         Resources resources = this.context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -42,7 +40,7 @@ public class ConsoleIconAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return consoles.size();
+        return consoles.length;
     }
 
     @Override
@@ -64,8 +62,8 @@ public class ConsoleIconAdapter extends BaseAdapter {
             gridView = inflater.inflate(R.layout.icon_console, null);
             TextView consoleText = (TextView) gridView.findViewById(R.id.console_text);
             ImageView consolePicture = (ImageView) gridView.findViewById(R.id.console);
-            String console = consoles.get(i).getConsoleName();
-            switch (console) {
+
+            switch (consoles[i]) {
                 case "gba":
                     consolePicture.setImageResource(R.drawable.gba_logo);
                     consoleText.setText("");
@@ -129,7 +127,7 @@ public class ConsoleIconAdapter extends BaseAdapter {
                     break;
                 default:
                     consolePicture.setImageResource(R.drawable.game_controller_logo);
-                    consoleText.setText(consoles.get(i).getConsoleName().toUpperCase());
+                    consoleText.setText(consoles[i].toUpperCase());
                     break;
             }
         } else {

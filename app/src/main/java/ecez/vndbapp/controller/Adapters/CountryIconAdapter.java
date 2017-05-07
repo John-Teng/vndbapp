@@ -8,32 +8,27 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ecez.vndbapp.R;
-import ecez.vndbapp.model.Country;
 
 /**
  * Created by Teng on 10/10/2016.
  */
 public class CountryIconAdapter extends BaseAdapter {
 
-    private List<Country> countries = new ArrayList<>();
+    private String [] countries;
     private LayoutInflater inflater;
 
-    public CountryIconAdapter(List<Country> countries, Context context) {
+    public CountryIconAdapter(String [] countries, Context context) {
         this.inflater = LayoutInflater.from(context);
         this.countries = countries;
     }
-    public void setData (List<Country> newData) {
-        this.countries = newData; //Adds additional data
+    public void setData (String [] newData) {
+        this.countries = newData;
     }
-
 
     @Override
     public int getCount() {
-        return countries.size();
+        return countries.length;
     }
 
     @Override
@@ -56,8 +51,7 @@ public class CountryIconAdapter extends BaseAdapter {
             TextView text = (TextView) gridView.findViewById(R.id.country);
             ImageView image = (ImageView) gridView.findViewById(R.id.flag);
 
-            String country = countries.get(i).getCountry();
-            switch (country) {
+            switch (countries[i]) {
                 case "en":
                     text.setText("English");
                     image.setImageResource(R.drawable.uk);
@@ -100,7 +94,7 @@ public class CountryIconAdapter extends BaseAdapter {
                     image.setImageResource(R.drawable.france);
                     break;
                 default:
-                    text.setText(country.toUpperCase());
+                    text.setText(countries[i].toUpperCase());
                     image.setImageResource(R.drawable.eu);
             }
 

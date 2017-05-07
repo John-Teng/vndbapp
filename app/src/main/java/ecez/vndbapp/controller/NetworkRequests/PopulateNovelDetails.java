@@ -3,20 +3,14 @@ package ecez.vndbapp.controller.NetworkRequests;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import ecez.vndbapp.controller.Callbacks.NovelDetailsDataCallback;
 import ecez.vndbapp.controller.vndatabaseapp;
-import ecez.vndbapp.model.Console;
 import ecez.vndbapp.model.Constants;
-import ecez.vndbapp.model.Country;
 import ecez.vndbapp.model.DetailsData;
-import ecez.vndbapp.model.NovelScreenShot;
 import ecez.vndbapp.model.Tag;
 
 /**
@@ -26,10 +20,7 @@ public class PopulateNovelDetails extends VNDBrequest {
 
     private String genres;
     private DetailsData data;
-    private List<NovelScreenShot> screens;
     private int id;
-    private List<Country> countries;
-    private List<Console> consoles;
     private List<String> genreList = new ArrayList<>();
     private List<String> possibleGenres = new ArrayList<String>(){{
         add("Drama");
@@ -50,7 +41,7 @@ public class PopulateNovelDetails extends VNDBrequest {
 
     @Override
     protected Object doInBackground(Object[] objects) {
-        JSONArray jsonResponse = getJSONfromRequest("get", "vn", "basic,stats,details,screens,tags",
+        JSONArray jsonResponse = getJSONfromRequest("get", "vn", "basic,stats,details,anime,screens,tags",
                 "(id = "+Integer.toString(id)+")",null,callback);
         Log.d("json",jsonResponse.toString());
         if (jsonResponse == null)
@@ -59,46 +50,12 @@ public class PopulateNovelDetails extends VNDBrequest {
         String s = jsonResponse.toString();
         s = s.substring(1,s.length()-1);//Removes the square braces from the response
 
-        JSONObject j;
-        JSONArray jsonScreens;
-        try {
-            j = new JSONObject(s);
-            jsonScreens = j.getJSONArray("screens");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            callback.onFailure(null,Constants.jsonSerializationError);
-            return false;
-        }
-        NovelScreenShot [] pics = gson.fromJson(jsonScreens.toString(),NovelScreenShot[].class);
-        Log.d("Screens",jsonScreens.toString());
-        screens = new ArrayList<>(Arrays.asList(pics));
-
         Log.d("json2",s);
         data = gson.fromJson(s,DetailsData.class);
-
-        createCountryList();
-
-        createConsoleList();
 
         findTags();
 
         return true;
-
-    }
-    private void createCountryList () {
-        countries = new ArrayList<>();
-        String [] l = data.getLanguages();
-        for (int x = 0; x<l.length; x++) {
-            countries.add(new Country(l[x]));
-        }
-    }
-
-    private void createConsoleList () {
-        consoles = new ArrayList<>();
-        String [] a = data.getPlatforms();
-        for (int x = 0; x<a.length; x++) {
-            consoles.add(new Console(a[x]));
-        }
     }
 
     private void findTags() {
@@ -164,7 +121,7 @@ public class PopulateNovelDetails extends VNDBrequest {
     @Override
     public void onPostExecute (Object o) {
         if (o.equals(true)) {
-            callback.onSuccessUI(countries, consoles, data, screens, genres);
+            callback.onSuccessUI(data, genres);
         }
     }
 }
