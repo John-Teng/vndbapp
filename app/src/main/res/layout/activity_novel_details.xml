@@ -117,6 +117,17 @@
                 android:layout_height="1dp"
                 android:background="#DCDCDC"/>
 
+            <include
+                layout="@layout/novel_details_information"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+            </include>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DCDCDC"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,7 +159,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/countries"
                 android:background="#DCDCDC"/>
 
 
@@ -176,7 +186,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/imagePager"
                 android:background="#DCDCDC"/>
 
 
@@ -221,8 +230,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/consoles"
                 android:background="#DCDCDC"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -5,6 +5,6 @@ package ecez.vndbapp.model;
  */
 
 public class NovelAnime {
-    Integer id, ann_id, year;
-    String title_romaji, title_kanji, type, nfo_id;
+    public Integer id, ann_id, year;
+    public String title_romaji, title_kanji, type, nfo_id;
 }

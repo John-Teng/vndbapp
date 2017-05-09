@@ -27,16 +27,22 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ConsoleIconAdapter;
 import ecez.vndbapp.controller.Adapters.CountryIconAdapter;
 import ecez.vndbapp.controller.Adapters.ImagePagerAdapter;
+import ecez.vndbapp.controller.Callbacks.DefaultCallback;
 import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.controller.Callbacks.NovelDetailsDataCallback;
 import ecez.vndbapp.controller.NetworkRequests.PopulateCharacters;
 import ecez.vndbapp.controller.NetworkRequests.PopulateNovelDetails;
+import ecez.vndbapp.controller.NetworkRequests.PopulateRelease;
 import ecez.vndbapp.model.Character;
 import ecez.vndbapp.model.CustomGridView;
 import ecez.vndbapp.model.DetailsData;
 import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.FixedViewPager;
+import ecez.vndbapp.model.NovelAnime;
 import ecez.vndbapp.model.NovelScreenShot;
+import ecez.vndbapp.model.Producer;
+import ecez.vndbapp.model.Release;
+import ecez.vndbapp.model.ReleaseProducer;
 
 public class NovelDetails extends AppCompatActivity {
 
@@ -85,7 +91,8 @@ public class NovelDetails extends AppCompatActivity {
         genre = (TextView) findViewById(R.id.genres);
         countriesHeader = (TextView) findViewById(R.id.countries_label);
         consolesHeader = (TextView) findViewById(R.id.consoles_label);
-        screenshotsHeader = (TextView) findViewById(R.id.imagePager_label) ;
+        screenshotsHeader = (TextView) findViewById(R.id.imagePager_label);
+
         seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
         detailsLayout = findViewById(R.id.details_content_layout);
 
@@ -100,6 +107,8 @@ public class NovelDetails extends AppCompatActivity {
 
         countryGridView = (CustomGridView) findViewById(R.id.countries);
         consoleGridView = (CustomGridView)findViewById(R.id.consoles);
+        countryGridView.setFocusable(false);
+        consoleGridView.setFocusable(false);
 
         imagePager = (FixedViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
@@ -135,12 +144,10 @@ public class NovelDetails extends AppCompatActivity {
 
         this.novelID = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(this.novelID));
-        new Thread() {
-            public void run() {
-                loadNovelData(novelID);
-                loadCharacterData(novelID);
-            }
-        }.start();
+
+        loadNovelData(novelID);
+        loadCharacterData(novelID);
+
     }
 
     @Override
@@ -244,12 +251,12 @@ public class NovelDetails extends AppCompatActivity {
         p.execute();
     }
 
-    private void loadNovelData (int id) {
+    private void loadNovelData (final int id) {
         Log.d("Calling Server","Requesting Novel Details from the server");
         final PopulateNovelDetails d = new PopulateNovelDetails(id);
         d.callback = new NovelDetailsDataCallback() {
             @Override
-            public void onSuccessUI(DetailsData detailsData, String genres) {
+            public void onSuccessUI(final DetailsData detailsData, String genres) {
                 Picasso.with(getApplicationContext()).load(detailsData.getImage()).fit().into(icon);
                 measuringTextview.setText(detailsData.getDescriptionWithoutBrackets());
 
@@ -265,6 +272,58 @@ public class NovelDetails extends AppCompatActivity {
                 description.setText(detailsData.getDescriptionWithoutBrackets());
                 length.setText(detailsData.getLength());
                 genre.setText(genres);
+                TextView releaseDate = (TextView)findViewById(R.id.info_release_date);
+                releaseDate.setText(detailsData.getReleased());
+                TextView aliases = (TextView)findViewById(R.id.info_aliases);
+                aliases.setText(detailsData.getAliases());
+                TextView originalTitle = (TextView) findViewById(R.id.info_original_title);
+                originalTitle.setText(detailsData.getOriginal());
+                NovelAnime [] animes = detailsData.getAnime();
+
+                if (animes.length > 0) {
+                    TextView anime = (TextView) findViewById(R.id.info_anime);
+                    StringBuilder f = new StringBuilder();
+                    for (int z = 0; z < animes.length; z++) {
+                        f.append(animes[z].title_romaji + "\n");
+                    }
+                    anime.setText(f.toString());
+                }
+
+                PopulateRelease p = new PopulateRelease(id, detailsData.getReleased(), new DefaultCallback<Release>() {
+                    @Override
+                    public void onSuccess(Release release) {
+                        TextView developer = (TextView)findViewById(R.id.info_developer);
+                        ReleaseProducer [] producers = release.getProducers();
+                        TextView publisher = (TextView)findViewById(R.id.info_publisher);
+
+                        if (producers.length > 0) {
+                            StringBuilder a = new StringBuilder("  ");
+                            StringBuilder b = new StringBuilder("  ");
+
+                            for (int x = 0; x < producers.length; x++) {
+                                if (producers[x].developer == true)
+                                    a.append(producers[x].name + ", ");
+                                if (producers[x].publisher == true)
+                                    b.append(producers[x].name + ", ");
+                            }
+                            developer.setText(a.substring(0, a.length() - 2));
+                            publisher.setText(b.substring(0, b.length() - 2));
+                        } else {
+                            developer.setText("Not Available");
+                            publisher.setText("Not Available");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Error error, String errorMessage) {
+                        Log.d("AsyncTask FAILURE",errorMessage);
+                        if (error!=null){
+                            Log.d("Error ID:",error.getId());
+                            Log.d("Error Message:",error.getMsg());
+                        }
+                    }
+                });
+                p.execute();
 
                 if (detailsData.getScreens().length == 0) {
                     imagePager.setVisibility(View.GONE);
@@ -301,4 +360,5 @@ public class NovelDetails extends AppCompatActivity {
         };
         d.execute();
     }
+
 }

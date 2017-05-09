@@ -5,7 +5,7 @@ package ecez.vndbapp.model;
  */
 
 public class ReleaseProducer {
-    Integer id;
-    Boolean developer, publisher;
-    String name, original, type;
+    public Integer id;
+    public Boolean developer, publisher;
+    public String name, original, type;
 }

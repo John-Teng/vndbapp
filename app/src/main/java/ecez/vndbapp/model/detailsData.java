@@ -6,6 +6,9 @@ package ecez.vndbapp.model;
 public class DetailsData extends NovelData {
 
     private String description;
+    private String aliases;
+
+    private String original;
     private String [] languages, platforms;
     private String [][] tags;
     private NovelAnime [] anime;
@@ -16,7 +19,7 @@ public class DetailsData extends NovelData {
 
     public DetailsData(String title, Double rating, int length, String image,
                        String id, String [] languages, String [] platforms, String description,
-                       Double popularity, int votecount, String released) {
+                       Double popularity, int votecount, String released, String aliases) {
         this.title = title;
         this.rating = rating;
         this.length = length;
@@ -28,6 +31,7 @@ public class DetailsData extends NovelData {
         this.popularity = popularity;
         this.votecount = votecount;
         this.released = released;
+        this.aliases = aliases;
     }
 
     public String[][] getTags() {
@@ -147,6 +151,8 @@ public class DetailsData extends NovelData {
     }
 
     public NovelAnime[] getAnime() {
+        if (anime == null)
+            return new NovelAnime[0];
         return anime;
     }
 
@@ -154,8 +160,23 @@ public class DetailsData extends NovelData {
         this.anime = anime;
     }
 
+    public String getAliases() {
+        return aliases;
+    }
 
+    public void setAliases(String aliases) {
+        this.aliases = aliases;
+    }
 
+    public String getOriginal() {
+        if (original == null || original.equals(""))
+            return title;
+        return original;
+    }
+
+    public void setOriginal(String original) {
+        this.original = original;
+    }
 
 }
 
