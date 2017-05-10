@@ -13,14 +13,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:paddingLeft="15dp"
+            android:id="@+id/info_original_title_label"
             android:textColor="@color/colorDarkGray"
             android:text="Original Title"/>
         <TextView
-            android:textAlignment="textEnd"
+            android:paddingLeft="15dp"
+            android:layout_below="@id/character_original_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
-            android:layout_alignParentRight="true"
             android:id="@+id/info_original_title"
             android:text="N/A"/>
     </RelativeLayout>
@@ -34,14 +34,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:paddingLeft="15dp"
+            android:id="@+id/info_aliases_label"
             android:textColor="@color/colorDarkGray"
             android:text="Aliases"/>
         <TextView
-            android:textAlignment="textEnd"
+            android:paddingLeft="15dp"
+            android:layout_below="@id/info_aliases_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
-            android:layout_alignParentRight="true"
             android:id="@+id/info_aliases"
             android:text="N/A"/>
     </RelativeLayout>
@@ -55,14 +55,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:paddingLeft="15dp"
+            android:id="@+id/info_release_date_label"
             android:textColor="@color/colorDarkGray"
             android:text="Release Date"/>
         <TextView
-            android:textAlignment="textEnd"
+            android:paddingLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
-            android:layout_alignParentRight="true"
+            android:layout_below="@id/info_release_date_label"
             android:id="@+id/info_release_date"
             android:text="N/A"/>
     </RelativeLayout>
@@ -75,15 +75,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:id="@+id/info_developer_label"
             android:paddingLeft="15dp"
             android:textColor="@color/colorDarkGray"
             android:text="Developer"/>
         <TextView
-            android:textAlignment="textEnd"
+            android:paddingLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
-            android:layout_alignParentRight="true"
+            android:layout_below="@id/info_developer_label"
             android:id="@+id/info_developer"
             android:text="N/A"/>
     </RelativeLayout>
@@ -96,15 +96,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:id="@+id/info_publisher_label"
             android:paddingLeft="15dp"
             android:textColor="@color/colorDarkGray"
             android:text="Publisher"/>
         <TextView
-            android:textAlignment="textEnd"
+            android:paddingLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
-            android:layout_alignParentRight="true"
+            android:layout_below="@id/info_publisher_label"
             android:id="@+id/info_publisher"
             android:text="N/A"/>
     </RelativeLayout>
@@ -118,14 +118,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:paddingLeft="15dp"
+            android:id="@+id/info_anime_label"
             android:textColor="@color/colorDarkGray"
             android:text="Anime Adaptation"/>
         <TextView
-            android:textAlignment="textEnd"
+            android:paddingLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="15dp"
-            android:layout_alignParentRight="true"
+            android:layout_below="@id/info_anime_label"
             android:id="@+id/info_anime"
             android:text="None"/>
     </RelativeLayout>
