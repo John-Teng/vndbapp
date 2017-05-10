@@ -18,7 +18,7 @@
             android:text="Original Title"/>
         <TextView
             android:paddingLeft="15dp"
-            android:layout_below="@id/character_original_name_label"
+            android:layout_below="@id/info_original_title_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/info_original_title"

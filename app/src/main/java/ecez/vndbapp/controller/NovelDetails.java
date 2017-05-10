@@ -297,8 +297,8 @@ public class NovelDetails extends AppCompatActivity {
                         TextView publisher = (TextView)findViewById(R.id.info_publisher);
 
                         if (producers.length > 0) {
-                            StringBuilder a = new StringBuilder("  ");
-                            StringBuilder b = new StringBuilder("  ");
+                            StringBuilder a = new StringBuilder();
+                            StringBuilder b = new StringBuilder();
 
                             for (int x = 0; x < producers.length; x++) {
                                 if (producers[x].developer == true)
@@ -306,8 +306,14 @@ public class NovelDetails extends AppCompatActivity {
                                 if (producers[x].publisher == true)
                                     b.append(producers[x].name + ", ");
                             }
-                            developer.setText(a.substring(0, a.length() - 2));
-                            publisher.setText(b.substring(0, b.length() - 2));
+                            if (a.toString().equals(""))
+                                developer.setText("Not Available");
+                            else
+                                developer.setText(a.substring(0, a.length() - 2));
+                            if (b.toString().equals(""))
+                                publisher.setText("Not Available");
+                            else
+                                publisher.setText(b.substring(0, b.length() - 2));
                         } else {
                             developer.setText("Not Available");
                             publisher.setText("Not Available");
