@@ -123,6 +123,23 @@
                 android:layout_width="match_parent">
             </include>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View all release details"
+                android:textColor="@color/colorBlack"
+                android:textSize="11dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:minWidth="70dp"
+                android:minHeight="20dp"
+                android:id="@+id/release_button"
+                android:layout_gravity="center"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_alignParentEnd="true" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
