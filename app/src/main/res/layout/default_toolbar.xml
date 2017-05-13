@@ -40,21 +40,6 @@
                 android:id="@+id/toolbar_title"
                 android:layout_centerVertical="true" />
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingTop="3dp"-->
-                <!--android:paddingBottom="8dp"-->
-                <!--android:text=""-->
-                <!--android:maxLines="1"-->
-                <!--android:textColor="@color/colorDarkerGray"-->
-                <!--android:textAlignment="textStart"-->
-                <!--android:textSize="14dp"-->
-                <!--android:textStyle="italic"-->
-                <!--android:id="@+id/toolbar_subtitle"-->
-                <!--android:layout_alignLeft="@id/toolbar_title"-->
-                <!--android:layout_below="@id/toolbar_title" />-->
-
         </RelativeLayout>/>
     </android.support.v7.widget.Toolbar>
 

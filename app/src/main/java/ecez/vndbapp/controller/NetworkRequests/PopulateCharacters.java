@@ -34,8 +34,7 @@ public class PopulateCharacters extends VNDBrequest{
         String f = s.substring(1,s.length()-1);//Removes the square braces from the response
 
         Log.d("json2",f);
-        Character[] l = gson.fromJson(jsonResponse.toString(),Character[].class);
-        List characters = new ArrayList<>(Arrays.asList(l));
+        Character[] characters = gson.fromJson(jsonResponse.toString(),Character[].class);
         callback.returnList(characters);
         return true;
     }

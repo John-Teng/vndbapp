@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.util.ArrayList;
-
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.CharacterRecyclerAdapter;
 import ecez.vndbapp.model.Character;
@@ -18,7 +16,7 @@ import ecez.vndbapp.model.Character;
 public class CharacterList extends AppCompatActivity {
     public static RecyclerView recyclerView;
     private CharacterRecyclerAdapter adapter;
-    private ArrayList<Character> characters;
+    private Character [] characters;
     private Intent intent;
     private int novelID;
 
@@ -34,7 +32,7 @@ public class CharacterList extends AppCompatActivity {
         setContentView(R.layout.activity_character_list);
         intent = getIntent();
         novelID = intent.getIntExtra("NOVEL_ID",-1);
-        characters = (ArrayList<Character>) intent.getSerializableExtra("CHARACTERS");
+        characters = (Character [])intent.getSerializableExtra("CHARACTERS");
 
         recyclerView = (RecyclerView)findViewById(R.id.character_recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());

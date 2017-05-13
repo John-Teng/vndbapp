@@ -15,21 +15,33 @@ import ecez.vndbapp.model.Release;
  */
 
 public class PopulateRelease extends VNDBrequest {
-    private Release release;
+    private Release [] releases;
     private DefaultCallback callback;
     private int id;
-    private String releaseDate;
+    private String releaseDate, type;
 
-    public PopulateRelease (int id, String releaseDate, DefaultCallback callback) {
+    public PopulateRelease (int id, String type, String releaseDate, DefaultCallback callback) {
         this.id = id;
         this.releaseDate = releaseDate;
+        this.callback = callback;
+        this.type = type;
+    }
+
+    public PopulateRelease (int id, String type, DefaultCallback callback) {
+        this.id = id;
+        this.type = type;
         this.callback = callback;
     }
 
     @Override
     protected Object doInBackground(Object[] objects) {
-        JSONArray jsonResponse = getJSONfromRequest("get", "release", "basic,producers",
-                "(vn = "+Integer.toString(id)+ " and released = \"" +releaseDate+"\")", null,callback);
+        StringBuilder filters = new StringBuilder("(vn = "+Integer.toString(id));
+        if (releaseDate != null )
+            filters.append(" and released = \"" +releaseDate+"\")");
+        else
+            filters.append("dank?");
+
+        JSONArray jsonResponse = getJSONfromRequest("get", "release", type, filters.toString(), null,callback);
         Log.d("json",jsonResponse.toString());
         if (jsonResponse == null)
             return false;
@@ -37,8 +49,7 @@ public class PopulateRelease extends VNDBrequest {
         String s = jsonResponse.toString();
 
         Gson gson = new Gson();
-        Release [] r = gson.fromJson(s, Release[].class);
-        release = r[0];
+        releases = gson.fromJson(s, Release[].class);
 
         Log.d("json2",s);
         return true;
@@ -47,7 +58,7 @@ public class PopulateRelease extends VNDBrequest {
     @Override
     public void onPostExecute (Object o) {
         if (o.equals(true)) {
-            callback.onSuccess(release);
+            callback.onSuccess(releases);
         }
     }
 

@@ -61,7 +61,7 @@ public class NovelDetails extends AppCompatActivity {
     private ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     private FixedViewPager imagePager;
     private int novelID;
-    private List<Character> characters = new ArrayList<>();
+    private Character [] characters;
     private View detailsLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +94,16 @@ public class NovelDetails extends AppCompatActivity {
         screenshotsHeader = (TextView) findViewById(R.id.imagePager_label);
 
         seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
+        Button seeMoreReleases = (Button) findViewById(R.id.release_button);
+        seeMoreReleases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ReleaseList.class);
+                intent.putExtra("NOVEL_ID", novelID);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
+            }
+        });
         detailsLayout = findViewById(R.id.details_content_layout);
 
         title = (TextView)findViewById(R.id.toolbar_title);
@@ -159,17 +169,17 @@ public class NovelDetails extends AppCompatActivity {
     private void loadCharacterData (int id) {
         Log.d("Calling Server","Requesting Character Details from the server");
         final PopulateCharacters p = new PopulateCharacters(id);
-        p.callback = new ListCallback<Character>() {
+        p.callback = new ListCallback() {
             @Override
-            public void returnList(List<Character> list) {
-                characters = list;
+            public void returnList(Object [] array) {
+                characters = (Character [])array; //Downcast to character array
 
                 seeMoreCharacters.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), CharacterList.class);
                         intent.putExtra("NOVEL_ID", novelID);
-                        intent.putExtra("CHARACTERS", (Serializable)characters);
+                        intent.putExtra("CHARACTERS", characters);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(intent);
                     }
@@ -182,16 +192,16 @@ public class NovelDetails extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), CharacterProfile.class);
                         switch (v.getId()) {
                             case R.id.character_layout1:
-                                intent.putExtra("CHARACTER", characters.get(0));
+                                intent.putExtra("CHARACTER", characters[0]);
                                 break;
                             case R.id.character_layout2:
-                                intent.putExtra("CHARACTER", characters.get(1));
+                                intent.putExtra("CHARACTER", characters[1]);
                                 break;
                             case R.id.character_layout3:
-                                intent.putExtra("CHARACTER", characters.get(2));
+                                intent.putExtra("CHARACTER", characters[2]);
                                 break;
                             default:
-                                intent.putExtra("CHARACTER", characters.get(0));
+                                intent.putExtra("CHARACTER", characters[3]);
                                 break;
                         }
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -206,37 +216,37 @@ public class NovelDetails extends AppCompatActivity {
 
             @Override
             public void onSuccessUI() {
-                if (characters == null || characters.size() < 3) {
+                if (characters == null || characters.length < 3) {
                     Log.d("Characters","Character arraylist is null");
                     findViewById(R.id.character_panel_layout).setVisibility(View.GONE);
                     return;
                 }
                 Picasso
                         .with(getApplicationContext())
-                        .load(characters.get(0).getImage())
+                        .load(characters[0].getImage())
                         .fit()
                         .centerCrop()
                         .into(characterIcon1);
 
                 Picasso
                         .with(getApplicationContext())
-                        .load(characters.get(1).getImage())
+                        .load(characters[1].getImage())
                         .fit()
                         .centerCrop()
                         .into(characterIcon2);
                 Picasso
                         .with(getApplicationContext())
-                        .load(characters.get(2).getImage())
+                        .load(characters[2].getImage())
                         .fit()
                         .centerCrop()
                         .into(characterIcon3);
 
-                characterLabel1.setText(characters.get(0).getName());
-                characterLabel2.setText(characters.get(1).getName());
-                characterLabel3.setText(characters.get(2).getName());
-                characterRole1.setText(characters.get(0).getRole(novelID));
-                characterRole2.setText(characters.get(1).getRole(novelID));
-                characterRole3.setText(characters.get(2).getRole(novelID));
+                characterLabel1.setText(characters[0].getName());
+                characterLabel2.setText(characters[1].getName());
+                characterLabel3.setText(characters[2].getName());
+                characterRole1.setText(characters[0].getRole(novelID));
+                characterRole2.setText(characters[1].getRole(novelID));
+                characterRole3.setText(characters[2].getRole(novelID));
             }
 
             @Override
@@ -289,9 +299,10 @@ public class NovelDetails extends AppCompatActivity {
                     anime.setText(f.toString());
                 }
 
-                PopulateRelease p = new PopulateRelease(id, detailsData.getReleased(), new DefaultCallback<Release>() {
+                PopulateRelease p = new PopulateRelease(id, "basic,producers",detailsData.getReleased(), new DefaultCallback<Release[]>() {
                     @Override
-                    public void onSuccess(Release release) {
+                    public void onSuccess(Release [] releases) {
+                        Release release = releases[0];
                         TextView developer = (TextView)findViewById(R.id.info_developer);
                         ReleaseProducer [] producers = release.getProducers();
                         TextView publisher = (TextView)findViewById(R.id.info_publisher);

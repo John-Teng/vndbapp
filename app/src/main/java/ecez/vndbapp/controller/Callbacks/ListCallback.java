@@ -6,7 +6,7 @@ import java.util.List;
  * Created by johnteng on 2017-04-23.
  */
 
-public interface ListCallback <T> extends AsyncTaskCallback{
-    void returnList(List<T> list);
+public interface ListCallback extends AsyncTaskCallback{
+    void returnList(Object[] array);
     void onSuccessUI();
 }

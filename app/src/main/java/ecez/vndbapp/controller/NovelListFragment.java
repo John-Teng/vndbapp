@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ecez.vndbapp.R;
@@ -78,16 +79,17 @@ public class NovelListFragment extends Fragment {
             pageCount = pageNum;
         }
         PopulateListItems l = new PopulateListItems(pageCount,sortParam);
-        l.callback = new ListCallback<NovelData>() {
+        l.callback = new ListCallback () {
             @Override
-            public void returnList(List<NovelData> list) { //This is run on a background thread
+            public void returnList(Object [] array) { //This is run on a background thread
+                List<NovelData> novels = new ArrayList<>(Arrays.asList((NovelData[]) array)); //downcast and convert to list
                 Log.d("callback","onSuccess callback being called ");
                 Log.d("callback","The current page is " + Integer.toString(pageCount) );
                 if (pageCount == 1) {
                     mLoadedNovelDatas.clear();
                     Log.d("callback","There are now " + mLoadedNovelDatas.size() + " items in the list");
                 }
-                mLoadedNovelDatas.addAll(list);
+                mLoadedNovelDatas.addAll(novels);
                 pageCount ++;
             }
             @Override

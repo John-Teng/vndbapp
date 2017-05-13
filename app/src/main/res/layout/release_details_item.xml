@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:paddingLeft="20dp"
+        android:layout_height="wrap_content"
+        android:text="Steins;Gate Definitive Edition"
+        android:textSize="20dp"
+        android:textColor="@color/colorBlack"
+        android:id="@+id/release_details_item_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:text="Released: 4-15-2010"
+        android:textSize="14dp"
+        android:textColor="@color/colorBlack"
+        android:id="@+id/release_details_item_date"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"/>
+</LinearLayout>

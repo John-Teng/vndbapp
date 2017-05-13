@@ -34,14 +34,13 @@ public class PopulateListItems extends VNDBrequest {
             return false;
 
         Log.d("json",jsonResponse.toString());
-        NovelData[] l = gson.fromJson(jsonResponse.toString(),NovelData[].class);
-        List <NovelData> list = new ArrayList<>(Arrays.asList(l));
+        NovelData[] array = gson.fromJson(jsonResponse.toString(),NovelData[].class);
         int y = (resultPerPage*page-(resultPerPage-1));
-        for (NovelData x:list) {
-            x.setRank(y);
+        for (int x = 0; x< array.length; x++) {
+            array[x].setRank(y);
             y ++;
         }
-        callback.returnList(list);
+        callback.returnList(array);
 
         return true;
     }

@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.CharacterProfile;
 import ecez.vndbapp.model.Character;
@@ -23,13 +21,13 @@ import ecez.vndbapp.model.Character;
  */
 public class CharacterRecyclerAdapter extends RecyclerView.Adapter<CharacterRecyclerAdapter.holder>{
 
-    private ArrayList<Character> characters;
+    private Character [] characters;
     private LayoutInflater inflater;
     private Context context;
     private RecyclerView recyclerViewReference;
     private int novelID;
 
-    public CharacterRecyclerAdapter(ArrayList<Character> characters, Context context, RecyclerView view, int novelID) {
+    public CharacterRecyclerAdapter(Character [] characters, Context context, RecyclerView view, int novelID) {
         this.inflater = LayoutInflater.from(context);
         this.characters = characters;
         this.context = context;
@@ -39,13 +37,13 @@ public class CharacterRecyclerAdapter extends RecyclerView.Adapter<CharacterRecy
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final View view = inflater.inflate(R.layout.list_character_item, parent, false);
+        final View view = inflater.inflate(R.layout.character_list_item, parent, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int itemPosition = recyclerViewReference.getChildLayoutPosition(view);
                 Intent intent = new Intent(context, CharacterProfile.class);
-                intent.putExtra("CHARACTER", characters.get(itemPosition));
+                intent.putExtra("CHARACTER", characters[itemPosition]);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
@@ -55,7 +53,7 @@ public class CharacterRecyclerAdapter extends RecyclerView.Adapter<CharacterRecy
 
     @Override
     public void onBindViewHolder(holder holder, int position) {
-        Character item = characters.get(position);
+        Character item = characters[position];
         holder.nameText.setText(item.getName());
         Log.d("role",item.getRole(novelID));
         holder.roleText.setText(item.getRole(novelID));
@@ -69,7 +67,7 @@ public class CharacterRecyclerAdapter extends RecyclerView.Adapter<CharacterRecy
 
     @Override
     public int getItemCount() {
-        return characters.size();
+        return characters.length;
     }
 
     class holder extends RecyclerView.ViewHolder {

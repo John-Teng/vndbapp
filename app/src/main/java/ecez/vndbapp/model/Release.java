@@ -1,10 +1,12 @@
 package ecez.vndbapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by johnteng on 2017-05-04.
  */
 
-public class Release {
+public class Release implements Serializable {
     Integer id;
     String title, original, released, type, website, notes, gtin, catalog;
     Boolean patch, freeware, doujin;
