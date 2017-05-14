@@ -37,14 +37,14 @@ public class PopulateRelease extends VNDBrequest {
     protected Object doInBackground(Object[] objects) {
         StringBuilder filters = new StringBuilder("(vn = "+Integer.toString(id));
         if (releaseDate != null )
-            filters.append(" and released = \"" +releaseDate+"\")");
+            filters.append(" and released = \"" +releaseDate+"\" and doujin = false)");
         else
-            filters.append("dank?");
+            filters.append(" and doujin = false)");
 
         JSONArray jsonResponse = getJSONfromRequest("get", "release", type, filters.toString(), null,callback);
-        Log.d("json",jsonResponse.toString());
         if (jsonResponse == null)
             return false;
+        Log.d("json",jsonResponse.toString());
 
         String s = jsonResponse.toString();
 

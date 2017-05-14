@@ -38,11 +38,11 @@ public class ReleaseList extends AppCompatActivity {
             window.setStatusBarColor(Color.GRAY);
 
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_character_list);
+            setContentView(R.layout.activity_release_list);
             intent = getIntent();
             novelID = intent.getIntExtra("NOVEL_ID",-1);
 
-            recyclerView = (RecyclerView)findViewById(R.id.character_recyclerView);
+            recyclerView = (RecyclerView)findViewById(R.id.release_list_recyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             recyclerView.setLayoutManager(layoutManager);
 
