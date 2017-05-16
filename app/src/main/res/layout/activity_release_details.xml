@@ -11,107 +11,117 @@
         layout="@layout/default_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"/>
-
-    <RelativeLayout
+        android:id="@+id/release_details_toolbar"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:text="Original Title:"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:textAlignment="textEnd"
             android:layout_alignParentRight="true"
-            android:text="Steins;Gate"/>
-    </RelativeLayout>
+            android:id="@+id/release_details_original_title"
+            android:text="Steins;Gate 123456 waefijawef 32ojw4 rjioq weofij"/>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:text="Release Date:"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:textAlignment="textEnd"
             android:layout_alignParentRight="true"
+            android:id="@+id/release_details_release_date"
             android:text="5-15-2010"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Release Date:"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="5-15-2010"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:text="Type:"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:textAlignment="textEnd"
             android:layout_alignParentRight="true"
+            android:id="@+id/release_details_type"
             android:text="Complete"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:text="Age Rating"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:textAlignment="textEnd"
             android:layout_alignParentRight="true"
+            android:id="@+id/release_details_age_rating"
             android:text="18+"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:orientation="horizontal">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Release Date:"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="5-15-2010"/>
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
             android:text="Producers:"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_weight="0.7"
+            android:textAlignment="textEnd"
+            android:id="@+id/release_details_producers"
             android:text="Type-Moon"/>
-    </RelativeLayout>
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -125,19 +135,7 @@
         android:textAlignment="textStart"
         android:textStyle="bold"
         android:textSize="14dp"
-        android:id="@+id/countries_label" />
-
-    <ecez.vndbapp.model.CustomGridView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="5"
-        android:background="@color/colorLightGray"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:paddingBottom="5dp"
-        android:clickable="false"
-        android:id="@+id/countries">
-    </ecez.vndbapp.model.CustomGridView>
+        android:id="@+id/release_details_countries_label" />
 
     <TextView
         android:layout_width="match_parent"
@@ -152,24 +150,10 @@
         android:textStyle="bold"
         android:textSize="14dp"
         android:layout_below="@+id/countries"
-        android:id="@+id/consoles_label" />
-
-    <ecez.vndbapp.model.CustomGridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:verticalSpacing="20dp"
-        android:background="@color/colorLightGray"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:numColumns="5"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp"
-        android:id="@+id/consoles"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/consoles_label"
-        android:layout_alignParentEnd="true">
-    </ecez.vndbapp.model.CustomGridView>
+        android:id="@+id/release_details_consoles_label" />
 
 
+
+    </LinearLayout>
 
 </LinearLayout>

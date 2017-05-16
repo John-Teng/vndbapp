@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Release implements Serializable {
-    Integer id;
+    Integer id, minage;
     String title, original, released, type, website, notes, gtin, catalog;
     Boolean patch, freeware, doujin;
     String [] languages, platforms;
@@ -35,6 +35,12 @@ public class Release implements Serializable {
         if (original == null)
             return "N/A";
         return original;
+    }
+
+    public String getAgeRating(){
+        if (minage == 0)
+             return "All Ages";
+        return Integer.toString(minage) + "+";
     }
 
     public void setOriginal(String original) {

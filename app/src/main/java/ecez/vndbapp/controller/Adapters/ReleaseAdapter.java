@@ -45,7 +45,7 @@ public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.holder>{
                 public void onClick(View v) {
                     int itemPosition = recyclerViewReference.getChildLayoutPosition(view);
                     Intent intent = new Intent(context, ReleaseDetails.class);
-                    intent.putExtra("RELEASES", releases[itemPosition]);
+                    intent.putExtra("RELEASE", releases[itemPosition]);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }

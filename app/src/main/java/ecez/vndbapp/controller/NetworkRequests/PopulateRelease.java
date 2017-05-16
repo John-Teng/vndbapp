@@ -50,7 +50,10 @@ public class PopulateRelease extends VNDBrequest {
 
         Gson gson = new Gson();
         releases = gson.fromJson(s, Release[].class);
-
+        if (releases.length == 0) {
+            callback.onFailure(null,"Returned empty array");
+            return false;
+        }
         Log.d("json2",s);
         return true;
     }
