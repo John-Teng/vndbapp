@@ -123,19 +123,47 @@
             android:text="Type-Moon"/>
     </LinearLayout>
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Languages"
-        android:background="@color/colorLightGray"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:layout_alignParentLeft="true"
         android:textColor="@color/colorBlack"
         android:textAlignment="textStart"
-        android:textStyle="bold"
         android:textSize="14dp"
-        android:id="@+id/release_details_countries_label" />
+        android:id="@+id/release_details_country_label" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:background="@color/colorTransparent"
+        android:layout_toStartOf="@+id/release_details_country"
+        android:id="@+id/release_details_country_image"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="English"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/colorBlack"
+        android:textAlignment="textStart"
+        android:textSize="14dp"
+        android:id="@+id/release_details_country" />
+</RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="match_parent"
@@ -146,14 +174,29 @@
         android:paddingBottom="10dp"
         android:textColor="@color/colorBlack"
         android:textAlignment="textStart"
-        android:background="@color/colorLightGray"
-        android:textStyle="bold"
         android:textSize="14dp"
-        android:layout_below="@+id/countries"
-        android:id="@+id/release_details_consoles_label" />
+        android:id="@+id/release_details_console_label" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:background="@color/colorTransparent"
+                android:layout_toStartOf="@+id/release_details_console"
+                android:id="@+id/release_details_console_image"/>
 
-
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Console"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/colorBlack"
+                android:textAlignment="textStart"
+                android:textSize="14dp"
+                android:id="@+id/release_details_console" />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

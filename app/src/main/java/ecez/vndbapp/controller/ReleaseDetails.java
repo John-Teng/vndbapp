@@ -1,9 +1,12 @@
 package ecez.vndbapp.controller;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import ecez.vndbapp.R;
@@ -28,8 +31,10 @@ public class ReleaseDetails extends AppCompatActivity {
         TextView ageRating = (TextView)findViewById(R.id.release_details_age_rating);
         TextView type = (TextView)findViewById(R.id.release_details_type);
         TextView producers = (TextView)findViewById(R.id.release_details_producers);
-        TextView countries = (TextView)findViewById(R.id.release_details_countries_label);
-        TextView consoles = (TextView)findViewById(R.id.release_details_consoles_label);
+        TextView countries = (TextView)findViewById(R.id.release_details_country);
+        TextView consoles = (TextView)findViewById(R.id.release_details_console);
+        ImageView countryImage = (ImageView)findViewById(R.id.release_details_country_image);
+        ImageView consoleImage = (ImageView)findViewById(R.id.release_details_console_image);
 
         title.setText(mRelease.getTitle());
         originalTitle.setText(mRelease.getOriginal());
@@ -44,13 +49,136 @@ public class ReleaseDetails extends AppCompatActivity {
         }
 
         String [] languages = mRelease.getLanguages();
-        for (int y = 0; y< languages.length; y++){
-            countries.append(languages[y]);
-        }
-        String [] platforms = mRelease.getPlatforms();
-        for (int z = 0; z< platforms.length; z++){
-            consoles.append(platforms[z]);
-        }
+        loadCountryIcon(languages[0], countries, countryImage);
 
+        String [] platforms = mRelease.getPlatforms();
+        loadConsoleIcon(platforms[0], consoles, consoleImage);
     }
+
+    private void loadCountryIcon (String country, TextView text, ImageView image) {
+        switch (country) {
+            case "en":
+                text.setText("English");
+                image.setImageResource(R.drawable.uk);
+                break;
+            case "de":
+                text.setText("German");
+                image.setImageResource(R.drawable.germany);
+                break;
+            case "es":
+                text.setText("Spanish");
+                image.setImageResource(R.drawable.spain);
+                break;
+            case "it":
+                text.setText("Italian");
+                image.setImageResource(R.drawable.italy);
+                break;
+            case "ja":
+                text.setText("Japanese");
+                image.setImageResource(R.drawable.japan);
+                break;
+            case "ko":
+                text.setText("Korean");
+                image.setImageResource(R.drawable.korea);
+                break;
+            case "ru":
+                text.setText("Russian");
+                image.setImageResource(R.drawable.russia);
+                break;
+            case "zh":
+                text.setText("Chinese");
+                image.setImageResource(R.drawable.china);
+                break;
+
+            case "vi":
+                text.setText("Vietnamese");
+                image.setImageResource(R.drawable.vietnam);
+                break;
+            case "fr":
+                text.setText("French");
+                image.setImageResource(R.drawable.france);
+                break;
+            default:
+                text.setText(country.toUpperCase());
+                image.setImageResource(R.drawable.eu);
+        }
+    }
+
+    private void loadConsoleIcon (String console, TextView text, ImageView image) {
+        switch (console) {
+            case "gba":
+                image.setImageResource(R.drawable.gba_logo);
+                text.setText("");
+                break;
+            case "nds":
+                image.setImageResource(R.drawable.nds_logo);
+                text.setText("");
+                break;
+            case "n3d":
+                image.setImageResource(R.drawable.n3ds_logo);
+                text.setText("");
+                break;
+            case "psp":
+                image.setImageResource(R.drawable.psp_logo);
+                text.setText("");
+                break;
+            case "ps2":
+                image.setImageResource(R.drawable.ps2_logo);
+                text.setText("");
+                break;
+            case "ps3":
+                image.setImageResource(R.drawable.ps3_logo);
+                text.setText("");
+                break;
+            case "ps4":
+                image.setImageResource(R.drawable.ps4_logo);
+                text.setText("");
+                break;
+            case "psv":
+                image.setImageResource(R.drawable.psvita_logo);
+                text.setText("");
+                break;
+            case "xb3":
+                image.setImageResource(R.drawable.xbox360_logo);
+                text.setText("");
+                break;
+            case "win":
+                image.setImageResource(R.drawable.windows_logo);
+                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                text.setText("");
+                break;
+            case "ios":
+                image.setImageResource(R.drawable.ios_logo);
+                image.getLayoutParams().height = (int) convertDpToPixel(18);
+                text.setText("");
+                break;
+            case "wii":
+                image.setImageResource(R.drawable.wii_logo);
+                image.getLayoutParams().height = (int) convertDpToPixel(18);
+                text.setText("");
+                break;
+            case "and":
+                image.setImageResource(R.drawable.android_logo);
+                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                text.setText("");
+                break;
+            case "lin":
+                image.setImageResource(R.drawable.linux_logo);
+                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                text.setText("");
+                break;
+            default:
+                image.setImageResource(R.drawable.game_controller_logo);
+                text.setText(console.toUpperCase());
+                break;
+        }
+    }
+
+    public float convertDpToPixel(float dp){
+        Resources resources = getApplicationContext().getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
 }

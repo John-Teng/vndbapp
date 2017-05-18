@@ -38,6 +38,8 @@ public class Release implements Serializable {
     }
 
     public String getAgeRating(){
+        if (minage == null)
+            return "Unkown";
         if (minage == 0)
              return "All Ages";
         return Integer.toString(minage) + "+";
