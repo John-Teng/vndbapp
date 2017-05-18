@@ -39,7 +39,7 @@ public class Release implements Serializable {
 
     public String getAgeRating(){
         if (minage == null)
-            return "Unkown";
+            return "N/A";
         if (minage == 0)
              return "All Ages";
         return Integer.toString(minage) + "+";
@@ -58,7 +58,16 @@ public class Release implements Serializable {
     }
 
     public String getType() {
-        return type;
+        switch (type) {
+            case "complete":
+                return "Complete Release";
+            case "partial":
+                return "Partial Release";
+            case "trial":
+                return "Trial Edition";
+            default:
+                return "N/A";
+        }
     }
 
     public void setType(String type) {
@@ -74,6 +83,8 @@ public class Release implements Serializable {
     }
 
     public String getNotes() {
+        if (notes == null)
+            return "";
         return notes;
     }
 

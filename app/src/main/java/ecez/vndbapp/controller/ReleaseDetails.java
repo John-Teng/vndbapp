@@ -33,10 +33,14 @@ public class ReleaseDetails extends AppCompatActivity {
         TextView producers = (TextView)findViewById(R.id.release_details_producers);
         TextView countries = (TextView)findViewById(R.id.release_details_country);
         TextView consoles = (TextView)findViewById(R.id.release_details_console);
+        TextView notes = (TextView)findViewById(R.id.release_details_notes);
         ImageView countryImage = (ImageView)findViewById(R.id.release_details_country_image);
         ImageView consoleImage = (ImageView)findViewById(R.id.release_details_console_image);
 
+        notes.setText(mRelease.getNotes());
         title.setText(mRelease.getTitle());
+        if (mRelease.getPatch())
+            title.append(" (Patch)");
         originalTitle.setText(mRelease.getOriginal());
         releaseDate.setText(mRelease.getReleased());
         ageRating.setText(mRelease.getAgeRating());

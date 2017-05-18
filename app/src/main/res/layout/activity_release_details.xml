@@ -15,8 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:orientation="vertical">
 
     <LinearLayout
@@ -29,6 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:textColor="@color/colorBlack"
             android:text="Original Title:"/>
         <TextView
             android:layout_width="0dp"
@@ -37,7 +38,7 @@
             android:textAlignment="textEnd"
             android:layout_alignParentRight="true"
             android:id="@+id/release_details_original_title"
-            android:text="Steins;Gate 123456 waefijawef 32ojw4 rjioq weofij"/>
+            android:text="N/A"/>
     </LinearLayout>
 
     <LinearLayout
@@ -50,6 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:textColor="@color/colorBlack"
             android:text="Release Date:"/>
         <TextView
             android:layout_width="0dp"
@@ -58,7 +60,7 @@
             android:textAlignment="textEnd"
             android:layout_alignParentRight="true"
             android:id="@+id/release_details_release_date"
-            android:text="5-15-2010"/>
+            android:text="N/A"/>
     </LinearLayout>
 
     <LinearLayout
@@ -71,6 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:textColor="@color/colorBlack"
             android:text="Type:"/>
         <TextView
             android:layout_width="0dp"
@@ -79,7 +82,7 @@
             android:textAlignment="textEnd"
             android:layout_alignParentRight="true"
             android:id="@+id/release_details_type"
-            android:text="Complete"/>
+            android:text="N/A"/>
     </LinearLayout>
 
     <LinearLayout
@@ -92,6 +95,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:textColor="@color/colorBlack"
             android:text="Age Rating"/>
         <TextView
             android:layout_width="0dp"
@@ -100,7 +104,7 @@
             android:textAlignment="textEnd"
             android:layout_alignParentRight="true"
             android:id="@+id/release_details_age_rating"
-            android:text="18+"/>
+            android:text="N/A"/>
     </LinearLayout>
 
     <LinearLayout
@@ -112,6 +116,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            android:textColor="@color/colorBlack"
             android:text="Producers:"/>
         <TextView
             android:layout_width="0dp"
@@ -120,7 +125,7 @@
             android:layout_weight="0.7"
             android:textAlignment="textEnd"
             android:id="@+id/release_details_producers"
-            android:text="Type-Moon"/>
+            android:text="N/A"/>
     </LinearLayout>
 
 <RelativeLayout
@@ -129,10 +134,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Languages"
-        android:paddingLeft="15dp"
+        android:text="Languages:"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:layout_alignParentLeft="true"
         android:textColor="@color/colorBlack"
         android:textAlignment="textStart"
@@ -150,13 +153,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="English"
-        android:paddingLeft="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:layout_centerVertical="true"
+        android:text="N/A"
         android:layout_alignParentRight="true"
-        android:textColor="@color/colorBlack"
-        android:textAlignment="textStart"
         android:textSize="14dp"
         android:id="@+id/release_details_country" />
 </RelativeLayout>
@@ -168,10 +167,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Platforms"
-        android:paddingLeft="15dp"
+        android:text="Platforms:"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:textColor="@color/colorBlack"
         android:textAlignment="textStart"
         android:textSize="14dp"
@@ -187,16 +184,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Console"
-                android:paddingLeft="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:text="N/A"
+                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/colorBlack"
-                android:textAlignment="textStart"
                 android:textSize="14dp"
                 android:id="@+id/release_details_console" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:id="@+id/release_details_notes_label"
+            android:textColor="@color/colorBlack"
+            android:text="Additional Notes"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:id="@+id/release_details_notes"
+            android:text="N/A"/>
     </LinearLayout>
+
+
 
 </LinearLayout>
