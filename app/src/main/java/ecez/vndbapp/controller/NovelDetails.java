@@ -18,10 +18,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import at.blogc.android.views.ExpandableTextView;
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ConsoleIconAdapter;
@@ -56,7 +52,7 @@ public class NovelDetails extends AppCompatActivity {
     private TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3
             , characterRole1, characterRole2, characterRole3, genre, measuringTextview, countriesHeader,
             consolesHeader, screenshotsHeader;
-    private Button expandButton, seeMoreCharacters, backButton;
+    private Button expandButton, seeMoreCharacters, backButton, seeMoreReleases;
     private ExpandableTextView description;
     private ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     private FixedViewPager imagePager;
@@ -94,7 +90,7 @@ public class NovelDetails extends AppCompatActivity {
         screenshotsHeader = (TextView) findViewById(R.id.imagePager_label);
 
         seeMoreCharacters = (Button) findViewById(R.id.see_all_characters_button);
-        Button seeMoreReleases = (Button) findViewById(R.id.release_button);
+        seeMoreReleases = (Button) findViewById(R.id.release_button);
         seeMoreReleases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,6 +119,7 @@ public class NovelDetails extends AppCompatActivity {
         imagePager = (FixedViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
         description.setInterpolator(new OvershootInterpolator());
+        seeMoreReleases.setVisibility(View.GONE);
         expandButton.setVisibility(View.GONE);
         expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,6 +299,7 @@ public class NovelDetails extends AppCompatActivity {
                 PopulateRelease p = new PopulateRelease(id, "basic,producers",detailsData.getReleased(), new DefaultCallback<Release[]>() {
                     @Override
                     public void onSuccess(Release [] releases) {
+                        seeMoreReleases.setVisibility(View.VISIBLE);
                         Release release = releases[0];
                         TextView developer = (TextView)findViewById(R.id.info_developer);
                         ReleaseProducer [] producers = release.getProducers();
