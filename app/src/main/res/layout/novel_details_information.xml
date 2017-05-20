@@ -1,133 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:orientation="horizontal">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:paddingLeft="15dp"
+            android:layout_weight="0.35"
             android:id="@+id/info_original_title_label"
             android:textColor="@color/colorBlack"
-            android:text="Original Title"/>
+            android:text="Original Title:"/>
         <TextView
-            android:paddingLeft="15dp"
+            android:layout_weight="0.65"
             android:layout_below="@id/info_original_title_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/info_original_title"
+            android:textAlignment="textEnd"
             android:text="N/A"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.35"
             android:layout_alignParentLeft="true"
-            android:paddingLeft="15dp"
             android:id="@+id/info_aliases_label"
             android:textColor="@color/colorBlack"
-            android:text="Aliases"/>
+            android:text="Aliases:"/>
         <TextView
-            android:paddingLeft="15dp"
+            android:layout_weight="0.65"
             android:layout_below="@id/info_aliases_label"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
             android:id="@+id/info_aliases"
             android:text="N/A"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:paddingLeft="15dp"
+            android:layout_weight="0.35"
+            android:id="@+id/info_age_rating_label"
+            android:textColor="@color/colorBlack"
+            android:text="Age Rating:"/>
+        <TextView
+            android:layout_below="@id/info_age_rating_label"
+            android:layout_weight="0.65"
+            android:textAlignment="textEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/info_age_rating"
+            android:text="N/A"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.35"
+            android:layout_alignParentLeft="true"
             android:id="@+id/info_release_date_label"
             android:textColor="@color/colorBlack"
-            android:text="Release Date"/>
+            android:text="Release Date:"/>
         <TextView
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.65"
             android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
             android:layout_below="@id/info_release_date_label"
             android:id="@+id/info_release_date"
             android:text="N/A"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:orientation="horizontal">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.35"
             android:layout_alignParentLeft="true"
             android:id="@+id/info_developer_label"
-            android:paddingLeft="15dp"
             android:textColor="@color/colorBlack"
-            android:text="Developer"/>
+            android:text="Developer:"/>
         <TextView
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:textAlignment="textEnd"
             android:layout_below="@id/info_developer_label"
             android:id="@+id/info_developer"
             android:text="N/A"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.35"
             android:layout_alignParentLeft="true"
             android:id="@+id/info_publisher_label"
-            android:paddingLeft="15dp"
             android:textColor="@color/colorBlack"
-            android:text="Publisher"/>
+            android:text="Publisher:"/>
         <TextView
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.65"
             android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
             android:layout_below="@id/info_publisher_label"
             android:id="@+id/info_publisher"
             android:text="N/A"/>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.35"
             android:layout_alignParentLeft="true"
-            android:paddingLeft="15dp"
             android:id="@+id/info_anime_label"
             android:textColor="@color/colorBlack"
-            android:text="Anime Adaptation"/>
+            android:text="Anime Adaptation:"/>
         <TextView
-            android:paddingLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.65"
+            android:textAlignment="textEnd"
             android:layout_below="@id/info_anime_label"
             android:id="@+id/info_anime"
             android:text="None"/>
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

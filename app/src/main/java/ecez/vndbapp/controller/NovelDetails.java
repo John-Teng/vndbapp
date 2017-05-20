@@ -291,9 +291,13 @@ public class NovelDetails extends AppCompatActivity {
                     TextView anime = (TextView) findViewById(R.id.info_anime);
                     StringBuilder f = new StringBuilder();
                     for (int z = 0; z < animes.length; z++) {
-                        f.append(animes[z].title_romaji + "\n");
+                        f.append(animes[z].title_romaji + ",\n");
                     }
-                    anime.setText(f.toString());
+                    if (f.equals("")) {
+                        anime.setText("None");
+                    } else {
+                        anime.setText(f.substring(0,f.length()-2));
+                    }
                 }
 
                 PopulateRelease p = new PopulateRelease(id, "basic,producers",detailsData.getReleased(), new DefaultCallback<Release[]>() {

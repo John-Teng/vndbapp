@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,9 +57,23 @@ public class ReleaseDetails extends AppCompatActivity {
 
         String [] languages = mRelease.getLanguages();
         loadCountryIcon(languages[0], countries, countryImage);
-
+        Log.d("Num of Languages", Integer.toString(languages.length));
         String [] platforms = mRelease.getPlatforms();
         loadConsoleIcon(platforms[0], consoles, consoleImage);
+
+
+        Button backButton = (Button)findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     private void loadCountryIcon (String country, TextView text, ImageView image) {
