@@ -119,6 +119,8 @@ public class NovelDetails extends AppCompatActivity {
         imagePager = (FixedViewPager) findViewById(R.id.imagePager);
         expandButton = (Button) this.findViewById(R.id.expand_button);
         description.setInterpolator(new OvershootInterpolator());
+        detailsLayout.setVisibility(View.GONE);
+        measuringTextview.setVisibility(View.INVISIBLE);
         seeMoreReleases.setVisibility(View.GONE);
         expandButton.setVisibility(View.GONE);
         expandButton.setOnClickListener(new View.OnClickListener() {

@@ -36,28 +36,72 @@
             android:layout_below="@+id/toolbar"
             android:layout_alignBottom="@+id/novel_icon" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quickstats"
+            android:text=""
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:maxLines="1"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="12dp"
+            android:id="@+id/genres" />
+
+        <at.blogc.android.views.ExpandableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/genres"
+            android:paddingTop="0dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="13dp"
+            android:textColor="@color/colorDarkerGray"
+            android:id="@+id/description"
+            android:maxLines="9"
+            android:ellipsize="end"
+            android:layout_marginBottom="10dp"
+            app:animation_duration="500"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="0dp"
+            android:layout_below="@id/description"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="13dp"
+            android:id="@+id/measuring_textview"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/measuring_textview"
+            android:text="Read More"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:minWidth="70dp"
+            android:minHeight="20dp"
+            android:id="@+id/expand_button"
+            android:layout_gravity="center"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_alignParentEnd="true" />
+
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/details_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/novel_icon"
+            android:layout_below="@id/expand_button"
             android:paddingBottom="15dp"
-            android:visibility="invisible"
             android:background="@color/colorLightGray"
             android:layout_alignParentStart="true">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:maxLines="1"
-                android:textColor="@color/colorDarkGray"
-                android:textSize="12dp"
-                android:id="@+id/genres" />
 
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
@@ -71,46 +115,6 @@
                 <!--android:textSize="14dp"-->
                 <!--android:id="@+id/description_label" />-->
 
-            <at.blogc.android.views.ExpandableTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="0dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textSize="13dp"
-                android:textColor="@color/colorDarkerGray"
-                android:id="@+id/description"
-                android:maxLines="9"
-                android:ellipsize="end"
-                android:layout_marginBottom="10dp"
-                app:animation_duration="500"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="0dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textSize="13dp"
-                android:id="@+id/measuring_textview"
-                android:layout_marginBottom="10dp"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Read More"
-                android:textColor="@color/colorBlack"
-                android:textSize="11dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="15dp"
-                android:minWidth="70dp"
-                android:minHeight="20dp"
-                android:id="@+id/expand_button"
-                android:layout_gravity="center"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_alignParentEnd="true" />
 
             <View
                 android:layout_width="match_parent"
