@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.ReleaseDetails;
+import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.Release;
 
 /**
@@ -60,7 +61,7 @@ public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.holder>{
             holder.titleText.setText(item.getTitle());
             if (item.getPatch())
                 holder.titleText.append(" (Patch)");
-            holder.dateText.append(item.getReleased());
+            holder.dateText.append(item.getDate());
         }
 
         @Override

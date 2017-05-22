@@ -178,5 +178,57 @@ public class DetailsData extends NovelData {
         this.original = original;
     }
 
+    public String getDate () {
+        StringBuilder a = new StringBuilder();
+        String year = released.substring(0, 4);
+        String month = released.substring(5, 7);
+        String day = released.substring(8, 10);
+
+        switch (month) {
+            case "01":
+                a.append("January ");
+                break;
+            case "02":
+                a.append("February ");
+                break;
+            case "03":
+                a.append("March ");
+                break;
+            case "04":
+                a.append("April ");
+                break;
+            case "05":
+                a.append("May ");
+                break;
+            case "06":
+                a.append("June ");
+                break;
+            case "07":
+                a.append("July ");
+                break;
+            case "08":
+                a.append("August ");
+                break;
+            case "09":
+                a.append("September ");
+                break;
+            case "10":
+                a.append("October ");
+                break;
+            case "11":
+                a.append("November ");
+                break;
+            case "12":
+                a.append("December ");
+                break;
+        }
+        if (day.charAt(0) == '0') {
+            a.append(day.charAt(1));
+        } else {
+            a.append(day);
+        }
+        a.append(", "+year);
+        return a.toString();
+    }
 }
 

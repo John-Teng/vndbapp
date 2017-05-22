@@ -30,6 +30,7 @@ import ecez.vndbapp.controller.NetworkRequests.PopulateCharacters;
 import ecez.vndbapp.controller.NetworkRequests.PopulateNovelDetails;
 import ecez.vndbapp.controller.NetworkRequests.PopulateRelease;
 import ecez.vndbapp.model.Character;
+import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.CustomGridView;
 import ecez.vndbapp.model.DetailsData;
 import ecez.vndbapp.model.Error;
@@ -282,7 +283,7 @@ public class NovelDetails extends AppCompatActivity {
                 length.setText(detailsData.getLength());
                 genre.setText(genres);
                 TextView releaseDate = (TextView)findViewById(R.id.info_release_date);
-                releaseDate.setText(detailsData.getReleased());
+                releaseDate.setText(detailsData.getDate());
                 TextView aliases = (TextView)findViewById(R.id.info_aliases);
                 aliases.setText(detailsData.getAliases());
                 TextView originalTitle = (TextView) findViewById(R.id.info_original_title);

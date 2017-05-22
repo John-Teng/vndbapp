@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.Release;
 import ecez.vndbapp.model.ReleaseProducer;
 
@@ -45,7 +46,7 @@ public class ReleaseDetails extends AppCompatActivity {
         if (mRelease.getPatch())
             title.append(" (Patch)");
         originalTitle.setText(mRelease.getOriginal());
-        releaseDate.setText(mRelease.getReleased());
+        releaseDate.setText(mRelease.getDate());
         ageRating.setText(mRelease.getAgeRating());
         type.setText(mRelease.getType());
 
