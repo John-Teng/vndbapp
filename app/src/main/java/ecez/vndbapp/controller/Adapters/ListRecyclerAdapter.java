@@ -3,6 +3,7 @@ package ecez.vndbapp.controller.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,14 +43,17 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final View view = inflater.inflate(R.layout.list_card_item, parent, false);
+//        final View view = inflater.inflate(R.layout.list_card_item, parent, false);
+        final View view = inflater.inflate(R.layout.grid_item, parent, false);
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int itemPosition = NovelListFragment.recyclerView.getChildLayoutPosition(view);
                 String id = listData.get(itemPosition).getId();
 
-                ImageView image = (ImageView) view.findViewById(R.id.picture);
+//                ImageView image = (ImageView) view.findViewById(R.id.picture);
+                ImageView image = (ImageView) view.findViewById(R.id.grid_item_image);
                 NovelDetails.novelIcon = image.getDrawable();
 
                 Intent intent = new Intent(context, NovelDetails.class);
@@ -68,9 +72,9 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
     @Override
     public void onBindViewHolder(holder holder, int position) {
         NovelData item = listData.get(position);
-        holder.titleText.setText(item.getTitleWithDateAndRank());
+        holder.titleText.setText(item.getTitle());
         holder.ratingText.setText(item.getRating());
-        holder.lengthText.setText(item.getLength());
+//        holder.lengthText.setText(item.getLength());
         Picasso.with(context).load(item.getImage()).fit().into(holder.image);
     }
 
@@ -90,11 +94,14 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
 
         public holder(View itemView) {
             super(itemView);
-            titleText = (TextView)itemView.findViewById(R.id.card_item_title);
-            ratingText = (TextView)itemView.findViewById(R.id.rating_text);
-            lengthText = (TextView)itemView.findViewById(R.id.length_text);
-            image = (ImageView)itemView.findViewById(R.id.picture);
-            container = itemView.findViewById(R.id.card_layout);
+            titleText = (TextView)itemView.findViewById(R.id.grid_item_title);
+            ratingText = (TextView)itemView.findViewById(R.id.grid_item_subtext);
+            image = (ImageView)itemView.findViewById(R.id.grid_item_image);
+//            titleText = (TextView)itemView.findViewById(R.id.card_item_title);
+//            ratingText = (TextView)itemView.findViewById(R.id.rating_text);
+//            lengthText = (TextView)itemView.findViewById(R.id.length_text);
+//            image = (ImageView)itemView.findViewById(R.id.picture);
+//            container = itemView.findViewById(R.id.card_layout);
         }
     }
 

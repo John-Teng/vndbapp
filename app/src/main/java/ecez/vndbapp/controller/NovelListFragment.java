@@ -3,6 +3,7 @@ package ecez.vndbapp.controller;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -51,7 +52,11 @@ public class NovelListFragment extends Fragment {
     recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         pb = (ProgressBar)view.findViewById(R.id.progressBar);
         pb.setVisibility(view.VISIBLE);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
+        GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(),3);
+        recyclerView.setLayoutManager(layoutManager);
+//            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+//            recyclerView.setLayoutManager(layoutManager);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
         EndlessRecyclerViewScrollListener endlessScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
