@@ -173,6 +173,8 @@ public class Release implements Serializable {
     }
 
     public String getDate () {
+        if (released.equals("tba"))
+            return "To be announced";
         StringBuilder a = new StringBuilder();
         String year = released.substring(0, 4);
         String month = released.substring(5, 7);

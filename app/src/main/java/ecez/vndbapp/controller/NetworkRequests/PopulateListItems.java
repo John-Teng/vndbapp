@@ -15,7 +15,7 @@ import ecez.vndbapp.model.NovelData;
  */
 public class PopulateListItems extends VNDBrequest {
     private int page;
-    private final int resultPerPage = 25;
+    private final int resultPerPage = 24;
     private String sortParam;
     public ListCallback callback;
 

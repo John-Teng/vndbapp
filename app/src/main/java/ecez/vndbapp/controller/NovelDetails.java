@@ -275,7 +275,7 @@ public class NovelDetails extends AppCompatActivity {
                     expandButton.setVisibility(View.VISIBLE);
                 }
                 measuringTextview.setVisibility(View.GONE);
-                title.setText(detailsData.getTitleWithDate());
+                title.setText(detailsData.getTitle());
                 votes.setText(detailsData.getVoteCount());
                 rating.setText(detailsData.getRating());
                 popularity.setText(detailsData.getPopularity());

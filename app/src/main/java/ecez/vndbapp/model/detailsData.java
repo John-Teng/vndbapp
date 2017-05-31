@@ -1,5 +1,7 @@
 package ecez.vndbapp.model;
 
+import android.util.Log;
+
 /**
  * Created by Teng on 10/27/2016.
  */
@@ -179,6 +181,9 @@ public class DetailsData extends NovelData {
     }
 
     public String getDate () {
+        Log.d("Date",released);
+        if (released.equals("tba"))
+            return "To Be Announced";
         StringBuilder a = new StringBuilder();
         String year = released.substring(0, 4);
         String month = released.substring(5, 7);
