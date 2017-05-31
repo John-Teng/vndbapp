@@ -186,9 +186,10 @@ public class DetailsData extends NovelData {
             return "To Be Announced";
         StringBuilder a = new StringBuilder();
         String year = released.substring(0, 4);
-        String month = released.substring(5, 7);
-        String day = released.substring(8, 10);
+        if (released.length() == 4)
+            return year;
 
+        String month = released.substring(5, 7);
         switch (month) {
             case "01":
                 a.append("January ");
@@ -227,6 +228,12 @@ public class DetailsData extends NovelData {
                 a.append("December ");
                 break;
         }
+        if (released.length() == 7) {
+            a.append(year);
+            return a.toString();
+        }
+
+        String day = released.substring(8, 10);
         if (day.charAt(0) == '0') {
             a.append(day.charAt(1));
         } else {

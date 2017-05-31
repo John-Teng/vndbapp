@@ -37,9 +37,9 @@ public class PopulateRelease extends VNDBrequest {
     protected Object doInBackground(Object[] objects) {
         StringBuilder filters = new StringBuilder("(vn = "+Integer.toString(id));
         if (releaseDate != null )
-            filters.append(" and released = \"" +releaseDate+"\" and doujin = false)");
+            filters.append(" and released = \"" +releaseDate+"\")");
         else
-            filters.append(" and doujin = false)");
+            filters.append(")");
 
         JSONArray jsonResponse = getJSONfromRequest("get", "release", type, filters.toString(), null,callback);
         if (jsonResponse == null)
