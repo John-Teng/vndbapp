@@ -35,7 +35,15 @@
         <activity android:name=".controller.CharacterList" />
         <activity android:name=".controller.CharacterProfile" />
         <activity android:name=".controller.ReleaseList" />
-        <activity android:name=".controller.ReleaseDetails"></activity>
+        <activity android:name=".controller.ReleaseDetails" />
+        <activity
+            android:name=".controller.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".controller.vndatabaseapp">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ecez.vndbapp.controller.vndatabaseapp" />
+        </activity>
     </application>
 
 </manifest>

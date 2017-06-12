@@ -1,0 +1,44 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="hide_nsfw"
+        android:summary="@string/pref_description_hide_nsfw"
+        android:title="@string/pref_title_hide_nsfw" />
+
+    <!--&lt;!&ndash; NOTE: EditTextPreference accepts EditText attributes. &ndash;&gt;-->
+    <!--&lt;!&ndash; NOTE: EditTextPreference's summary should be set to its value by the activity code. &ndash;&gt;-->
+    <!--<EditTextPreference-->
+        <!--android:capitalize="words"-->
+        <!--android:defaultValue="@string/pref_default_display_name"-->
+        <!--android:inputType="textCapWords"-->
+        <!--android:key="example_text"-->
+        <!--android:maxLines="1"-->
+        <!--android:selectAllOnFocus="true"-->
+        <!--android:singleLine="true"-->
+        <!--android:title="@string/pref_title_display_name" />-->
+
+    <ListPreference
+        android:defaultValue="-1"
+        android:entries="@array/pref_list_display"
+        android:entryValues="@array/pref_list_display_values"
+        android:key="display_list"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="@string/pref_description_display"
+        android:title="@string/pref_title_display" />
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+        dismiss it. -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <ListPreference
+        android:defaultValue="-1"
+        android:entries="@array/pref_list_spoilers"
+        android:entryValues="@array/pref_list_spoilers_values"
+        android:key="spoilers_list"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="@string/pref_description_spoilers"
+        android:title="@string/pref_title_spoilers" />
+
+</PreferenceScreen>
