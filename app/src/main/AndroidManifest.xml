@@ -36,14 +36,11 @@
         <activity android:name=".controller.CharacterProfile" />
         <activity android:name=".controller.ReleaseList" />
         <activity android:name=".controller.ReleaseDetails" />
-        <activity
-            android:name=".controller.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".controller.vndatabaseapp">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ecez.vndbapp.controller.vndatabaseapp" />
-        </activity>
+
+        <activity android:name=".controller.AppPreferences"
+                android:label="@string/pref_title"
+                android:theme="@style/Theme.AppCompat.Light"
+                android:parentActivityName=".controller.vndatabaseapp"></activity>
     </application>
 
 </manifest>

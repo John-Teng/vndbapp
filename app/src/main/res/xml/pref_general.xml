@@ -6,7 +6,6 @@
         android:summary="@string/pref_description_hide_nsfw"
         android:title="@string/pref_title_hide_nsfw" />
 
-
     <ListPreference
         android:defaultValue="0"
         android:entries="@array/pref_list_display"
