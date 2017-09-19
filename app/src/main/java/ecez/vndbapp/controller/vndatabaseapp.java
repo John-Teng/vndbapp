@@ -2,6 +2,7 @@ package ecez.vndbapp.controller;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -239,7 +240,8 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            getApplicationContext().startActivity(intent);
         } else if (id == R.id.nav_send) {
 
         }
