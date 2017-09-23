@@ -3,6 +3,7 @@ package ecez.vndbapp.controller.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import com.squareup.picasso.Picasso;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.ImageActivity;
+import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.NovelScreenShot;
+import ecez.vndbapp.model.SystemStatus;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -52,7 +55,7 @@ public class ImagePagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        final String picture = pictures[position].getImage();
+        Log.d("NSFW?",Boolean.toString(pictures[position].getNsfw()));
         View pagerLayout = mLayoutInflater.inflate(R.layout.image_pager_layout, container, false);
         final ImageView imageView = (ImageView) pagerLayout.findViewById(R.id.screenshot);
 
@@ -67,18 +70,24 @@ public class ImagePagerAdapter extends PagerAdapter {
                     mContext.startActivity(intent);
                 }
             });
-            Picasso.with(mContext).load(picture).into(imageView);
+            if (SystemStatus.getInstance().blockNSFW && pictures[position].getNsfw())
+                Picasso.with(mContext).load(Constants.NSFW_IMAGE).into(imageView);
+            else
+                Picasso.with(mContext).load(pictures[position].getImage()).into(imageView);
         } else { //Otherwise, allow zooming of the image
-            Picasso.with(mContext).load(picture).into(imageView, new com.squareup.picasso.Callback() {
+            com.squareup.picasso.Callback callback = new com.squareup.picasso.Callback() {
                 @Override
                 public void onSuccess() {
                     new PhotoViewAttacher(imageView); //Must wait for image to load before attaching it to photoviewer
                 }
                 @Override
                 public void onError() {
-
                 }
-            });
+            };
+            if (SystemStatus.getInstance().blockNSFW && pictures[position].getNsfw())
+                Picasso.with(mContext).load(Constants.NSFW_IMAGE).into(imageView, callback);
+            else
+                Picasso.with(mContext).load(pictures[position].getImage()).into(imageView, callback);
         }
 
         container.addView(pagerLayout);

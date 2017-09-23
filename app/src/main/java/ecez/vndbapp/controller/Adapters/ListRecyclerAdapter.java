@@ -3,7 +3,6 @@ package ecez.vndbapp.controller.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +18,9 @@ import java.util.List;
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.NovelDetails;
 import ecez.vndbapp.controller.NovelListFragment;
+import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.NovelData;
+import ecez.vndbapp.model.SystemStatus;
 
 /**
  * Created by Teng on 10/10/2016.
@@ -75,7 +76,10 @@ public class ListRecyclerAdapter extends RecyclerView.Adapter<ListRecyclerAdapte
         holder.titleText.setText(item.getTitle());
         holder.ratingText.setText(item.getRating());
 //        holder.lengthText.setText(item.getLength());
-        Picasso.with(context).load(item.getImage()).fit().into(holder.image);
+        if (item.isImage_nsfw() && SystemStatus.getInstance().blockNSFW)
+            Picasso.with(context).load(Constants.NSFW_IMAGE).fit().into(holder.image);
+        else
+            Picasso.with(context).load(item.getImage()).fit().into(holder.image);
     }
 
     @Override

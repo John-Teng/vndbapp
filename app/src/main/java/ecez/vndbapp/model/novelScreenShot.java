@@ -27,4 +27,12 @@ public class NovelScreenShot implements Serializable {
     public String getImage () {
         return this.image;
     }
+
+    public Boolean getNsfw() {
+        return nsfw;
+    }
+
+    public void setNsfw(Boolean nsfw) {
+        this.nsfw = nsfw;
+    }
 }

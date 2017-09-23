@@ -40,6 +40,7 @@ import ecez.vndbapp.model.NovelScreenShot;
 import ecez.vndbapp.model.Producer;
 import ecez.vndbapp.model.Release;
 import ecez.vndbapp.model.ReleaseProducer;
+import ecez.vndbapp.model.SystemStatus;
 
 public class NovelDetails extends AppCompatActivity {
 
@@ -267,7 +268,10 @@ public class NovelDetails extends AppCompatActivity {
         d.callback = new NovelDetailsDataCallback() {
             @Override
             public void onSuccessUI(final DetailsData detailsData, String genres) {
-                Picasso.with(getApplicationContext()).load(detailsData.getImage()).fit().into(icon);
+                if (detailsData.isImage_nsfw() && SystemStatus.getInstance().blockNSFW)
+                    Picasso.with(getApplicationContext()).load(Constants.NSFW_IMAGE).into(icon);
+                else
+                    Picasso.with(getApplicationContext()).load(detailsData.getImage()).into(icon);
                 measuringTextview.setText(detailsData.getDescriptionWithoutBrackets());
 
                 if (measuringTextview.getLineCount() > 8) {

@@ -17,10 +17,9 @@ public class SystemStatus {
     public boolean loggedIn;
     public HashMap<Integer,Trait> traitsMap = null;
     public HashMap<Integer,Tag> tagsMap = null;
-    public boolean nsfwAllowed = false;
+    public boolean blockNSFW;
     public int spoilerLevel;
     public int displayMethod;
-
 
     public static SystemStatus getInstance() {
         return ourInstance;
@@ -37,8 +36,8 @@ public class SystemStatus {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         switch (key) {
             case "nsfw_toggle":
-                SystemStatus.getInstance().nsfwAllowed = sharedPreferences.getBoolean("nsfw_toggle", false);
-                Log.d("nsfw_toggle", Boolean.toString(SystemStatus.getInstance().nsfwAllowed));
+                SystemStatus.getInstance().blockNSFW = sharedPreferences.getBoolean("nsfw_toggle", false);
+                Log.d("nsfw_toggle", Boolean.toString(SystemStatus.getInstance().blockNSFW));
                 break;
             case "display_method":
                 SystemStatus.getInstance().displayMethod = Integer.valueOf(sharedPreferences.getString("display_method", "0"));
@@ -49,10 +48,10 @@ public class SystemStatus {
                 Log.d("spoiler_level", Integer.toString(SystemStatus.getInstance().spoilerLevel));
                 break;
             default:
-                SystemStatus.getInstance().nsfwAllowed = sharedPreferences.getBoolean("nsfw_toggle", false);
+                SystemStatus.getInstance().blockNSFW = sharedPreferences.getBoolean("nsfw_toggle", false);
                 SystemStatus.getInstance().spoilerLevel = Integer.valueOf(sharedPreferences.getString("spoiler_level", "0"));
                 SystemStatus.getInstance().displayMethod = Integer.valueOf(sharedPreferences.getString("display_method", "0"));
-                Log.d("nsfw_toggle", Boolean.toString(SystemStatus.getInstance().nsfwAllowed));
+                Log.d("nsfw_toggle", Boolean.toString(SystemStatus.getInstance().blockNSFW));
                 Log.d("spoiler_level", Integer.toString(SystemStatus.getInstance().spoilerLevel));
                 Log.d("display_method", Integer.toString(SystemStatus.getInstance().displayMethod));
                 break;

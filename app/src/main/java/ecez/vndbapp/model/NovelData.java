@@ -6,9 +6,8 @@ package ecez.vndbapp.model;
 
     public class NovelData {
 
-        protected int votecount;
-        protected int length;
-        protected int rank;
+        protected int votecount, length, rank;
+        protected boolean image_nsfw;
         protected Double rating, popularity;
         protected String title, released, id, image;
 
@@ -52,6 +51,15 @@ package ecez.vndbapp.model;
                     return "Very Long (> 50 hours)";
             }
         }
+
+        public boolean isImage_nsfw() {
+            return image_nsfw;
+        }
+
+        public void setImage_nsfw(boolean image_nsfw) {
+            this.image_nsfw = image_nsfw;
+        }
+
 
         public String getId() {
             return id;

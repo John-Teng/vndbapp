@@ -2,6 +2,8 @@ package ecez.vndbapp.model;
 
 import android.util.Log;
 
+import ecez.vndbapp.R;
+
 /**
  * Created by johnteng on 2017-04-23.
  */
@@ -17,5 +19,6 @@ public class Constants {
     public static final int ALL_SPOILERS = 2;
     public static final int LIST_DISPLAY = 0;
     public static final int GRID_DISPLAY = 1;
+    public static final String NSFW_IMAGE = "android.resource://ecez.vndbapp/"+ R.drawable.nsfw_image;
 
 }
