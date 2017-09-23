@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.model.Character;
+import ecez.vndbapp.model.SystemStatus;
 import ecez.vndbapp.model.Trait;
 
 public class CharacterProfile extends AppCompatActivity {
@@ -28,7 +29,8 @@ public class CharacterProfile extends AppCompatActivity {
             description, height, weight, bust, waist, hip, traitLabel, basicStatsLabel, physicalStatsLabel;
     private ImageView picture;
     private HashMap<Integer,ArrayList<String>> traits = new HashMap<>();
-    private int [] traitCategoryList = {1,35,36,37,38,39,40,41,42,43,1625};
+    private final int [] TRAIT_CATEGORY_LIST = {1,35,36,37,38,39,40,41,42,43,1625};
+    private final int [] NSFW_LIST = {43, 1625};
     private TableLayout tableLayout;
     private Trait trait, parentTrait;
     private Button backButton;
@@ -100,8 +102,8 @@ public class CharacterProfile extends AppCompatActivity {
         loadStat(hip,hipLayout,character.getHip(),physicalStatsLabel);
 
 
-        for (int z = 0; z<traitCategoryList.length; z++) {
-            traits.put(traitCategoryList[z],null);
+        for (int z = 0; z< TRAIT_CATEGORY_LIST.length; z++) {
+            traits.put(TRAIT_CATEGORY_LIST[z],null);
         }
         loadTraits();
 
@@ -126,7 +128,7 @@ public class CharacterProfile extends AppCompatActivity {
         Integer [] traitParents = trait.getParents();
 
         if (traitParents.length > 0) { //make another recursive call
-            Trait nextTrait = vndatabaseapp.traitsMap.get(traitParents[0]);
+            Trait nextTrait = SystemStatus.getInstance().traitsMap.get(traitParents[0]);
             return findParent(nextTrait);
         }
         return trait;
@@ -137,7 +139,7 @@ public class CharacterProfile extends AppCompatActivity {
 
         for (int x = 0; x < characterTraits.length; x++){ //iterate for every character trait returned
             int traitID = Integer.parseInt(characterTraits[x][0]);
-            trait = vndatabaseapp.traitsMap.get(traitID);
+            trait = SystemStatus.getInstance().traitsMap.get(traitID);
             String name = trait.getName();
 
             Thread b = new Thread() {
@@ -152,6 +154,11 @@ public class CharacterProfile extends AppCompatActivity {
                 f.printStackTrace();
             }
             ArrayList<String> a;
+
+            if (SystemStatus.getInstance().blockNSFW == true) {
+                if (parentTrait.getId() == NSFW_LIST[0] || parentTrait.getId() == NSFW_LIST[1])
+                    continue;
+            }
             if (traits.get(parentTrait.getId())== null) {
                 a = new ArrayList<>();
             } else {
@@ -161,16 +168,16 @@ public class CharacterProfile extends AppCompatActivity {
             traits.put(parentTrait.getId(),a);
 
         }
-        for (int x = 0; x<traitCategoryList.length; x++) {
-            if (traits.get(traitCategoryList[x]) == null)
+        for (int x = 0; x< TRAIT_CATEGORY_LIST.length; x++) {
+            if (traits.get(TRAIT_CATEGORY_LIST[x]) == null)
                 continue;
             StringBuilder body = new StringBuilder();
-            for (String s: traits.get(traitCategoryList[x])) {
+            for (String s: traits.get(TRAIT_CATEGORY_LIST[x])) {
                 body.append(s);
                 body.append(", ");
             }
             String rowBody = body.toString().substring(0,body.toString().length()-2); //peel off the ", " at the end
-            String rowTitle = vndatabaseapp.traitsMap.get(traitCategoryList[x]).getName();
+            String rowTitle = SystemStatus.getInstance().traitsMap.get(TRAIT_CATEGORY_LIST[x]).getName();
 
             createTableRow(rowTitle, rowBody);
         }

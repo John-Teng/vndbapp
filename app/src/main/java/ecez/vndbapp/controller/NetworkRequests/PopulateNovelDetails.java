@@ -11,6 +11,7 @@ import ecez.vndbapp.controller.Callbacks.NovelDetailsDataCallback;
 import ecez.vndbapp.controller.vndatabaseapp;
 import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.DetailsData;
+import ecez.vndbapp.model.SystemStatus;
 import ecez.vndbapp.model.Tag;
 
 /**
@@ -67,7 +68,7 @@ public class PopulateNovelDetails extends VNDBrequest {
 
         for (int x = 0; x < tags.length; x++){ //iterate for every tag returned
             int tagID = Integer.parseInt(tags[x][0]);
-            tag = vndatabaseapp.tagsMap.get(tagID);
+            tag = SystemStatus.getInstance().tagsMap.get(tagID);
             if (tag == null)
                 continue; //Sometimes, the tag ID that is looked up will return a null Tag
             findGenres(tag);
@@ -111,7 +112,7 @@ public class PopulateNovelDetails extends VNDBrequest {
     private void findGenreFromParent (Tag t) {
         Integer [] parents = t.getParents();
         if (parents.length > 0) { //make another recursive call
-            Tag nextTag = vndatabaseapp.tagsMap.get(parents[0]);
+            Tag nextTag = SystemStatus.getInstance().tagsMap.get(parents[0]);
             if (!performGenreCheck(nextTag.getName())) {
                 findGenreFromParent(nextTag);
             }

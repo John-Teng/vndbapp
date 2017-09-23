@@ -269,9 +269,9 @@ public class NovelDetails extends AppCompatActivity {
             @Override
             public void onSuccessUI(final DetailsData detailsData, String genres) {
                 if (detailsData.isImage_nsfw() && SystemStatus.getInstance().blockNSFW)
-                    Picasso.with(getApplicationContext()).load(Constants.NSFW_IMAGE).into(icon);
+                    Picasso.with(getApplicationContext()).load(Constants.NSFW_IMAGE).fit().centerCrop().into(icon);
                 else
-                    Picasso.with(getApplicationContext()).load(detailsData.getImage()).into(icon);
+                    Picasso.with(getApplicationContext()).load(detailsData.getImage()).fit().centerCrop().into(icon);
                 measuringTextview.setText(detailsData.getDescriptionWithoutBrackets());
 
                 if (measuringTextview.getLineCount() > 8) {

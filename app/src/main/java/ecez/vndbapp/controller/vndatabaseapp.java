@@ -41,8 +41,6 @@ import ecez.vndbapp.model.Trait;
 
 public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' SINGLETON TO STORE ALL METADATA
         implements NavigationView.OnNavigationItemSelectedListener {
-    public static HashMap<Integer,Trait> traitsMap = null;
-    public static HashMap<Integer,Tag> tagsMap = null;
     private String date;
     private TabLayout tabLayout;
     private TabPagerAdapter mTabPagerAdapter;
@@ -55,9 +53,9 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
             if (file.length() != 0) {
                 ObjectInputStream o = new ObjectInputStream(new FileInputStream(file));
                 if (saveDir.equals("traitsMap"))
-                    vndatabaseapp.traitsMap = (HashMap<Integer, Trait>) o.readObject();
+                    SystemStatus.getInstance().traitsMap = (HashMap<Integer, Trait>) o.readObject();
                 else
-                    vndatabaseapp.tagsMap = (HashMap<Integer, Tag>) o.readObject();
+                    SystemStatus.getInstance().tagsMap = (HashMap<Integer, Tag>) o.readObject();
                 o.close();
             }
         } catch (IOException e) {
@@ -171,7 +169,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
                 updateMap = true;
         }
 
-        if (vndatabaseapp.tagsMap == null || vndatabaseapp.traitsMap == null)
+        if (SystemStatus.getInstance().tagsMap == null || SystemStatus.getInstance().traitsMap == null)
             updateMap = true;
 
         if (updateMap) {
