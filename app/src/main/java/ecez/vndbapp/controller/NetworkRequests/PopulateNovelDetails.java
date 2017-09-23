@@ -74,7 +74,7 @@ public class PopulateNovelDetails extends VNDBrequest {
         }
 
         if (genreList == null) {
-            genres = Constants.noGenres;
+            genres = Constants.NO_GENRES;
             return;
         }
 
@@ -85,7 +85,7 @@ public class PopulateNovelDetails extends VNDBrequest {
             s.append("  |  ");
         }
         if (s.length() < 6) {
-            s.append(Constants.noGenres + "12345"); //Add 5 characters that will be cut off
+            s.append(Constants.NO_GENRES + "12345"); //Add 5 characters that will be cut off
         }
         genres = s.toString().substring(0, s.toString().length() - 5);
     }

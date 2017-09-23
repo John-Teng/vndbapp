@@ -2,7 +2,7 @@
 
     <SwitchPreference
         android:defaultValue="true"
-        android:key="hide_nsfw"
+        android:key="nsfw_toggle"
         android:summary="@string/pref_description_hide_nsfw"
         android:title="@string/pref_title_hide_nsfw" />
 
@@ -10,7 +10,7 @@
         android:defaultValue="0"
         android:entries="@array/pref_list_display"
         android:entryValues="@array/pref_list_display_values"
-        android:key="display_list"
+        android:key="display_method"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
         android:summary="@string/pref_description_display"
@@ -20,7 +20,7 @@
         android:defaultValue="0"
         android:entries="@array/pref_list_spoilers"
         android:entryValues="@array/pref_list_spoilers_values"
-        android:key="spoilers_list"
+        android:key="spoiler_level"
         android:negativeButtonText="@null"
         android:positiveButtonText="@null"
         android:summary="@string/pref_description_spoilers"

@@ -135,7 +135,7 @@ public class ServerRequest {
         if (!connect()) {
             return false;
         }
-        vndatabaseapp.connectedToServer = true;
+        SystemStatus.getInstance().connectedToServer = true;
         String response;
         StringBuilder s = new StringBuilder();
         s.append("login {\"protocol\":1,\"client\":\"tropicalebola430\",\"clientver\":0.21,\"username\":\"" + userName + "\",\"password\":\"" + password + "\"}");

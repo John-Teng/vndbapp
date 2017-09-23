@@ -2,13 +2,15 @@ package ecez.vndbapp.controller;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.model.SystemStatus;
 
 public class AppPreferences extends AppCompatActivity {
 
@@ -16,7 +18,6 @@ public class AppPreferences extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.blank);
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -43,8 +44,17 @@ public class AppPreferences extends AppCompatActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
             addPreferencesFromResource(R.xml.pref_general);
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences.OnSharedPreferenceChangeListener changeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+                @Override
+                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                    //do stuff here
+                    SystemStatus.getInstance().loadPreferences(getActivity(),s);
+                }
+            };
+            sharedPreferences.registerOnSharedPreferenceChangeListener(changeListener);
         }
 
 

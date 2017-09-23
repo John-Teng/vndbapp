@@ -35,13 +35,12 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.TabPagerAdapter;
 import ecez.vndbapp.controller.NetworkRequests.RequestDumpObjects;
 import ecez.vndbapp.model.ServerRequest;
+import ecez.vndbapp.model.SystemStatus;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
 
 public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' SINGLETON TO STORE ALL METADATA
         implements NavigationView.OnNavigationItemSelectedListener {
-    public static boolean connectedToServer = false;
-    public static boolean loggedIn;
     public static HashMap<Integer,Trait> traitsMap = null;
     public static HashMap<Integer,Tag> tagsMap = null;
     private String date;
@@ -127,7 +126,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         AsyncTask b = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-                vndatabaseapp.loggedIn = ServerRequest.getInstance().login();
+                SystemStatus.getInstance().loggedIn = ServerRequest.getInstance().login();
                 List<NovelListFragment> fragments = mTabPagerAdapter.getFragmentList();
                 Log.d("Fragment2", "THere are " + fragments.size() + " fragments");
                 for (NovelListFragment f : fragments) {
@@ -138,6 +137,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
             }
         };
         b.execute();
+        SystemStatus.getInstance().loadPreferences(getApplicationContext());
     }
 
     private void checkDate () {
@@ -240,7 +240,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(getApplicationContext(), AppPreferences.class);
             getApplicationContext().startActivity(intent);
         }
@@ -250,10 +250,4 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         return true;
     }
 
-    private void loadPreferences() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        int nsfw = sharedPreferences.getInt("NSFW", 1);
-
-    }
 }

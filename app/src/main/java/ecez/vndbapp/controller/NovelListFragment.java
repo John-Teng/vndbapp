@@ -22,6 +22,7 @@ import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.controller.NetworkRequests.PopulateListItems;
 import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.NovelData;
+import ecez.vndbapp.model.SystemStatus;
 
 public class NovelListFragment extends Fragment {
     public static RecyclerView recyclerView;
@@ -62,7 +63,7 @@ public class NovelListFragment extends Fragment {
             public void onLoadMore(int page, int totalItemsCount) {
                 new Thread() {
                     public void run() {
-                        if (vndatabaseapp.loggedIn)
+                        if (SystemStatus.getInstance().loggedIn)
                             loadList(0);
                     }
                 }.start();
@@ -74,7 +75,7 @@ public class NovelListFragment extends Fragment {
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(mLoadedNovelDatas.size()));
         recyclerView.setAdapter(adapter);
 
-        Log.d("Startup value",Boolean.toString(vndatabaseapp.connectedToServer));
+        Log.d("Startup value",Boolean.toString(SystemStatus.getInstance().connectedToServer));
 
         return view;
     }

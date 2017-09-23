@@ -28,14 +28,14 @@
     <string name="pref_title_spoilers">Spoilers</string>
     <string name="pref_description_spoilers">Show or hide plot spoilers</string>
     <string-array name="pref_list_spoilers">
-        <item>Show all spoilers</item>
-        <item>Show minor spoilers</item>
         <item>Show no spoilers</item>
+        <item>Show minor spoilers</item>
+        <item>Show all spoilers</item>
     </string-array>
     <string-array name="pref_list_spoilers_values">
-        <item>1</item>
         <item>0</item>
-        <item>-1</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
     <string name="pref_title_display">Display</string>
@@ -47,8 +47,8 @@
         <item>Show as grid</item>
     </string-array>
     <string-array name="pref_list_display_values">
-        <item>1</item>
         <item>0</item>
+        <item>1</item>
     </string-array>
 
 

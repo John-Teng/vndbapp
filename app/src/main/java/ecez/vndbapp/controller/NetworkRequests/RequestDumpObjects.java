@@ -20,6 +20,7 @@ import java.util.zip.GZIPInputStream;
 
 import ecez.vndbapp.controller.vndatabaseapp;
 import ecez.vndbapp.model.DumpObject;
+import ecez.vndbapp.model.SystemStatus;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
 
@@ -66,12 +67,11 @@ public class RequestDumpObjects extends AsyncTask{
             return false;
 
         final Gson gson = new Gson();
+        hashMap = new HashMap<>();
         if (saveDir.equals("traitsMap")) {
             l = gson.fromJson(line, Trait[].class);
-            hashMap = new HashMap<>();
         } else {
             l = gson.fromJson(line, Tag[].class);
-            hashMap = new HashMap<>();
         }
         if (l == null) {
             Log.d("null","array is null");
@@ -83,9 +83,9 @@ public class RequestDumpObjects extends AsyncTask{
         }
 
         if (saveDir.equals("traitsMap"))
-            vndatabaseapp.traitsMap = hashMap;
+            SystemStatus.getInstance().traitsMap = hashMap;
         else
-            vndatabaseapp.tagsMap = hashMap;
+            SystemStatus.getInstance().tagsMap = hashMap;
 
         File file = new File(contextReference.getDir("data", Context.MODE_PRIVATE), saveDir);
 
