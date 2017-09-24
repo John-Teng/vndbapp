@@ -17,7 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.Adapters.GridRecyclerAdapter;
 import ecez.vndbapp.controller.Adapters.ListRecyclerAdapter;
+import ecez.vndbapp.controller.Adapters.VNRecyclerAdapter;
 import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.controller.NetworkRequests.PopulateListItems;
 import ecez.vndbapp.model.Error;
@@ -26,7 +28,7 @@ import ecez.vndbapp.model.SystemStatus;
 
 public class NovelListFragment extends Fragment {
     public static RecyclerView recyclerView;
-    private ListRecyclerAdapter adapter;
+    private VNRecyclerAdapter adapter;
     private ProgressBar pb;
     private List<NovelData> mLoadedNovelDatas = new ArrayList<>();
     private View view;
@@ -50,28 +52,45 @@ public class NovelListFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-    recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         pb = (ProgressBar)view.findViewById(R.id.progressBar);
         pb.setVisibility(view.VISIBLE);
-        GridLayoutManager layoutManager = new GridLayoutManager(this.getActivity(),3);
+        RecyclerView.LayoutManager layoutManager;
+        EndlessRecyclerViewScrollListener endlessScrollListener;
+        if (SystemStatus.getInstance().displayMethod == 0) {
+            layoutManager = new LinearLayoutManager(getActivity());
+            adapter = new ListRecyclerAdapter(mLoadedNovelDatas, this.getContext());
+            endlessScrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager)layoutManager) {
+                @Override
+                public void onLoadMore(int page, int totalItemsCount) {
+                    new Thread() {
+                        public void run() {
+                            if (SystemStatus.getInstance().loggedIn)
+                                loadList(0);
+                        }
+                    }.start();
+                }
+            };
+        } else {
+            layoutManager = new GridLayoutManager(getActivity(), 2);
+            adapter = new GridRecyclerAdapter(mLoadedNovelDatas, this.getContext());
+            endlessScrollListener = new EndlessRecyclerViewScrollListener((GridLayoutManager) layoutManager) {
+                @Override
+                public void onLoadMore(int page, int totalItemsCount) {
+                    new Thread() {
+                        public void run() {
+                            if (SystemStatus.getInstance().loggedIn)
+                                loadList(0);
+                            }
+                    }.start();
+                }
+            };
+        }
+
         recyclerView.setLayoutManager(layoutManager);
-//            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//            recyclerView.setLayoutManager(layoutManager);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
-        EndlessRecyclerViewScrollListener endlessScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                new Thread() {
-                    public void run() {
-                        if (SystemStatus.getInstance().loggedIn)
-                            loadList(0);
-                    }
-                }.start();
-            }
-        };
+
         recyclerView.addOnScrollListener(endlessScrollListener);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ListRecyclerAdapter(mLoadedNovelDatas, this.getContext(), getActivity());
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(mLoadedNovelDatas.size()));
         recyclerView.setAdapter(adapter);
 

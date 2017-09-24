@@ -3,10 +3,6 @@ package ecez.vndbapp.controller.NetworkRequests;
 import android.util.Log;
 import org.json.JSONArray;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import ecez.vndbapp.controller.Callbacks.ListCallback;
 import ecez.vndbapp.model.NovelData;
 
@@ -15,7 +11,7 @@ import ecez.vndbapp.model.NovelData;
  */
 public class PopulateListItems extends VNDBrequest {
     private int page;
-    private final int resultPerPage = 24;
+    private final int RESULTS_PER_PAGE = 24;
     private String sortParam;
     public ListCallback callback;
 
@@ -27,7 +23,7 @@ public class PopulateListItems extends VNDBrequest {
     @Override
     protected Object doInBackground(Object[] objects) {
         JSONArray jsonResponse = getJSONfromRequest("get", "vn", "basic,stats,details", "(released > \"1945\")",
-                "{\"page\":"+Integer.toString(page)+",\"results\":"+resultPerPage+",\"sort\":\""+ sortParam+"\","
+                "{\"page\":"+Integer.toString(page)+",\"results\":"+ RESULTS_PER_PAGE +",\"sort\":\""+ sortParam+"\","
                         + "\"reverse\":true}",callback);
 
         if (jsonResponse == null)
@@ -35,7 +31,7 @@ public class PopulateListItems extends VNDBrequest {
 
         Log.d("json",jsonResponse.toString());
         NovelData[] array = gson.fromJson(jsonResponse.toString(),NovelData[].class);
-        int y = (resultPerPage*page-(resultPerPage-1));
+        int y = (RESULTS_PER_PAGE *page-(RESULTS_PER_PAGE -1));
         for (int x = 0; x< array.length; x++) {
             array[x].setRank(y);
             y ++;

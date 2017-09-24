@@ -1,11 +1,9 @@
 package ecez.vndbapp.controller.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,10 +23,10 @@ import ecez.vndbapp.model.SystemStatus;
 /**
  * Created by Teng on 10/10/2016.
  */
-public class ListRecyclerAdapter extends VNRecyclerAdapter<ListRecyclerAdapter.holder>{
+public class GridRecyclerAdapter extends VNRecyclerAdapter<GridRecyclerAdapter.holder> {
 
-    public ListRecyclerAdapter(List<NovelData> listData, Context context) {
-        super(listData, context);
+    public GridRecyclerAdapter(List<NovelData> listData, Context context) {
+        super(listData,context);
     }
     public void setData (List<NovelData> newData) {
         this.listData = newData; //Adds additional data
@@ -36,7 +34,7 @@ public class ListRecyclerAdapter extends VNRecyclerAdapter<ListRecyclerAdapter.h
 
     @Override
     public holder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final View view = inflater.inflate(R.layout.list_card_item, parent, false);
+        final View view = inflater.inflate(R.layout.grid_item, parent, false);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +42,7 @@ public class ListRecyclerAdapter extends VNRecyclerAdapter<ListRecyclerAdapter.h
                 int itemPosition = NovelListFragment.recyclerView.getChildLayoutPosition(view);
                 String id = listData.get(itemPosition).getId();
 
-                ImageView image = (ImageView) view.findViewById(R.id.picture);
+                ImageView image = (ImageView) view.findViewById(R.id.grid_item_image);
                 NovelDetails.novelIcon = image.getDrawable();
 
                 Intent intent = new Intent(context, NovelDetails.class);
@@ -88,9 +86,9 @@ public class ListRecyclerAdapter extends VNRecyclerAdapter<ListRecyclerAdapter.h
 
         public holder(View itemView) {
             super(itemView);
-            titleText = (TextView)itemView.findViewById(R.id.card_item_title);
-            ratingText = (TextView)itemView.findViewById(R.id.rating_text);
-            image = (ImageView)itemView.findViewById(R.id.picture);
+            titleText = (TextView)itemView.findViewById(R.id.grid_item_title);
+            ratingText = (TextView)itemView.findViewById(R.id.grid_item_subtext);
+            image = (ImageView)itemView.findViewById(R.id.grid_item_image);
 //            lengthText = (TextView)itemView.findViewById(R.id.length_text);
 //            container = itemView.findViewById(R.id.card_layout);
         }
