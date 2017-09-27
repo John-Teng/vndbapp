@@ -40,6 +40,7 @@ public class AppPreferences extends AppCompatActivity {
         this.finish();
     }
 
+
     public static class SettingsFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {

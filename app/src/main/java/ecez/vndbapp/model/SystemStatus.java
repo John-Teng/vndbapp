@@ -5,13 +5,18 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import ecez.vndbapp.controller.CustomObserver;
+import ecez.vndbapp.controller.ObserverSubject;
 
 /**
  * Created by johnteng on 2017-09-19.
  */
 
-public class SystemStatus {
+public class SystemStatus implements ObserverSubject{
     private static SystemStatus ourInstance = new SystemStatus();
     public boolean connectedToServer;
     public boolean loggedIn;
@@ -20,6 +25,7 @@ public class SystemStatus {
     public boolean blockNSFW;
     public int spoilerLevel;
     public int displayMethod;
+    private List<CustomObserver> observers = new ArrayList<>();
 
     public static SystemStatus getInstance() {
         return ourInstance;
@@ -37,10 +43,12 @@ public class SystemStatus {
         switch (key) {
             case "nsfw_toggle":
                 SystemStatus.getInstance().blockNSFW = sharedPreferences.getBoolean("nsfw_toggle", false);
+                notifyObservers();
                 Log.d("nsfw_toggle", Boolean.toString(SystemStatus.getInstance().blockNSFW));
                 break;
             case "display_method":
                 SystemStatus.getInstance().displayMethod = Integer.valueOf(sharedPreferences.getString("display_method", "0"));
+                notifyObservers();
                 Log.d("display_method", Integer.toString(SystemStatus.getInstance().displayMethod));
                 break;
             case "spoiler_level":
@@ -60,6 +68,24 @@ public class SystemStatus {
 
 
     }
+
+    @Override
+    public void registerObserver(CustomObserver customObserver) {
+        observers.add(customObserver);
+    }
+
+    @Override
+    public void removeObserver(CustomObserver customObserver) {
+        observers.remove(customObserver);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (CustomObserver o : observers) {
+            o.onDataChanged();
+        }
+    }
+
 
 
 }

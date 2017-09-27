@@ -39,7 +39,7 @@ import ecez.vndbapp.model.SystemStatus;
 import ecez.vndbapp.model.Tag;
 import ecez.vndbapp.model.Trait;
 
-public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' SINGLETON TO STORE ALL METADATA
+public class vndatabaseapp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private String date;
     private TabLayout tabLayout;
@@ -136,6 +136,7 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         };
         b.execute();
         SystemStatus.getInstance().loadPreferences(getApplicationContext());
+
     }
 
     private void checkDate () {
@@ -247,5 +248,6 @@ public class vndatabaseapp extends AppCompatActivity ///CREATE A 'SYSTEM DATA' S
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }

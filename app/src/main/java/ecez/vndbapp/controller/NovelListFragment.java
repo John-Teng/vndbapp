@@ -26,7 +26,7 @@ import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.NovelData;
 import ecez.vndbapp.model.SystemStatus;
 
-public class NovelListFragment extends Fragment {
+public class NovelListFragment extends Fragment implements CustomObserver {
     public static RecyclerView recyclerView;
     private VNRecyclerAdapter adapter;
     private ProgressBar pb;
@@ -35,6 +35,7 @@ public class NovelListFragment extends Fragment {
     private String sortParam;
     private int pageCount = 1;
     private SwipeRefreshLayout mSwipeContainer;
+    private ObserverSubject observerSubject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,9 +53,19 @@ public class NovelListFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         pb = (ProgressBar)view.findViewById(R.id.progressBar);
         pb.setVisibility(view.VISIBLE);
+
+        setupLayout();
+
+        Log.d("Startup value",Boolean.toString(SystemStatus.getInstance().connectedToServer));
+        observerSubject = SystemStatus.getInstance();
+        observerSubject.registerObserver(this);
+        return view;
+    }
+
+    public void setupLayout () {
+        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager;
         EndlessRecyclerViewScrollListener endlessScrollListener;
         if (SystemStatus.getInstance().displayMethod == 0) {
@@ -81,7 +92,7 @@ public class NovelListFragment extends Fragment {
                         public void run() {
                             if (SystemStatus.getInstance().loggedIn)
                                 loadList(0);
-                            }
+                        }
                     }.start();
                 }
             };
@@ -94,9 +105,6 @@ public class NovelListFragment extends Fragment {
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(mLoadedNovelDatas.size()));
         recyclerView.setAdapter(adapter);
 
-        Log.d("Startup value",Boolean.toString(SystemStatus.getInstance().connectedToServer));
-
-        return view;
     }
 
     public void loadList (int pageNum) {
@@ -137,6 +145,23 @@ public class NovelListFragment extends Fragment {
 
         l.execute();
         Log.d("Async Task","Finished request, getting data");
+    }
+
+    public void resetViewItems(){
+        adapter = null;
+        recyclerView = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        observerSubject.removeObserver(this);
+        super.onDestroy();
+    }
+
+    public void onDataChanged() {
+        resetViewItems();
+        setupLayout();
+        Log.d("REFRESH","should refresh fragment");
     }
 
 }
