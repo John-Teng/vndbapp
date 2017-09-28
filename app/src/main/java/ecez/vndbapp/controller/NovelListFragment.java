@@ -48,10 +48,7 @@ public class NovelListFragment extends Fragment implements CustomObserver {
                 loadList(1);
             }
         });
-        mSwipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
+        mSwipeContainer.setColorSchemeResources(R.color.colorPrimaryDark);
 
         pb = (ProgressBar)view.findViewById(R.id.progressBar);
         pb.setVisibility(view.VISIBLE);
