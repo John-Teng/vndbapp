@@ -19,6 +19,22 @@ public class Constants {
     public static final int ALL_SPOILERS = 2;
     public static final int LIST_DISPLAY = 0;
     public static final int GRID_DISPLAY = 1;
+    public static final int SORT_RATING = 0;
+    public static final int SORT_POPULARITY = 1;
+    public static final int SORT_RELEASED = 2;
     public static final String NSFW_IMAGE = "android.resource://ecez.vndbapp/"+ R.drawable.nsfw_image;
 
+    public static String getSortParam (int sortParam) {
+        switch (sortParam) {
+            case (Constants.SORT_RATING):
+                return "rating";
+            case (Constants.SORT_POPULARITY):
+                return "popularity";
+            case (Constants.SORT_RELEASED):
+                return "released";
+            default:
+                return "rating";
+        }
+
+    }
 }

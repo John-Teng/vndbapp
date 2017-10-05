@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ecez.vndbapp.controller.NovelListFragment;
+import ecez.vndbapp.model.Constants;
 
 public class TabPagerAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
@@ -24,20 +25,20 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return newFragmentWithQuery("rating");
+                return newFragmentWithQuery(Constants.SORT_RATING);
             case 1:
-                return newFragmentWithQuery("popularity");
+                return newFragmentWithQuery(Constants.SORT_POPULARITY);
             case 2:
-                return newFragmentWithQuery("released");
+                return newFragmentWithQuery(Constants.SORT_RELEASED);
             default:
                 return null;
         }
     }
 
-    private final NovelListFragment newFragmentWithQuery (String sortParam) {
+    private final NovelListFragment newFragmentWithQuery (int sortParam) {
         NovelListFragment tab = new NovelListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("SORTPARAM",sortParam);
+        bundle.putInt("SORTPARAM",sortParam);
         tab.setArguments(bundle);
         mActiveFragments.add(tab);
         return tab;

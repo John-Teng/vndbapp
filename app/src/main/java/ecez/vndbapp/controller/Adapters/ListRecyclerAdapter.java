@@ -1,11 +1,9 @@
 package ecez.vndbapp.controller.Adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,8 +25,8 @@ import ecez.vndbapp.model.SystemStatus;
  */
 public class ListRecyclerAdapter extends VNRecyclerAdapter<ListRecyclerAdapter.holder>{
 
-    public ListRecyclerAdapter(List<NovelData> listData, Context context) {
-        super(listData, context);
+    public ListRecyclerAdapter(List<NovelData> listData, Context context, int displayType) {
+        super(listData, context, displayType);
     }
     public void setData (List<NovelData> newData) {
         this.listData = newData; //Adds additional data
@@ -64,7 +62,12 @@ public class ListRecyclerAdapter extends VNRecyclerAdapter<ListRecyclerAdapter.h
     public void onBindViewHolder(holder holder, int position) {
         NovelData item = listData.get(position);
         holder.titleText.setText(item.getTitle());
-        holder.ratingText.setText(item.getRating());
+        String s;
+        if (displayType == Constants.SORT_POPULARITY)
+            s = item.getPopularity();
+        else
+            s = item.getRating();
+        holder.ratingText.setText(s);
 //        holder.lengthText.setText(item.getLength());
         if (item.isImage_nsfw() && SystemStatus.getInstance().blockNSFW)
             Picasso.with(context).load(Constants.NSFW_IMAGE).fit().into(holder.image);

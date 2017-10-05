@@ -32,14 +32,13 @@ public class NovelListFragment extends Fragment implements CustomObserver {
     private ProgressBar pb;
     private List<NovelData> mLoadedNovelDatas = new ArrayList<>();
     private View view;
-    private String sortParam;
-    private int pageCount = 1;
+    private int pageCount = 1, sortParam = 0;
     private SwipeRefreshLayout mSwipeContainer;
     private ObserverSubject observerSubject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        sortParam = getArguments().getString("SORTPARAM");
+        sortParam = getArguments().getInt("SORTPARAM");
         view = inflater.inflate(R.layout.novel_list_fragment, container, false);
         mSwipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -67,7 +66,7 @@ public class NovelListFragment extends Fragment implements CustomObserver {
         EndlessRecyclerViewScrollListener endlessScrollListener;
         if (SystemStatus.getInstance().displayMethod == 0) {
             layoutManager = new LinearLayoutManager(getActivity());
-            adapter = new ListRecyclerAdapter(mLoadedNovelDatas, this.getContext());
+            adapter = new ListRecyclerAdapter(mLoadedNovelDatas, this.getContext(), sortParam);
             endlessScrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager)layoutManager) {
                 @Override
                 public void onLoadMore(int page, int totalItemsCount) {
@@ -81,7 +80,7 @@ public class NovelListFragment extends Fragment implements CustomObserver {
             };
         } else {
             layoutManager = new GridLayoutManager(getActivity(), 2);
-            adapter = new GridRecyclerAdapter(mLoadedNovelDatas, this.getContext());
+            adapter = new GridRecyclerAdapter(mLoadedNovelDatas, this.getContext(), sortParam);
             endlessScrollListener = new EndlessRecyclerViewScrollListener((GridLayoutManager) layoutManager) {
                 @Override
                 public void onLoadMore(int page, int totalItemsCount) {

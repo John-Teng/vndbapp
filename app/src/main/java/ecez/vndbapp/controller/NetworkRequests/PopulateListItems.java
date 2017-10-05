@@ -4,6 +4,7 @@ import android.util.Log;
 import org.json.JSONArray;
 
 import ecez.vndbapp.controller.Callbacks.ListCallback;
+import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.NovelData;
 
 /**
@@ -12,19 +13,25 @@ import ecez.vndbapp.model.NovelData;
 public class PopulateListItems extends VNDBrequest {
     private int page;
     private final int RESULTS_PER_PAGE = 24;
-    private String sortParam;
+    private int sortParam;
     public ListCallback callback;
 
-    public PopulateListItems(int page, String sortParam) {
+    public PopulateListItems(int page, int sortParam) {
         this.page = page;
         this.sortParam = sortParam;
     }
 
     @Override
     protected Object doInBackground(Object[] objects) {
-        JSONArray jsonResponse = getJSONfromRequest("get", "vn", "basic,stats,details", "(released > \"1945\")",
-                "{\"page\":"+Integer.toString(page)+",\"results\":"+ RESULTS_PER_PAGE +",\"sort\":\""+ sortParam+"\","
-                        + "\"reverse\":true}",callback);
+
+        JSONArray jsonResponse = getJSONfromRequest("get", "vn", "basic,stats,details", "(released > \"1945\")", "{\"page\":"+
+                                        Integer.toString(page)+
+                                        ",\"results\":"+
+                                        RESULTS_PER_PAGE +
+                                        ",\"sort\":\""+
+                                        Constants.getSortParam(sortParam)+
+                                        "\"," +
+                                        "\"reverse\":true}",callback);
 
         if (jsonResponse == null)
             return false;

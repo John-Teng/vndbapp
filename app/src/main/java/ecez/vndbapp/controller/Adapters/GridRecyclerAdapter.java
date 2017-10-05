@@ -25,8 +25,8 @@ import ecez.vndbapp.model.SystemStatus;
  */
 public class GridRecyclerAdapter extends VNRecyclerAdapter<GridRecyclerAdapter.holder> {
 
-    public GridRecyclerAdapter(List<NovelData> listData, Context context) {
-        super(listData,context);
+    public GridRecyclerAdapter(List<NovelData> listData, Context context, int displayType) {
+        super(listData,context,displayType);
     }
     public void setData (List<NovelData> newData) {
         this.listData = newData; //Adds additional data
@@ -62,7 +62,13 @@ public class GridRecyclerAdapter extends VNRecyclerAdapter<GridRecyclerAdapter.h
     public void onBindViewHolder(holder holder, int position) {
         NovelData item = listData.get(position);
         holder.titleText.setText(item.getTitle());
-        holder.ratingText.setText(item.getRating());
+        String s;
+        if (displayType == Constants.SORT_POPULARITY)
+            s = item.getPopularity();
+        else
+            s = item.getRating();
+        holder.ratingText.setText(s);
+        holder.ratingText.setText(s);
 //        holder.lengthText.setText(item.getLength());
         if (item.isImage_nsfw() && SystemStatus.getInstance().blockNSFW)
             Picasso.with(context).load(Constants.NSFW_IMAGE).fit().into(holder.image);

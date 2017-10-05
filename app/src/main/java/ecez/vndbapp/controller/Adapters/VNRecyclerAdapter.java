@@ -17,13 +17,15 @@ public abstract class VNRecyclerAdapter<VH extends RecyclerView.ViewHolder> exte
     protected List<NovelData> listData;
     protected LayoutInflater inflater;
     protected Context context;
+    protected int displayType;
 
     abstract public void setData (List<NovelData> newData);
 
-    public VNRecyclerAdapter(List<NovelData> listData, Context context) {
+    public VNRecyclerAdapter(List<NovelData> listData, Context context, int displayType) {
         this.listData = listData;
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.displayType = displayType;
     }
 
 }
