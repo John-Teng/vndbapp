@@ -177,8 +177,11 @@ public class Release implements Serializable {
             return "To be announced";
         StringBuilder a = new StringBuilder();
         String year = released.substring(0, 4);
-        String month = released.substring(5, 7);
-        String day = released.substring(8, 10);
+        String month = "", day = "";
+        if (released.length() > 7)
+            month = released.substring(5, 7);
+        if (released.length() > 10)
+            day = released.substring(8, 10);
 
         switch (month) {
             case "01":
@@ -217,13 +220,18 @@ public class Release implements Serializable {
             case "12":
                 a.append("December ");
                 break;
+            default:
+                break;
         }
-        if (day.charAt(0) == '0') {
-            a.append(day.charAt(1));
-        } else {
-            a.append(day);
+        if (day.length() > 0) {
+            if (day.charAt(0) == '0') {
+                a.append(day.charAt(1));
+            } else {
+                a.append(day);
+            }
+            a.append(", ");
         }
-        a.append(", "+year);
+        a.append(year);
         return a.toString();
     }
 }
