@@ -80,7 +80,7 @@ public class DetailsData extends NovelData {
         return description;
     }
 
-    public String getDescriptionWithoutBrackets () { return this.removeSourceBrackets(description);}
+    public String getDescriptionWithoutBrackets () { return this.removeSourceBrackets(description).trim();}
 
     public static String removeSourceBrackets (String s) { //Refactor to the model layer
         int openBraceCount = 0, closeBraceCount = 0, startSearchPosition, braceStartPosition, nextOpenBrace, nextClosedBrace;
