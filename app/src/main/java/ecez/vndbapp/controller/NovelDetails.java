@@ -307,7 +307,7 @@ public class NovelDetails extends AppCompatActivity {
                     }
                 }
 
-                PopulateRelease p = new PopulateRelease(id, "basic,producers",detailsData.getReleased(), new DefaultCallback<Release[]>() {
+                PopulateRelease p = new PopulateRelease(id, "basic,details,producers",detailsData.getReleased(), new DefaultCallback<Release[]>() {
                     @Override
                     public void onSuccess(Release [] releases) {
                         seeMoreReleases.setVisibility(View.VISIBLE);
@@ -315,6 +315,8 @@ public class NovelDetails extends AppCompatActivity {
                         TextView developer = (TextView)findViewById(R.id.info_developer);
                         ReleaseProducer [] producers = release.getProducers();
                         TextView publisher = (TextView)findViewById(R.id.info_publisher);
+                        TextView age = (TextView)findViewById(R.id.info_age_rating);
+                        age.setText(release.getAgeRating());
 
                         if (producers.length > 0) {
                             StringBuilder a = new StringBuilder();
