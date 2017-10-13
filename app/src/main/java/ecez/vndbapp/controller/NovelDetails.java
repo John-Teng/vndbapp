@@ -274,7 +274,7 @@ public class NovelDetails extends AppCompatActivity {
                     Picasso.with(getApplicationContext()).load(detailsData.getImage()).fit().centerCrop().into(icon);
                 measuringTextview.setText(detailsData.getDescriptionWithoutBrackets());
 
-                if (measuringTextview.getLineCount() > 8) {
+                if (measuringTextview.getLineCount() > 9) {
                     Log.d("Line Count", "NUM OF LINES IS GREATER THAN 8");
                     expandButton.setVisibility(View.VISIBLE);
                 }

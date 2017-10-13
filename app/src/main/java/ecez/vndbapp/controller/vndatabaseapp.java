@@ -153,26 +153,23 @@ public class vndatabaseapp extends AppCompatActivity
         } else {
             Log.d("Last Open Date",restoredText);
             date = restoredText;
-            Log.d("Date1",currentDate.substring(0,3));
-            Log.d("Date2",date.substring(0,3));
 
             if (!currentDate.substring(0,3).equals(date.substring(0,3)))//year is different
                 updateMap = true;
 
-            int cm = Integer.parseInt(currentDate.substring(5,6));
-            int m = Integer.parseInt(date.substring(5,6));
-            int cd = Integer.parseInt(currentDate.substring(8,9));
-            int d = Integer.parseInt(date.substring(8,9));
+            int cm = Integer.parseInt(currentDate.substring(5,7));
+            int m = Integer.parseInt(date.substring(5,7));
+            int cd = Integer.parseInt(currentDate.substring(8,10));
+            int d = Integer.parseInt(date.substring(8,10));
 
             if (Math.abs(cd-d) > 7 && Math.abs(cm-m) <= 1)
                 updateMap = true;
-            if (Math.abs(cm-m) > 1)
+            else if (Math.abs(cm-m) > 1)
                 updateMap = true;
         }
 
         if (SystemStatus.getInstance().tagsMap == null || SystemStatus.getInstance().traitsMap == null)
             updateMap = true;
-
         if (updateMap) {
             ProgressDialog dialog = new ProgressDialog(vndatabaseapp.this);
             RequestDumpObjects t = new RequestDumpObjects(getApplicationContext(),dialog, "https://vndb.org/api/traits.json.gz", "traitsMap");
@@ -182,7 +179,7 @@ public class vndatabaseapp extends AppCompatActivity
 
             //store the current date
             SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
-            editor.putString("Last Open Date", date);
+            editor.putString("Last Open Date", currentDate);
             editor.commit();
         }
 

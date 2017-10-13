@@ -55,7 +55,6 @@ public class ImagePagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        Log.d("NSFW?",Boolean.toString(pictures[position].getNsfw()));
         View pagerLayout = mLayoutInflater.inflate(R.layout.image_pager_layout, container, false);
         final ImageView imageView = (ImageView) pagerLayout.findViewById(R.id.screenshot);
 
