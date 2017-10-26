@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -44,7 +43,7 @@ public class vndatabaseapp extends AppCompatActivity
     private String date;
     private TabLayout tabLayout;
     private TabPagerAdapter mTabPagerAdapter;
-    private void getDemFiles (String saveDir) {
+    private void getSavedData (String saveDir) {
         try {
             File file = new File(getApplicationContext().getDir("data", Context.MODE_PRIVATE), saveDir);
             if (file == null) {
@@ -67,8 +66,8 @@ public class vndatabaseapp extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getDemFiles("traitsMap");
-        getDemFiles("tagsMap");
+        getSavedData("traitsMap");
+        getSavedData("tagsMap");
         checkDate();
 
         super.onCreate(savedInstanceState);

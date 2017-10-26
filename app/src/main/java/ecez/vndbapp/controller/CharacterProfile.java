@@ -140,6 +140,8 @@ public class CharacterProfile extends AppCompatActivity {
         for (int x = 0; x < characterTraits.length; x++){ //iterate for every character trait returned
             int traitID = Integer.parseInt(characterTraits[x][0]);
             trait = SystemStatus.getInstance().traitsMap.get(traitID);
+            if (trait == null) //if trait doesn't exist in the hashmap
+                continue;
             String name = trait.getName();
 
             Thread b = new Thread() {
