@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/colorLightGray"
+    android:background="@color/colorWhite"
     android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         android:paddingBottom="5dp"
         android:paddingLeft="-20dp"
         android:gravity="center_vertical"
-        android:background="@color/colorGray"
+        android:background="@color/colorWhite"
         android:textAlignment="center"
         android:textSize="16dp"
         android:textColor="@color/colorBlack"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorWhite"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:weightSum="2">
@@ -45,7 +45,7 @@
                 android:paddingLeft="10dp"
                 android:text="Original Name"
                 android:textColor="@color/colorBlack"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:id="@+id/character_original_name_label" />
 
             <TextView
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lelouch Lamperouge"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:paddingRight="10dp"
                 android:id="@+id/character_original_name" />
         </LinearLayout>
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorWhite"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:weightSum="2">
@@ -84,7 +84,7 @@
                 android:paddingLeft="10dp"
                 android:text="Gender"
                 android:textColor="@color/colorBlack"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:id="@+id/character_gender_label" />
 
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_weight="1"
                 android:text="Triggered"
                 android:paddingRight="10dp"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:id="@+id/character_gender" />
         </LinearLayout>
     </LinearLayout>
@@ -112,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorWhite"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:weightSum="2">
@@ -123,7 +123,7 @@
                 android:paddingLeft="10dp"
                 android:text="Blood Type"
                 android:textColor="@color/colorBlack"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:id="@+id/character_blood_type_label" />
 
             <TextView
@@ -132,7 +132,7 @@
                 android:layout_weight="1"
                 android:text="O Neg"
                 android:paddingRight="10dp"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:id="@+id/character_blood_type" />
         </LinearLayout>
     </LinearLayout>
@@ -152,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorWhite"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:weightSum="2">
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:textColor="@color/colorBlack"
                 android:text="Birthday"
                 android:id="@+id/character_birthday_label" />
@@ -171,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="11 / 17"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:paddingRight="10dp"
                 android:id="@+id/character_birthday" />
         </LinearLayout>
@@ -192,7 +192,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorWhite"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:weightSum="2">
@@ -202,7 +202,7 @@
                 android:layout_weight="1"
                 android:paddingLeft="10dp"
                 android:textColor="@color/colorBlack"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:text="Other Names"
                 android:id="@+id/character_aliases_label" />
 
@@ -210,7 +210,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:text="Bob the builder"
                 android:paddingRight="10dp"
                 android:id="@+id/character_aliases" />

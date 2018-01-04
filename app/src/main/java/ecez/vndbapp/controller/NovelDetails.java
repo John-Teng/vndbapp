@@ -1,7 +1,6 @@
 package ecez.vndbapp.controller;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,7 +34,6 @@ import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.FixedViewPager;
 import ecez.vndbapp.model.NovelAnime;
 import ecez.vndbapp.model.NovelScreenShot;
-import ecez.vndbapp.model.Producer;
 import ecez.vndbapp.model.Release;
 import ecez.vndbapp.model.ReleaseProducer;
 import ecez.vndbapp.model.SystemStatus;
@@ -66,11 +62,6 @@ public class NovelDetails extends AppCompatActivity {
         Log.d("New Activity","NovelDetails activity has been started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novel_details);
-
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(Color.GRAY);
 
         toolbar = (Toolbar) findViewById(R.id.default_toolbar);
         setSupportActionBar(toolbar);

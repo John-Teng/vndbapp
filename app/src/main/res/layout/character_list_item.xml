@@ -4,12 +4,12 @@
     android:paddingRight="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorLightGray">
+    android:background="@color/colorWhite">
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="120dp"
-        android:background="@color/colorGray"
+        android:background="@color/colorWhite"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/character_list_image" />
@@ -42,5 +42,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/character_list_image"
-        android:background="@color/colorGray"/>
+        android:background="@color/colorWhite"/>
 </RelativeLayout>

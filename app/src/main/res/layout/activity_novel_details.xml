@@ -7,7 +7,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorLightGray">
+        android:background="@color/colorWhite">
 
         <include
             layout="@layout/default_toolbar"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/expand_button"
             android:paddingBottom="15dp"
-            android:background="@color/colorLightGray"
+            android:background="@color/colorWhite"
             android:layout_alignParentStart="true">
 
             <!--<TextView-->
@@ -109,7 +109,7 @@
                 <!--android:text="Description"-->
                 <!--android:paddingLeft="15dp"-->
                 <!--android:paddingTop="15dp"-->
-                <!--android:background="@color/colorLightGray"-->
+                <!--android:background="@color/colorWhite"-->
                 <!--android:textColor="@color/colorBlack"-->
                 <!--android:textStyle="bold"-->
                 <!--android:textSize="14dp"-->
@@ -125,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Original Visual Novel Details"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -167,7 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Languages"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -181,7 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:numColumns="5"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:paddingBottom="5dp"
@@ -204,7 +204,7 @@
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:textColor="@color/colorBlack"
                 android:textStyle="bold"
                 android:textAlignment="textStart"
@@ -213,7 +213,7 @@
 
             <ecez.vndbapp.model.FixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/imagePager"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:layout_height="175dp"
                 android:layout_width="match_parent"
                 android:layout_alignParentStart="true" />
@@ -240,7 +240,7 @@
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorBlack"
                 android:textAlignment="textStart"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:textStyle="bold"
                 android:textSize="14dp"
                 android:layout_below="@+id/countries"
@@ -250,7 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:verticalSpacing="20dp"
-                android:background="@color/colorLightGray"
+                android:background="@color/colorWhite"
                 android:orientation="horizontal"
                 android:layout_gravity="center"
                 android:numColumns="5"
@@ -281,7 +281,7 @@
                     android:paddingBottom="10dp"
                     android:textColor="@color/colorBlack"
                     android:textAlignment="textStart"
-                    android:background="@color/colorLightGray"
+                    android:background="@color/colorWhite"
                     android:textStyle="bold"
                     android:textSize="14dp"
                     android:layout_below="@+id/consoles"

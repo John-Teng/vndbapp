@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -39,11 +37,6 @@ public class CharacterProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_profile);
-
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(Color.GRAY);
 
         Intent intent = getIntent();
         character = (Character) intent.getSerializableExtra("CHARACTER");
@@ -188,7 +181,7 @@ public class CharacterProfile extends AppCompatActivity {
     private void createTableRow (String title, String body ) {
         traitLabel.setVisibility(View.VISIBLE);
         TableRow row= new TableRow(this);
-        row.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        row.setBackgroundColor(getResources().getColor(R.color.colorWhite));
         row.setPadding(0,convertDpToPx(5),0,convertDpToPx(5));
 
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);

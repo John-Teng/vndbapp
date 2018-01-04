@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
-    android:background="@color/colorLightGray"
+    android:background="@color/colorWhite"
     android:weightSum="4"
     android:id="@+id/rating">
     <RelativeLayout
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorWhite"/>
 
     </RelativeLayout>
 
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorWhite"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -118,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorWhite"/>
     </RelativeLayout>
 
 
@@ -155,7 +155,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/colorGray"
+            android:background="@color/colorWhite"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 

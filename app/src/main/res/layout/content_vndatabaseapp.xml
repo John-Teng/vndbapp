@@ -17,8 +17,7 @@
         android:elevation="6dp"
         app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabSelectedTextColor="@color/colorPrimaryDark"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+        android:minHeight="?attr/actionBarSize"/>
 
     <TextView
         android:layout_width="wrap_content"
