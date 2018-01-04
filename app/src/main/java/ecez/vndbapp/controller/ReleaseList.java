@@ -1,14 +1,11 @@
 package ecez.vndbapp.controller;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ReleaseAdapter;
@@ -31,11 +28,6 @@ public class ReleaseList extends AppCompatActivity {
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
-
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(Color.GRAY);
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_release_list);
