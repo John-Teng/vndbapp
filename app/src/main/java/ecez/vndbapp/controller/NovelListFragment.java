@@ -27,20 +27,20 @@ import ecez.vndbapp.model.NovelData;
 import ecez.vndbapp.model.SystemStatus;
 
 public class NovelListFragment extends Fragment implements CustomObserver {
-    public static RecyclerView recyclerView;
-    private VNRecyclerAdapter adapter;
-    private ProgressBar pb;
+    public static RecyclerView sNovelListRecyclerView;
+    private VNRecyclerAdapter mRecyclerAdapter;
+    private ProgressBar mProgressBar;
     private List<NovelData> mLoadedNovelDatas = new ArrayList<>();
-    private View view;
-    private int pageCount = 1, sortParam = 0;
+    private View mNovelListView;
+    private int mPageCount = 1, mSortParam = 0;
     private SwipeRefreshLayout mSwipeContainer;
-    private ObserverSubject observerSubject;
+    private ObserverSubject mObserverSubject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        sortParam = getArguments().getInt("SORTPARAM");
-        view = inflater.inflate(R.layout.novel_list_fragment, container, false);
-        mSwipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        mSortParam = getArguments().getInt("SORTPARAM");
+        mNovelListView = inflater.inflate(R.layout.novel_list_fragment, container, false);
+        mSwipeContainer = (SwipeRefreshLayout) mNovelListView.findViewById(R.id.swipeContainer);
         mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -49,24 +49,24 @@ public class NovelListFragment extends Fragment implements CustomObserver {
         });
         mSwipeContainer.setColorSchemeResources(R.color.colorPrimaryDark);
 
-        pb = (ProgressBar)view.findViewById(R.id.progressBar);
-        pb.setVisibility(view.VISIBLE);
+        mProgressBar = (ProgressBar) mNovelListView.findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(mNovelListView.VISIBLE);
 
         setupLayout();
 
         Log.d("Startup value",Boolean.toString(SystemStatus.getInstance().connectedToServer));
-        observerSubject = SystemStatus.getInstance();
-        observerSubject.registerObserver(this);
-        return view;
+        mObserverSubject = SystemStatus.getInstance();
+        mObserverSubject.registerObserver(this);
+        return mNovelListView;
     }
 
     public void setupLayout () {
-        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        sNovelListRecyclerView = (RecyclerView) mNovelListView.findViewById(R.id.recyclerView);
         RecyclerView.LayoutManager layoutManager;
         EndlessRecyclerViewScrollListener endlessScrollListener;
         if (SystemStatus.getInstance().displayMethod == 0) {
             layoutManager = new LinearLayoutManager(getActivity());
-            adapter = new ListRecyclerAdapter(mLoadedNovelDatas, this.getContext(), sortParam);
+            mRecyclerAdapter = new ListRecyclerAdapter(mLoadedNovelDatas, this.getContext(), mSortParam);
             endlessScrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager)layoutManager) {
                 @Override
                 public void onLoadMore(int page, int totalItemsCount) {
@@ -80,7 +80,7 @@ public class NovelListFragment extends Fragment implements CustomObserver {
             };
         } else {
             layoutManager = new GridLayoutManager(getActivity(), 2);
-            adapter = new GridRecyclerAdapter(mLoadedNovelDatas, this.getContext(), sortParam);
+            mRecyclerAdapter = new GridRecyclerAdapter(mLoadedNovelDatas, this.getContext(), mSortParam);
             endlessScrollListener = new EndlessRecyclerViewScrollListener((GridLayoutManager) layoutManager) {
                 @Override
                 public void onLoadMore(int page, int totalItemsCount) {
@@ -94,39 +94,39 @@ public class NovelListFragment extends Fragment implements CustomObserver {
             };
         }
 
-        recyclerView.setLayoutManager(layoutManager);
+        sNovelListRecyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.addOnScrollListener(endlessScrollListener);
-        recyclerView.setLayoutManager(layoutManager);
+        sNovelListRecyclerView.addOnScrollListener(endlessScrollListener);
+        sNovelListRecyclerView.setLayoutManager(layoutManager);
         Log.d("Loaded Cards","The arraylist has " + Integer.toString(mLoadedNovelDatas.size()));
-        recyclerView.setAdapter(adapter);
+        sNovelListRecyclerView.setAdapter(mRecyclerAdapter);
 
     }
 
     public void loadList (int pageNum) {
         if (pageNum!=0) {
-            pageCount = pageNum;
+            mPageCount = pageNum;
         }
-        PopulateListItems l = new PopulateListItems(pageCount,sortParam);
+        PopulateListItems l = new PopulateListItems(mPageCount, mSortParam);
         l.callback = new ListCallback () {
             @Override
             public void returnList(Object [] array) { //This is run on a background thread
                 List<NovelData> novels = new ArrayList<>(Arrays.asList((NovelData[]) array)); //downcast and convert to list
                 Log.d("callback","onSuccess callback being called ");
-                Log.d("callback","The current page is " + Integer.toString(pageCount) );
-                if (pageCount == 1) {
+                Log.d("callback","The current page is " + Integer.toString(mPageCount) );
+                if (mPageCount == 1) {
                     mLoadedNovelDatas.clear();
                     Log.d("callback","There are now " + mLoadedNovelDatas.size() + " items in the list");
                 }
                 mLoadedNovelDatas.addAll(novels);
-                pageCount ++;
+                mPageCount++;
             }
             @Override
             public void onSuccessUI() { //This is run on UI thread
                 //mLoadedNovelDatas is being modified by reference in the AsyncTask
-                pb.setVisibility(View.GONE);
-                adapter.setData(mLoadedNovelDatas);
-                adapter.notifyDataSetChanged();
+                mProgressBar.setVisibility(View.GONE);
+                mRecyclerAdapter.setData(mLoadedNovelDatas);
+                mRecyclerAdapter.notifyDataSetChanged();
                 mSwipeContainer.setRefreshing(false);
             }
             @Override
@@ -144,13 +144,13 @@ public class NovelListFragment extends Fragment implements CustomObserver {
     }
 
     public void resetViewItems(){
-        adapter = null;
-        recyclerView = null;
+        mRecyclerAdapter = null;
+        sNovelListRecyclerView = null;
     }
 
     @Override
     public void onDestroy() {
-        observerSubject.removeObserver(this);
+        mObserverSubject.removeObserver(this);
         super.onDestroy();
     }
 

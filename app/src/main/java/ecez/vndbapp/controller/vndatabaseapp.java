@@ -40,7 +40,7 @@ import ecez.vndbapp.model.Trait;
 
 public class vndatabaseapp extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private String date;
+    private String mLastOpenedDate;
     private TabLayout tabLayout;
     private TabPagerAdapter mTabPagerAdapter;
     private void getSavedData (String saveDir) {
@@ -147,19 +147,19 @@ public class vndatabaseapp extends AppCompatActivity
         String restoredText = prefs.getString("Last Open Date", null);
         if (restoredText == null) {
             Log.d("Last Open Date","null value");
-            date = currentDate;
+            mLastOpenedDate = currentDate;
             updateMap = true;
         } else {
             Log.d("Last Open Date",restoredText);
-            date = restoredText;
+            mLastOpenedDate = restoredText;
 
-            if (!currentDate.substring(0,3).equals(date.substring(0,3)))//year is different
+            if (!currentDate.substring(0,3).equals(mLastOpenedDate.substring(0,3)))//year is different
                 updateMap = true;
 
             int cm = Integer.parseInt(currentDate.substring(5,7));
-            int m = Integer.parseInt(date.substring(5,7));
+            int m = Integer.parseInt(mLastOpenedDate.substring(5,7));
             int cd = Integer.parseInt(currentDate.substring(8,10));
-            int d = Integer.parseInt(date.substring(8,10));
+            int d = Integer.parseInt(mLastOpenedDate.substring(8,10));
 
             if (Math.abs(cd-d) > 7 && Math.abs(cm-m) <= 1)
                 updateMap = true;
@@ -176,7 +176,7 @@ public class vndatabaseapp extends AppCompatActivity
             RequestDumpObjects d = new RequestDumpObjects(getApplicationContext(),dialog, " https://vndb.org/api/tags.json.gz", "tagsMap");
             d.execute();
 
-            //store the current date
+            //store the current mLastOpenedDate
             SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
             editor.putString("Last Open Date", currentDate);
             editor.commit();

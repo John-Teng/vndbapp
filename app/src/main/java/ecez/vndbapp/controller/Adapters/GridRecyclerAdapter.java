@@ -39,7 +39,7 @@ public class GridRecyclerAdapter extends VNRecyclerAdapter<GridRecyclerAdapter.h
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int itemPosition = NovelListFragment.recyclerView.getChildLayoutPosition(view);
+                int itemPosition = NovelListFragment.sNovelListRecyclerView.getChildLayoutPosition(view);
                 String id = listData.get(itemPosition).getId();
 
                 ImageView image = (ImageView) view.findViewById(R.id.grid_item_image);
