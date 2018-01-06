@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.Utils.DisplayUtils;
 import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.Release;
 import ecez.vndbapp.model.ReleaseProducer;
@@ -166,27 +167,27 @@ public class ReleaseDetails extends AppCompatActivity {
                 break;
             case "win":
                 image.setImageResource(R.drawable.windows_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(20,getApplicationContext());
                 text.setText("");
                 break;
             case "ios":
                 image.setImageResource(R.drawable.ios_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(18);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(18,getApplicationContext());
                 text.setText("");
                 break;
             case "wii":
                 image.setImageResource(R.drawable.wii_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(18);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(18,getApplicationContext());
                 text.setText("");
                 break;
             case "and":
                 image.setImageResource(R.drawable.android_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(20,getApplicationContext());
                 text.setText("");
                 break;
             case "lin":
                 image.setImageResource(R.drawable.linux_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(20,getApplicationContext());
                 text.setText("");
                 break;
             default:
@@ -196,11 +197,5 @@ public class ReleaseDetails extends AppCompatActivity {
         }
     }
 
-    public float convertDpToPixel(float dp){
-        Resources resources = getApplicationContext().getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
-    }
 
 }

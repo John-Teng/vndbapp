@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.Utils.DisplayUtils;
 import ecez.vndbapp.model.Character;
 import ecez.vndbapp.model.SystemStatus;
 import ecez.vndbapp.model.Trait;
@@ -37,6 +40,11 @@ public class CharacterProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_profile);
+
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(Color.GRAY);
 
         Intent intent = getIntent();
         character = (Character) intent.getSerializableExtra("CHARACTER");
@@ -182,7 +190,7 @@ public class CharacterProfile extends AppCompatActivity {
         traitLabel.setVisibility(View.VISIBLE);
         TableRow row= new TableRow(this);
         row.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        row.setPadding(0,convertDpToPx(5),0,convertDpToPx(5));
+        row.setPadding(0,(int) DisplayUtils.DpToPx(5,getApplicationContext()),0,(int) DisplayUtils.DpToPx(5,getApplicationContext()));
 
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         row.setLayoutParams(lp);
@@ -190,7 +198,7 @@ public class CharacterProfile extends AppCompatActivity {
         TextView traitParent = new TextView(this);
         TextView associatedTraits = new TextView(this);
 
-        traitParent.setPadding(convertDpToPx(10),0,0,0);
+        traitParent.setPadding((int) DisplayUtils.DpToPx(10,getApplicationContext()),0,0,0);
 
         TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.5f);
 
@@ -205,17 +213,13 @@ public class CharacterProfile extends AppCompatActivity {
         row.addView(associatedTraits);
 
         View v = new View(this);
-        v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, convertDpToPx(1)));
+        v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int) DisplayUtils.DpToPx(1,getApplicationContext())));
         v.setBackgroundColor(getResources().getColor(R.color.colorDividerGray));
 
         tableLayout.addView(row);
         tableLayout.addView(v);
     }
 
-    private int convertDpToPx(int dp){
-        float scale = getResources().getDisplayMetrics().density;
-        return (int) (dp*scale + 0.5f);
-    }
 
     private void loadStat (TextView field, View Layout, String data, View label) {
         if (data == null) {

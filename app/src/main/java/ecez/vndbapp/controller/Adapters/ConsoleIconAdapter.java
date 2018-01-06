@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 
 import ecez.vndbapp.R;
+import ecez.vndbapp.controller.Utils.DisplayUtils;
 
 /**
  * Created by Teng on 10/10/2016.
@@ -29,13 +30,6 @@ public class ConsoleIconAdapter extends BaseAdapter {
     }
     public void setData (String [] newData) {
         this.consoles = newData; //Adds additional data
-    }
-
-    public float convertDpToPixel(float dp){
-        Resources resources = this.context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
     }
 
     @Override
@@ -102,27 +96,27 @@ public class ConsoleIconAdapter extends BaseAdapter {
                     break;
                 case "win":
                     consolePicture.setImageResource(R.drawable.windows_logo);
-                    consolePicture.getLayoutParams().height = (int)convertDpToPixel(20);
+                    consolePicture.getLayoutParams().height = (int)DisplayUtils.DpToPx(20,context);
                     consoleText.setText("");
                     break;
                 case "ios":
                     consolePicture.setImageResource(R.drawable.ios_logo);
-                    consolePicture.getLayoutParams().height = (int)convertDpToPixel(18);
+                    consolePicture.getLayoutParams().height = (int)DisplayUtils.DpToPx(18,context);
                     consoleText.setText("");
                     break;
                 case "wii":
                     consolePicture.setImageResource(R.drawable.wii_logo);
-                    consolePicture.getLayoutParams().height = (int)convertDpToPixel(18);
+                    consolePicture.getLayoutParams().height = (int)DisplayUtils.DpToPx(18,context);
                     consoleText.setText("");
                     break;
                 case "and":
                     consolePicture.setImageResource(R.drawable.android_logo);
-                    consolePicture.getLayoutParams().height = (int)convertDpToPixel(20);
+                    consolePicture.getLayoutParams().height = (int)DisplayUtils.DpToPx(20,context);
                     consoleText.setText("");
                     break;
                 case "lin":
                     consolePicture.setImageResource(R.drawable.linux_logo);
-                    consolePicture.getLayoutParams().height = (int)convertDpToPixel(20);
+                    consolePicture.getLayoutParams().height = (int)DisplayUtils.DpToPx(20,context);
                     consoleText.setText("");
                     break;
                 default:

@@ -2,10 +2,7 @@ package ecez.vndbapp.controller.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +11,7 @@ import android.widget.TextView;
 
 import ecez.vndbapp.R;
 import ecez.vndbapp.controller.ReleaseDetails;
-import ecez.vndbapp.model.Constants;
+import ecez.vndbapp.controller.Utils.DisplayUtils;
 import ecez.vndbapp.model.Release;
 
 /**
@@ -163,27 +160,27 @@ public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.holder>{
                 break;
             case "win":
                 image.setImageResource(R.drawable.windows_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(18,context);
                 text.setText("");
                 break;
             case "ios":
                 image.setImageResource(R.drawable.ios_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(18);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(18,context);
                 text.setText("");
                 break;
             case "wii":
                 image.setImageResource(R.drawable.wii_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(18);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(18,context);
                 text.setText("");
                 break;
             case "and":
                 image.setImageResource(R.drawable.android_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(20,context);
                 text.setText("");
                 break;
             case "lin":
                 image.setImageResource(R.drawable.linux_logo);
-                image.getLayoutParams().height = (int) convertDpToPixel(20);
+                image.getLayoutParams().height = (int) DisplayUtils.DpToPx(20,context);
                 text.setText("");
                 break;
             default:
@@ -191,13 +188,6 @@ public class ReleaseAdapter extends RecyclerView.Adapter<ReleaseAdapter.holder>{
                 text.setText(console.toUpperCase());
                 break;
         }
-    }
-
-    public float convertDpToPixel(float dp){
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
     }
 
     class holder extends RecyclerView.ViewHolder {
