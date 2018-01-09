@@ -7,9 +7,16 @@
     android:fitsSystemWindows="true"
     tools:context=".controller.vndatabaseapp">
 
-    <include layout="@layout/default_appbar" />
-    
-    <include layout="@layout/content_vndatabaseapp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/default_appbar" />
+
+        <include layout="@layout/content_vndatabaseapp" />
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
