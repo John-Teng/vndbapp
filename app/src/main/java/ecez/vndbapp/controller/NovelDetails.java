@@ -47,7 +47,7 @@ public class NovelDetails extends AppCompatActivity {
     private ImagePagerAdapter imageAdapter;
     private CustomGridView countryGridView, consoleGridView;
     private Toolbar toolbar;
-    private TextView title, votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3
+    private TextView votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3
             , characterRole1, characterRole2, characterRole3, genre, measuringTextview, countriesHeader,
             consolesHeader, screenshotsHeader;
     private Button expandButton, seeMoreCharacters, backButton, seeMoreReleases;
@@ -63,9 +63,10 @@ public class NovelDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novel_details);
 
-        toolbar = (Toolbar) findViewById(R.id.default_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         characterIcon1 = (ImageView) findViewById(R.id.character_image1);
         characterIcon2 = (ImageView) findViewById(R.id.character_image2);
@@ -95,7 +96,6 @@ public class NovelDetails extends AppCompatActivity {
         });
         detailsLayout = findViewById(R.id.details_content_layout);
 
-        title = (TextView)findViewById(R.id.toolbar_title);
         votes = (TextView) findViewById(R.id.quickstats_votes);
         rating = (TextView)findViewById(R.id.quickstats_rating);
         popularity = (TextView)findViewById(R.id.quickstats_popularity);
@@ -136,13 +136,6 @@ public class NovelDetails extends AppCompatActivity {
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 
-        backButton = (Button)findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
         this.novelID = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
         Log.d("id",Integer.toString(this.novelID));
@@ -150,6 +143,12 @@ public class NovelDetails extends AppCompatActivity {
         loadNovelData(novelID);
         loadCharacterData(novelID);
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
@@ -270,7 +269,7 @@ public class NovelDetails extends AppCompatActivity {
                     expandButton.setVisibility(View.VISIBLE);
                 }
                 measuringTextview.setVisibility(View.GONE);
-                title.setText(detailsData.getTitle());
+                getSupportActionBar().setTitle(detailsData.getTitle());
                 votes.setText(detailsData.getVoteCount());
                 rating.setText(detailsData.getRating());
                 popularity.setText(detailsData.getPopularity());

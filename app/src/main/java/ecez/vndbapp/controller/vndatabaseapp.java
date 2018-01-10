@@ -72,7 +72,7 @@ public class vndatabaseapp extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vndatabaseapp);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(toolbar);
 
         tabLayout = (TabLayout)findViewById(R.id.tab_layout);

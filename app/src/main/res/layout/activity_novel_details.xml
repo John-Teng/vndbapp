@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -10,288 +10,283 @@
         android:background="@color/colorWhite">
 
         <include
-            layout="@layout/default_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar"/>
+            android:id="@+id/novel_details_appbar"
+            layout="@layout/default_appbar" />
 
         <ImageView
+            android:id="@+id/novel_icon"
             android:layout_width="200dp"
             android:layout_height="270dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/toolbar"
-            android:background="@color/colorDarkerGray"
-            android:id="@+id/novel_icon" />
+            android:layout_below="@id/novel_details_appbar"
+            android:background="@color/colorDarkerGray" />
         <!--android:transitionName="profile"-->
 
         <include
+            android:id="@+id/quickstats"
             layout="@layout/novel_details_quickstats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/quickstats"
+            android:layout_alignBottom="@+id/novel_icon"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/novel_icon"
             android:layout_below="@+id/toolbar"
-            android:layout_alignBottom="@+id/novel_icon" />
+            android:layout_toEndOf="@+id/novel_icon" />
 
         <TextView
+            android:id="@+id/genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/quickstats"
-            android:text=""
-            android:paddingTop="5dp"
+            android:maxLines="1"
             android:paddingBottom="5dp"
             android:paddingLeft="15dp"
-            android:maxLines="1"
+            android:paddingTop="5dp"
+            android:text=""
             android:textColor="@color/colorDarkGray"
-            android:textSize="12dp"
-            android:id="@+id/genres" />
+            android:textSize="12dp" />
 
         <at.blogc.android.views.ExpandableTextView
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/genres"
-            android:paddingTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:maxLines="9"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:textSize="13dp"
+            android:paddingTop="0dp"
             android:textColor="@color/colorDarkerGray"
-            android:id="@+id/description"
-            android:maxLines="9"
-            android:ellipsize="end"
-            android:layout_marginBottom="10dp"
-            app:animation_duration="500"/>
+            android:textSize="13dp"
+            app:animation_duration="500" />
 
         <TextView
+            android:id="@+id/measuring_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="0dp"
             android:layout_below="@id/description"
+            android:layout_marginBottom="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:textSize="13dp"
-            android:id="@+id/measuring_textview"
-            android:layout_marginBottom="10dp"/>
+            android:paddingTop="0dp"
+            android:textSize="13dp" />
 
         <Button
+            android:id="@+id/expand_button"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_below="@id/measuring_textview"
-            android:text="Read More"
-            android:textColor="@color/colorBlack"
-            android:textSize="11dp"
+            android:layout_gravity="center"
+            android:minHeight="20dp"
+            android:minWidth="70dp"
+            android:paddingBottom="15dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
             android:paddingTop="10dp"
-            android:paddingBottom="15dp"
-            android:minWidth="70dp"
-            android:minHeight="20dp"
-            android:id="@+id/expand_button"
-            android:layout_gravity="center"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_alignParentEnd="true" />
+            android:text="Read More"
+            android:textColor="@color/colorBlack"
+            android:textSize="11dp" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/details_content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_below="@id/expand_button"
-            android:paddingBottom="15dp"
             android:background="@color/colorWhite"
-            android:layout_alignParentStart="true">
+            android:orientation="vertical"
+            android:paddingBottom="15dp">
 
             <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Description"-->
-                <!--android:paddingLeft="15dp"-->
-                <!--android:paddingTop="15dp"-->
-                <!--android:background="@color/colorWhite"-->
-                <!--android:textColor="@color/colorBlack"-->
-                <!--android:textStyle="bold"-->
-                <!--android:textSize="14dp"-->
-                <!--android:id="@+id/description_label" />-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Description"-->
+            <!--android:paddingLeft="15dp"-->
+            <!--android:paddingTop="15dp"-->
+            <!--android:background="@color/colorWhite"-->
+            <!--android:textColor="@color/colorBlack"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textSize="14dp"-->
+            <!--android:id="@+id/description_label" />-->
 
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#DCDCDC"/>
+                android:background="#DCDCDC" />
 
             <TextView
+                android:id="@+id/information_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Original Visual Novel Details"
                 android:background="@color/colorWhite"
+                android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/colorBlack"
+                android:text="Original Visual Novel Details"
                 android:textAlignment="textStart"
-                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
                 android:textSize="14dp"
-                android:id="@+id/information_label" />
+                android:textStyle="bold" />
 
             <include
                 layout="@layout/novel_details_information"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent">
-            </include>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></include>
 
             <Button
+                android:id="@+id/release_button"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="View all release versions"
-                android:textColor="@color/colorBlack"
-                android:textSize="11dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:minHeight="20dp"
+                android:minWidth="70dp"
+                android:paddingBottom="15dp"
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="15dp"
-                android:minWidth="70dp"
-                android:minHeight="20dp"
-                android:id="@+id/release_button"
-                android:layout_gravity="center"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_alignParentEnd="true" />
+                android:text="View all release versions"
+                android:textColor="@color/colorBlack"
+                android:textSize="11dp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#DCDCDC"/>
+                android:background="#DCDCDC" />
 
             <TextView
+                android:id="@+id/countries_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Languages"
                 android:background="@color/colorWhite"
+                android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/colorBlack"
+                android:text="Languages"
                 android:textAlignment="textStart"
-                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
                 android:textSize="14dp"
-                android:id="@+id/countries_label" />
+                android:textStyle="bold" />
 
             <ecez.vndbapp.model.CustomGridView
+                android:id="@+id/countries"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="5"
-                android:background="@color/colorWhite"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:paddingBottom="5dp"
-                android:clickable="false"
-                android:id="@+id/countries"
+                android:layout_alignEnd="@+id/quickstats"
                 android:layout_alignParentStart="true"
-                android:layout_alignEnd="@+id/quickstats">
-            </ecez.vndbapp.model.CustomGridView>
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorWhite"
+                android:clickable="false"
+                android:gravity="center_horizontal"
+                android:numColumns="5"
+                android:paddingBottom="5dp"></ecez.vndbapp.model.CustomGridView>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#DCDCDC"/>
+                android:background="#DCDCDC" />
 
 
             <TextView
+                android:id="@+id/imagePager_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Screenshots"
+                android:background="@color/colorWhite"
+                android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:background="@color/colorWhite"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold"
+                android:text="Screenshots"
                 android:textAlignment="textStart"
+                android:textColor="@color/colorBlack"
                 android:textSize="14dp"
-                android:id="@+id/imagePager_label"/>
+                android:textStyle="bold" />
 
             <ecez.vndbapp.model.FixedViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/imagePager"
-                android:background="@color/colorWhite"
-                android:layout_height="175dp"
                 android:layout_width="match_parent"
-                android:layout_alignParentStart="true" />
+                android:layout_height="175dp"
+                android:layout_alignParentStart="true"
+                android:background="@color/colorWhite" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#DCDCDC"/>
-
+                android:background="#DCDCDC" />
 
 
             <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:layout_above="@id/consoles_label"-->
-                <!--android:background="#DCDCDC"/>-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_above="@id/consoles_label"-->
+            <!--android:background="#DCDCDC"/>-->
 
             <TextView
+                android:id="@+id/consoles_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Platforms"
+                android:layout_below="@+id/countries"
+                android:background="@color/colorWhite"
+                android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textColor="@color/colorBlack"
+                android:text="Platforms"
                 android:textAlignment="textStart"
-                android:background="@color/colorWhite"
-                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
                 android:textSize="14dp"
-                android:layout_below="@+id/countries"
-                android:id="@+id/consoles_label" />
+                android:textStyle="bold" />
 
             <ecez.vndbapp.model.CustomGridView
+                android:id="@+id/consoles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:verticalSpacing="20dp"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:numColumns="5"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:id="@+id/consoles"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/consoles_label"
-                android:layout_alignParentEnd="true">
-            </ecez.vndbapp.model.CustomGridView>
+                android:layout_gravity="center"
+                android:background="@color/colorWhite"
+                android:numColumns="5"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp"
+                android:verticalSpacing="20dp"></ecez.vndbapp.model.CustomGridView>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#DCDCDC"/>
+                android:background="#DCDCDC" />
 
             <LinearLayout
+                android:id="@+id/character_panel_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/character_panel_layout"
                 android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/character_panel_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Characters"
-                    android:paddingTop="10dp"
-                    android:paddingLeft="15dp"
-                    android:paddingBottom="10dp"
-                    android:textColor="@color/colorBlack"
-                    android:textAlignment="textStart"
-                    android:background="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:textSize="14dp"
                     android:layout_below="@+id/consoles"
-                    android:id="@+id/character_panel_label" />
+                    android:background="@color/colorWhite"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="10dp"
+                    android:text="Characters"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
 
                 <include
+                    android:id="@+id/character_panel"
                     layout="@layout/novel_details_character_panel"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/character_panel" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>

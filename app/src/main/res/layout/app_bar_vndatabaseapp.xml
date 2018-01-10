@@ -12,7 +12,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/default_appbar" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_activity_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="0dp" />
 
         <include layout="@layout/content_vndatabaseapp" />
 
