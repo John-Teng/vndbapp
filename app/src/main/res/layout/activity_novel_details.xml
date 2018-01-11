@@ -22,7 +22,6 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/novel_details_appbar"
             android:background="@color/colorDarkerGray" />
-        <!--android:transitionName="profile"-->
 
         <include
             android:id="@+id/quickstats"
@@ -30,8 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/novel_icon"
+            android:layout_alignTop="@+id/novel_icon"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/toolbar"
             android:layout_toEndOf="@+id/novel_icon" />
 
         <TextView

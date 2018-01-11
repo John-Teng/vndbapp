@@ -46,7 +46,6 @@ public class NovelDetails extends AppCompatActivity {
     private LinearLayoutManager consoleLayoutManager;
     private ImagePagerAdapter imageAdapter;
     private CustomGridView countryGridView, consoleGridView;
-    private Toolbar toolbar;
     private TextView votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3
             , characterRole1, characterRole2, characterRole3, genre, measuringTextview, countriesHeader,
             consolesHeader, screenshotsHeader;
@@ -65,6 +64,7 @@ public class NovelDetails extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
