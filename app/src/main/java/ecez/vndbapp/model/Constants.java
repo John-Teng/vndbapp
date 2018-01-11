@@ -14,6 +14,9 @@ public class Constants {
     public static final String SERVER_NOT_LOGGED_IN_ERROR = "Not logged into server";
     public static final String JSON_SERIALIZATION_ERROR = "Problem occurred with json serialization";
     public static final String NO_GENRES = "No Genre Information Available";
+    public static final String INTENT_NAME = "NOVEL_NAME";
+    public static final String INTENT_ID = "NOVEL_ID";
+    public static final String INTENT_CHARACTERS = "NOVEL_CHARACTERS";
     public static final int NO_SPOILERS = 0;
     public static final int MINOR_SPOILERS = 1;
     public static final int ALL_SPOILERS = 2;

@@ -9,9 +9,7 @@
         android:layout_height="match_parent">
 
         <include
-            layout="@layout/default_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            layout="@layout/default_appbar"
             android:id="@+id/character_profile_toolbar"/>
 
         <ImageView

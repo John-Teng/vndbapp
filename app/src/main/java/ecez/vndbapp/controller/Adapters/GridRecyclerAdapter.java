@@ -40,7 +40,6 @@ public class GridRecyclerAdapter extends VNRecyclerAdapter<GridRecyclerAdapter.h
             @Override
             public void onClick(View v) {
                 int itemPosition = NovelListFragment.sNovelListRecyclerView.getChildLayoutPosition(view);
-                String id = listData.get(itemPosition).getId();
 
                 ImageView image = (ImageView) view.findViewById(R.id.grid_item_image);
                 NovelDetails.novelIcon = image.getDrawable();
@@ -49,7 +48,8 @@ public class GridRecyclerAdapter extends VNRecyclerAdapter<GridRecyclerAdapter.h
 
 //                ActivityOptionsCompat options = ActivityOptionsCompat.
 //                        makeSceneTransitionAnimation(activityReference, (View)image, "profile");
-                intent.putExtra("NOVEL_ID", id);
+                intent.putExtra(Constants.INTENT_ID, listData.get(itemPosition).getId());
+                intent.putExtra(Constants.INTENT_NAME,listData.get(itemPosition).getTitle());
                 Log.d("New Activity","About to start the NovelDetails activity");
                 context.startActivity(intent);
 //                context.startActivity(intent, options.toBundle());

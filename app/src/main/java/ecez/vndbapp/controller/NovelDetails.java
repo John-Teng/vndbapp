@@ -49,11 +49,12 @@ public class NovelDetails extends AppCompatActivity {
     private TextView votes, rating, popularity, length, characterLabel1, characterLabel2, characterLabel3
             , characterRole1, characterRole2, characterRole3, genre, measuringTextview, countriesHeader,
             consolesHeader, screenshotsHeader;
-    private Button expandButton, seeMoreCharacters, backButton, seeMoreReleases;
+    private Button expandButton, seeMoreCharacters, seeMoreReleases;
     private ExpandableTextView description;
     private ImageView icon, characterIcon1, characterIcon2, characterIcon3;
     private FixedViewPager imagePager;
-    private int novelID;
+    private int mNovelID;
+    private String mNovelName;
     private Character [] characters;
     private View detailsLayout;
     @Override
@@ -61,12 +62,6 @@ public class NovelDetails extends AppCompatActivity {
         Log.d("New Activity","NovelDetails activity has been started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novel_details);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         characterIcon1 = (ImageView) findViewById(R.id.character_image1);
         characterIcon2 = (ImageView) findViewById(R.id.character_image2);
@@ -89,7 +84,8 @@ public class NovelDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ReleaseList.class);
-                intent.putExtra("NOVEL_ID", novelID);
+                intent.putExtra(Constants.INTENT_ID, mNovelID);
+                intent.putExtra(Constants.INTENT_NAME, mNovelName);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
             }
@@ -136,12 +132,17 @@ public class NovelDetails extends AppCompatActivity {
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 
+        this.mNovelID = Integer.parseInt(intent.getStringExtra(Constants.INTENT_ID));
+        this.mNovelName = intent.getStringExtra(Constants.INTENT_NAME);
 
-        this.novelID = Integer.parseInt(intent.getStringExtra("NOVEL_ID"));
-        Log.d("id",Integer.toString(this.novelID));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(mNovelName);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        loadNovelData(novelID);
-        loadCharacterData(novelID);
+        loadNovelData(mNovelID);
+        loadCharacterData(mNovelID);
 
     }
 
@@ -169,8 +170,9 @@ public class NovelDetails extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), CharacterList.class);
-                        intent.putExtra("NOVEL_ID", novelID);
-                        intent.putExtra("CHARACTERS", characters);
+                        intent.putExtra(Constants.INTENT_NAME, mNovelName);
+                        intent.putExtra(Constants.INTENT_ID, mNovelID);
+                        intent.putExtra(Constants.INTENT_CHARACTERS, characters);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(intent);
                     }
@@ -235,9 +237,9 @@ public class NovelDetails extends AppCompatActivity {
                 characterLabel1.setText(characters[0].getName());
                 characterLabel2.setText(characters[1].getName());
                 characterLabel3.setText(characters[2].getName());
-                characterRole1.setText(characters[0].getRole(novelID));
-                characterRole2.setText(characters[1].getRole(novelID));
-                characterRole3.setText(characters[2].getRole(novelID));
+                characterRole1.setText(characters[0].getRole(mNovelID));
+                characterRole2.setText(characters[1].getRole(mNovelID));
+                characterRole3.setText(characters[2].getRole(mNovelID));
             }
 
             @Override
@@ -269,7 +271,6 @@ public class NovelDetails extends AppCompatActivity {
                     expandButton.setVisibility(View.VISIBLE);
                 }
                 measuringTextview.setVisibility(View.GONE);
-                getSupportActionBar().setTitle(detailsData.getTitle());
                 votes.setText(detailsData.getVoteCount());
                 rating.setText(detailsData.getRating());
                 popularity.setText(detailsData.getPopularity());

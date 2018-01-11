@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,15 +27,14 @@ import ecez.vndbapp.model.Trait;
 
 public class CharacterProfile extends AppCompatActivity {
     private Character character;
-    private TextView name, originalName, gender, bloodType, birthday, otherNames,
+    private TextView originalName, gender, bloodType, birthday, otherNames,
             description, height, weight, bust, waist, hip, traitLabel, basicStatsLabel, physicalStatsLabel;
     private ImageView picture;
-    private HashMap<Integer,ArrayList<String>> traits = new HashMap<>();
-    private final int [] TRAIT_CATEGORY_LIST = {1,35,36,37,38,39,40,41,42,43,1625};
-    private final int [] NSFW_LIST = {43, 1625};
+    private HashMap<Integer, ArrayList<String>> traits = new HashMap<>();
+    private final int[] TRAIT_CATEGORY_LIST = {1, 35, 36, 37, 38, 39, 40, 41, 42, 43, 1625};
+    private final int[] NSFW_LIST = {43, 1625};
     private TableLayout tableLayout;
     private Trait trait, parentTrait;
-    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +46,18 @@ public class CharacterProfile extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(Color.GRAY);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Intent intent = getIntent();
         character = (Character) intent.getSerializableExtra("CHARACTER");
 
-        traitLabel = (TextView)findViewById(R.id.character_profile_traits_label);
+        traitLabel = (TextView) findViewById(R.id.character_profile_traits_label);
 
         tableLayout = (TableLayout) findViewById(R.id.character_traits_table);
-        name = (TextView) findViewById(R.id.toolbar_title);
         originalName = (TextView) findViewById(R.id.character_original_name);
         gender = (TextView) findViewById(R.id.character_gender);
         bloodType = (TextView) findViewById(R.id.character_blood_type);
@@ -70,13 +75,13 @@ public class CharacterProfile extends AppCompatActivity {
 
         View originalNameLayout = findViewById(R.id.character_original_name_layout);
         View genderLayout = findViewById(R.id.character_gender_layout);
-        View bloodTypeLayout =  findViewById(R.id.character_blood_type_layout);
-        View birthdayLayout =  findViewById(R.id.character_birthday_layout);
-        View otherNamesLayout =  findViewById(R.id.character_aliases_layout);
+        View bloodTypeLayout = findViewById(R.id.character_blood_type_layout);
+        View birthdayLayout = findViewById(R.id.character_birthday_layout);
+        View otherNamesLayout = findViewById(R.id.character_aliases_layout);
         View heightLayout = findViewById(R.id.character_height_layout);
-        View weightLayout =  findViewById(R.id.character_weight_layout);
+        View weightLayout = findViewById(R.id.character_weight_layout);
         View bustLayout = findViewById(R.id.character_bust_layout);
-        View waistLayout =  findViewById(R.id.character_waist_layout);
+        View waistLayout = findViewById(R.id.character_waist_layout);
         View hipLayout = findViewById(R.id.character_hip_layout);
 
         Picasso
@@ -86,47 +91,45 @@ public class CharacterProfile extends AppCompatActivity {
                 .centerCrop()
                 .into(picture);
 
-        name.setText(character.getName());
+        getSupportActionBar().setTitle(character.getName());
 
         loadTextView(description, character.getDescription());
 
-        loadStat(originalName,originalNameLayout,character.getOriginal(), basicStatsLabel);
-        loadStat(gender,genderLayout,character.getGender(),basicStatsLabel);
-        loadStat(bloodType,bloodTypeLayout,character.getBloodt(),basicStatsLabel);
-        loadStat(birthday,birthdayLayout,character.getBirthday(),basicStatsLabel);
-        loadStat(otherNames,otherNamesLayout,character.getAliases(),basicStatsLabel);
+        loadStat(originalName, originalNameLayout, character.getOriginal(), basicStatsLabel);
+        loadStat(gender, genderLayout, character.getGender(), basicStatsLabel);
+        loadStat(bloodType, bloodTypeLayout, character.getBloodt(), basicStatsLabel);
+        loadStat(birthday, birthdayLayout, character.getBirthday(), basicStatsLabel);
+        loadStat(otherNames, otherNamesLayout, character.getAliases(), basicStatsLabel);
 
-        loadStat(height,heightLayout,character.getHeight(),physicalStatsLabel);
-        loadStat(weight,weightLayout,character.getWeight(),physicalStatsLabel);
-        loadStat(bust,bustLayout,character.getBust(),physicalStatsLabel);
-        loadStat(waist,waistLayout,character.getWaist(),physicalStatsLabel);
-        loadStat(hip,hipLayout,character.getHip(),physicalStatsLabel);
+        loadStat(height, heightLayout, character.getHeight(), physicalStatsLabel);
+        loadStat(weight, weightLayout, character.getWeight(), physicalStatsLabel);
+        loadStat(bust, bustLayout, character.getBust(), physicalStatsLabel);
+        loadStat(waist, waistLayout, character.getWaist(), physicalStatsLabel);
+        loadStat(hip, hipLayout, character.getHip(), physicalStatsLabel);
 
-
-        for (int z = 0; z< TRAIT_CATEGORY_LIST.length; z++) {
-            traits.put(TRAIT_CATEGORY_LIST[z],null);
+        for (int z = 0; z < TRAIT_CATEGORY_LIST.length; z++) {
+            traits.put(TRAIT_CATEGORY_LIST[z], null);
         }
         loadTraits();
 
-        backButton = (Button)findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
     }
 
-    private void loadTextView (TextView field, String data) {
-        if (data ==null) {
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    private void loadTextView(TextView field, String data) {
+        if (data == null) {
             field.setVisibility(View.GONE);
         } else {
             field.setText(data);
         }
     }
 
-    private Trait findParent (Trait trait) {
-        Integer [] traitParents = trait.getParents();
+    private Trait findParent(Trait trait) {
+        Integer[] traitParents = trait.getParents();
 
         if (traitParents.length > 0) { //make another recursive call
             Trait nextTrait = SystemStatus.getInstance().traitsMap.get(traitParents[0]);
@@ -135,10 +138,10 @@ public class CharacterProfile extends AppCompatActivity {
         return trait;
     }
 
-    private void loadTraits () {
-        String [] [] characterTraits = character.getTraits();
+    private void loadTraits() {
+        String[][] characterTraits = character.getTraits();
 
-        for (int x = 0; x < characterTraits.length; x++){ //iterate for every character trait returned
+        for (int x = 0; x < characterTraits.length; x++) { //iterate for every character trait returned
             int traitID = Integer.parseInt(characterTraits[x][0]);
             trait = SystemStatus.getInstance().traitsMap.get(traitID);
             if (trait == null) //if trait doesn't exist in the hashmap
@@ -162,35 +165,35 @@ public class CharacterProfile extends AppCompatActivity {
                 if (parentTrait.getId() == NSFW_LIST[0] || parentTrait.getId() == NSFW_LIST[1])
                     continue;
             }
-            if (traits.get(parentTrait.getId())== null) {
+            if (traits.get(parentTrait.getId()) == null) {
                 a = new ArrayList<>();
             } else {
                 a = traits.get(parentTrait.getId());
             }
             a.add(name);
-            traits.put(parentTrait.getId(),a);
+            traits.put(parentTrait.getId(), a);
 
         }
-        for (int x = 0; x< TRAIT_CATEGORY_LIST.length; x++) {
+        for (int x = 0; x < TRAIT_CATEGORY_LIST.length; x++) {
             if (traits.get(TRAIT_CATEGORY_LIST[x]) == null)
                 continue;
             StringBuilder body = new StringBuilder();
-            for (String s: traits.get(TRAIT_CATEGORY_LIST[x])) {
+            for (String s : traits.get(TRAIT_CATEGORY_LIST[x])) {
                 body.append(s);
                 body.append(", ");
             }
-            String rowBody = body.toString().substring(0,body.toString().length()-2); //peel off the ", " at the end
+            String rowBody = body.toString().substring(0, body.toString().length() - 2); //peel off the ", " at the end
             String rowTitle = SystemStatus.getInstance().traitsMap.get(TRAIT_CATEGORY_LIST[x]).getName();
 
             createTableRow(rowTitle, rowBody);
         }
     }
 
-    private void createTableRow (String title, String body ) {
+    private void createTableRow(String title, String body) {
         traitLabel.setVisibility(View.VISIBLE);
-        TableRow row= new TableRow(this);
+        TableRow row = new TableRow(this);
         row.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        row.setPadding(0,(int) DisplayUtils.DpToPx(5,getApplicationContext()),0,(int) DisplayUtils.DpToPx(5,getApplicationContext()));
+        row.setPadding(0, (int) DisplayUtils.DpToPx(5, getApplicationContext()), 0, (int) DisplayUtils.DpToPx(5, getApplicationContext()));
 
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         row.setLayoutParams(lp);
@@ -198,7 +201,7 @@ public class CharacterProfile extends AppCompatActivity {
         TextView traitParent = new TextView(this);
         TextView associatedTraits = new TextView(this);
 
-        traitParent.setPadding((int) DisplayUtils.DpToPx(10,getApplicationContext()),0,0,0);
+        traitParent.setPadding((int) DisplayUtils.DpToPx(10, getApplicationContext()), 0, 0, 0);
 
         TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.5f);
 
@@ -213,7 +216,7 @@ public class CharacterProfile extends AppCompatActivity {
         row.addView(associatedTraits);
 
         View v = new View(this);
-        v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int) DisplayUtils.DpToPx(1,getApplicationContext())));
+        v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, (int) DisplayUtils.DpToPx(1, getApplicationContext())));
         v.setBackgroundColor(getResources().getColor(R.color.colorDividerGray));
 
         tableLayout.addView(row);
@@ -221,7 +224,7 @@ public class CharacterProfile extends AppCompatActivity {
     }
 
 
-    private void loadStat (TextView field, View Layout, String data, View label) {
+    private void loadStat(TextView field, View Layout, String data, View label) {
         if (data == null) {
             Layout.setVisibility(View.GONE);
             field.setVisibility(View.GONE);

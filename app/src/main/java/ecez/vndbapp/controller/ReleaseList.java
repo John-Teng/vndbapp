@@ -11,6 +11,7 @@ import ecez.vndbapp.R;
 import ecez.vndbapp.controller.Adapters.ReleaseAdapter;
 import ecez.vndbapp.controller.Callbacks.DefaultCallback;
 import ecez.vndbapp.controller.NetworkRequests.PopulateRelease;
+import ecez.vndbapp.model.Constants;
 import ecez.vndbapp.model.Error;
 import ecez.vndbapp.model.Release;
 
@@ -24,7 +25,8 @@ public class ReleaseList extends AppCompatActivity {
         private ReleaseAdapter adapter;
         private Release[] releases = new Release[0];
         private Intent intent;
-        private int novelID;
+        private int mNovelID;
+        private String mNovelName;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +34,21 @@ public class ReleaseList extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_release_list);
             intent = getIntent();
-            novelID = intent.getIntExtra("NOVEL_ID",-1);
+            mNovelID = intent.getIntExtra(Constants.INTENT_ID,-1);
+            mNovelName = intent.getStringExtra(Constants.INTENT_NAME);
 
             recyclerView = (RecyclerView)findViewById(R.id.release_list_recyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
             recyclerView.setLayoutManager(layoutManager);
 
-            adapter = new ReleaseAdapter(releases, getApplicationContext(), recyclerView, novelID);
+            adapter = new ReleaseAdapter(releases, getApplicationContext(), recyclerView, mNovelID);
             recyclerView.setAdapter(adapter);
 
             makeReleaseRequest();
         }
 
     private void makeReleaseRequest() {
-        PopulateRelease pr = new PopulateRelease(novelID, "basic,details,producers", new DefaultCallback() {
+        PopulateRelease pr = new PopulateRelease(mNovelID, "basic,details,producers", new DefaultCallback() {
             @Override
             public void onSuccess(Object item) {
                 Release[] releases = (Release []) item;
