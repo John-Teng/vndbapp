@@ -5,11 +5,12 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+    <include layout="@layout/default_appbar"/>
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/release_list_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/release_list_recyclerView">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

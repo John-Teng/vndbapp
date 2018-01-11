@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import ecez.vndbapp.R;
@@ -21,37 +22,56 @@ import ecez.vndbapp.model.Release;
 
 public class ReleaseList extends AppCompatActivity {
 
-        public static RecyclerView recyclerView;
-        private ReleaseAdapter adapter;
-        private Release[] releases = new Release[0];
-        private Intent intent;
-        private int mNovelID;
-        private String mNovelName;
+    public static RecyclerView recyclerView;
+    private ReleaseAdapter adapter;
+    private Release[] releases = new Release[0];
+    private Intent intent;
+    private int mNovelID;
+    private String mNovelName;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_release_list);
-            intent = getIntent();
-            mNovelID = intent.getIntExtra(Constants.INTENT_ID,-1);
-            mNovelName = intent.getStringExtra(Constants.INTENT_NAME);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_release_list);
+        intent = getIntent();
+        mNovelID = intent.getIntExtra(Constants.INTENT_ID, -1);
+        mNovelName = intent.getStringExtra(Constants.INTENT_NAME);
 
-            recyclerView = (RecyclerView)findViewById(R.id.release_list_recyclerView);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            recyclerView.setLayoutManager(layoutManager);
+        recyclerView = (RecyclerView) findViewById(R.id.release_list_recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
 
-            adapter = new ReleaseAdapter(releases, getApplicationContext(), recyclerView, mNovelID);
-            recyclerView.setAdapter(adapter);
+        adapter = new ReleaseAdapter(releases, getApplicationContext(), recyclerView, mNovelID);
+        recyclerView.setAdapter(adapter);
 
-            makeReleaseRequest();
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Releases");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        makeReleaseRequest();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed (){
+        super.onBackPressed();
+        finish();
+    }
 
     private void makeReleaseRequest() {
         PopulateRelease pr = new PopulateRelease(mNovelID, "basic,details,producers", new DefaultCallback() {
             @Override
             public void onSuccess(Object item) {
-                Release[] releases = (Release []) item;
+                Release[] releases = (Release[]) item;
                 adapter.setData(releases);
                 adapter.notifyDataSetChanged();
             }

@@ -132,8 +132,8 @@ public class NovelDetails extends AppCompatActivity {
         imagePager.setAdapter(imageAdapter);
         imagePager.setOffscreenPageLimit(15);
 
-        this.mNovelID = Integer.parseInt(intent.getStringExtra(Constants.INTENT_ID));
-        this.mNovelName = intent.getStringExtra(Constants.INTENT_NAME);
+        mNovelID = Integer.parseInt(intent.getStringExtra(Constants.INTENT_ID));
+        mNovelName = intent.getStringExtra(Constants.INTENT_NAME);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

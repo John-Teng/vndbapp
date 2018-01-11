@@ -49,5 +49,11 @@ public class CharacterList extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    @Override
+    public void onBackPressed (){
+        super.onBackPressed();
+        finish();
+    }
 }
 
