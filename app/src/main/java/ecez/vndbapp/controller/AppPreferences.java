@@ -7,6 +7,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import ecez.vndbapp.R;
@@ -22,8 +23,14 @@ public class AppPreferences extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         SettingsFragment settingsFragment = new SettingsFragment();
-        fragmentTransaction.add(android.R.id.content, settingsFragment, "SETTINGS_FRAGMENT");
+        fragmentTransaction.add(R.id.settings_fragment_frame, settingsFragment, "SETTINGS_FRAGMENT");
         fragmentTransaction.commit();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Settings");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -32,6 +39,12 @@ public class AppPreferences extends AppCompatActivity {
             case android.R.id.home:
                 this.finish();
         }
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
         return true;
     }
 
@@ -52,7 +65,7 @@ public class AppPreferences extends AppCompatActivity {
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
                     //do stuff here
-                    SystemStatus.getInstance().loadPreferences(getActivity(),s);
+                    SystemStatus.getInstance().loadPreferences(getActivity(), s);
                 }
             };
             sharedPreferences.registerOnSharedPreferenceChangeListener(changeListener);
