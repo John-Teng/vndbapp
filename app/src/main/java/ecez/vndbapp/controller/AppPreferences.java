@@ -54,25 +54,21 @@ public class AppPreferences extends AppCompatActivity {
     }
 
 
-    public static class SettingsFragment extends PreferenceFragment {
+    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
 
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            SharedPreferences.OnSharedPreferenceChangeListener changeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-                @Override
-                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-                    //do stuff here
-                    SystemStatus.getInstance().loadPreferences(getActivity(), s);
-                }
-            };
-            sharedPreferences.registerOnSharedPreferenceChangeListener(changeListener);
+            sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         }
 
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+            SystemStatus.getInstance().loadPreferences(getActivity(), s); //Sometimes crashes here because call to getActivity() in listener returns null
+        }
 
     }
-
 
 }
